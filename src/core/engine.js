@@ -18,7 +18,7 @@ export function decide(context, history = []) {
   const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
   const [winnerId, winnerScore] = ranked[0];
   const practice = CODEX.find(m => m.id === winnerId);
-  const duration = [...practice.durationOptions].reverse().find(d => d <= time) || mission.durationOptions[0];
+  const duration = [...practice.durationOptions].reverse().find(d => d <= time) || practice.durationOptions[0];
   const confidence = Math.round(clamp(0.58 + (winnerScore - ranked[1][1]) * 0.65, 0.56, 0.96) * 100);
   const reasons = buildReasons(winnerId, context, recentStrength);
   const alternatives = ranked.slice(1, 3).map(([id]) => CODEX.find(m => m.id === id).name);

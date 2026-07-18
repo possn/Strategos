@@ -1,5 +1,6 @@
 let audioContext = null;
 let activeUtterance = null;
+let cachedVoices = [];
 
 function context() {
   if (!audioContext) {
@@ -21,6 +22,7 @@ export function playTone(kind = 'phase', enabled = true) {
     phase: [[440, .00, .24]],
     countdown: [[660, .00, .08]],
     finish: [[392, .00, .34], [523.25, .12, .48], [659.25, .26, .72]],
+    complete: [[392, .00, .34], [523.25, .12, .48], [659.25, .26, .72]],
     pause: [[330, .00, .18]],
     resume: [[440, .00, .20]],
     reflection: [[523.25, .00, .40]]
@@ -40,20 +42,81 @@ export function playTone(kind = 'phase', enabled = true) {
   });
 }
 
-export function speak(text, mode = 'minimal', enabled = true) {
+function loadVoices() {
+  if (!('speechSynthesis' in window)) return [];
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length) cachedVoices = voices;
+  return cachedVoices;
+}
+
+function scoreVoice(voice, preferredName = 'auto') {
+  const name = `${voice.name || ''} ${voice.voiceURI || ''}`.toLowerCase();
+  const lang = (voice.lang || '').toLowerCase();
+  let score = 0;
+  if (preferredName !== 'auto' && voice.name === preferredName) score += 1000;
+  if (lang === 'en-gb') score += 160;
+  else if (lang.startsWith('en-gb')) score += 150;
+  else if (lang === 'en-us') score += 120;
+  else if (lang.startsWith('en')) score += 80;
+  if (/premium|enhanced|natural|neural/.test(name)) score += 80;
+  if (/daniel|serena|arthur|martha|oliver|samantha|ava|allison|susan|tom/.test(name)) score += 40;
+  if (/compact|novelty|whisper|zarvox|cellos|bells/.test(name)) score -= 200;
+  if (voice.localService) score += 10;
+  if (voice.default) score += 5;
+  return score;
+}
+
+export function getEnglishVoices() {
+  return loadVoices()
+    .filter(v => /^en[-_]/i.test(v.lang || ''))
+    .sort((a, b) => scoreVoice(b) - scoreVoice(a));
+}
+
+export function bestVoice(preferredName = 'auto') {
+  const voices = loadVoices();
+  if (!voices.length) return null;
+  return [...voices].sort((a, b) => scoreVoice(b, preferredName) - scoreVoice(a, preferredName))[0] || null;
+}
+
+export function prepareSpokenText(text = '') {
+  return String(text)
+    .replace(/\bAgora\b/g, 'council')
+    .replace(/\bHR\b/g, 'human return')
+    .replace(/\+/g, ' plus ')
+    .replace(/%/g, ' percent')
+    .replace(/\s+/g, ' ')
+    .replace(/\s+([,.!?])/g, '$1')
+    .trim();
+}
+
+export function speak(text, mode = 'minimal', enabled = true, options = {}) {
   if (!enabled || mode === 'off' || !('speechSynthesis' in window) || !text) return;
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = mode === 'guided' ? .88 : .94;
-  utterance.pitch = .88;
-  utterance.volume = .72;
-  const voices = window.speechSynthesis.getVoices();
-  utterance.voice = voices.find(v => /en-GB|en_US|Daniel|Samantha/i.test(`${v.lang} ${v.name}`)) || voices[0] || null;
+  const utterance = new SpeechSynthesisUtterance(prepareSpokenText(options.spokenText || text));
+  const pace = options.pace || 'calm';
+  utterance.rate = pace === 'energetic' ? .98 : pace === 'balanced' ? .92 : .86;
+  if (mode === 'minimal') utterance.rate += .03;
+  utterance.pitch = 1.0;
+  utterance.volume = .86;
+  utterance.lang = 'en-GB';
+  utterance.voice = bestVoice(options.voiceName || 'auto');
   activeUtterance = utterance;
   window.speechSynthesis.speak(utterance);
+}
+
+export function previewVoice(settings = {}) {
+  speak('I will listen first, explain my judgement, and leave the choice with you.', 'guided', true, {
+    pace: settings.voicePace || 'calm',
+    voiceName: settings.voiceName || 'auto'
+  });
 }
 
 export function stopVoice() {
   if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   activeUtterance = null;
+}
+
+if ('speechSynthesis' in window) {
+  loadVoices();
+  window.speechSynthesis.addEventListener?.('voiceschanged', loadVoices);
 }

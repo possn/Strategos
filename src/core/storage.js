@@ -1,7 +1,7 @@
-const KEY='onearete.strategos.v05';
-const LEGACY_KEYS=['onearete.strategos.v03'];
+const KEY='onearete.strategos.v06';
+const LEGACY_KEYS=['onearete.strategos.v05','onearete.strategos.v03'];
 export const ONBOARDING_VERSION=3;
-const initial=()=>({profile:null,history:[],judgements:[],current:null,deltaTotal:0,onboardingVersion:0,settings:{sound:true,voice:'minimal',haptics:true,keepAwake:true}});
+const initial=()=>({profile:null,history:[],judgements:[],current:null,deltaTotal:0,onboardingVersion:0,settings:{sound:true,voice:'minimal',voiceName:'auto',voicePace:'calm',haptics:true,keepAwake:true}});
 export function loadState(){
   try{
     let raw=localStorage.getItem(KEY);
