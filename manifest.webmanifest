@@ -1,0 +1,12 @@
+{
+  "name": "Commander by OneArete",
+  "short_name": "Commander",
+  "description": "A decisão diária com maior impacto no teu florescimento.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#11100e",
+  "theme_color": "#11100e",
+  "icons": [
+    {"src":"icons/delta.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
