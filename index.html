@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#090909" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Strategos" />
+  <link rel="apple-touch-icon" href="./icons/delta-180.png" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="stylesheet" href="./styles.css?v=033" />
+  <title>Strategos — OneArete</title>
+</head>
+<body>
+  <div id="app">
+    <main class="screen boot-screen" id="boot-screen">
+      <div class="boot-mark" aria-hidden="true">Δ</div>
+      <div class="boot-brand">STRATEGOS</div>
+      <div class="boot-copy">Know yourself.<br />Improve deliberately.</div>
+      <div class="boot-status" id="boot-status">Starting Strategos…</div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var status = function (message) {
+        var el = document.getElementById('boot-status');
+        if (el) el.textContent = message;
+      };
+      window.__strategosBootError = function (message) {
+        status('Startup error: ' + message);
+        document.documentElement.dataset.bootError = 'true';
+      };
+      window.addEventListener('error', function (event) {
+        window.__strategosBootError(event.message || 'unknown script error');
+      });
+      window.addEventListener('unhandledrejection', function (event) {
+        var reason = event.reason && event.reason.message ? event.reason.message : String(event.reason || 'unknown promise error');
+        window.__strategosBootError(reason);
+      });
+      setTimeout(function () {
+        if (!window.__strategosStarted) {
+          window.__strategosBootError('the application module did not start');
+        }
+      }, 5000);
+    }());
+  </script>
+  <script type="module" src="./src/app.js?v=033"></script>
+</body>
+</html>
