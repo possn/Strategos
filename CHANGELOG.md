@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.7.0 — Understanding Me
+- Added a persistent living model of the person.
+- Separated current patterns from working hypotheses.
+- Added confidence adjustments based on user confirmation or correction.
+- Added a correction flow with free-text context.
+- Added an Understanding Change Log.
+- Added recovery and relational hypotheses derived from actual history.
+- Preserved the frozen v0.6.1 voice baseline without modification.
+
+# Changelog
+
 ## 0.6.1 — Voice Regression Fix
 
 - Restored the vocal calibration that users preferred in v0.5.
