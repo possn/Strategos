@@ -18,7 +18,7 @@ function button(label, action, secondary = false) { return `<button class="actio
 
 function route(name) {
   clearInterval(timer); timer = null;
-  ({ splash, onboarding, observe, thinking, mission, execute, reflect, journal, history, settings }[name] || splash)();
+  ({ splash, onboarding, observe, thinking, mission, execute, reflect, journal, history }[name] || splash)();
   window.scrollTo(0,0);
 }
 
@@ -98,5 +98,13 @@ app.addEventListener('click',e=>{
   if(a==='reset' && confirm('Reset all Strategos data?')){resetState();state=loadState();route('splash')}
 });
 
-if('serviceWorker' in navigator) addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));
-route('splash');
+if ('serviceWorker' in navigator) {
+  addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(console.error));
+}
+
+try {
+  route('splash');
+} catch (error) {
+  console.error('Strategos failed to start', error);
+  app.innerHTML = `<main class="screen boot-error"><section class="stack center"><p class="eyebrow">STRATEGOS</p><h2>Unable to start.</h2><p class="muted">Refresh the page. If the problem remains, clear this site’s cached data.</p></section></main>`;
+}
