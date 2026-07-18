@@ -4,105 +4,78 @@ import { loadState, saveState, resetState } from './core/storage.js';
 const app = document.querySelector('#app');
 window.__strategosStarted = true;
 let state = loadState();
-let context = { sleep: 3, energy: 2, time: 15, challenge: 'body' };
+let context = { sleep: 3, energy: 2, time: state.profile.availableMinutes || 15, challenge: 'body' };
 let decision = null;
+let wakeLock = null;
 let timer = null;
 let secondsLeft = 0;
 let phaseIndex = 0;
+const draft = structuredClone(state.profile);
 
-const vibrate = (ms = 12) => navigator.vibrate?.(ms);
-const esc = s => String(s).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const esc = s => String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const vibrate = (ms=12) => { if(state.settings.haptics) navigator.vibrate?.(ms); };
+const speak = text => { if(!state.settings.voice || !('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.rate=.82;u.pitch=.92;u.volume=.75;speechSynthesis.speak(u); };
+const tone = (freq=660,d=.08) => { if(!state.settings.sounds) return; try{const C=window.AudioContext||window.webkitAudioContext;const c=new C();const o=c.createOscillator();const g=c.createGain();o.frequency.value=freq;g.gain.value=.025;o.connect(g).connect(c.destination);o.start();o.stop(c.currentTime+d);o.onended=()=>c.close();}catch{}};
 
-function shell(content, cls = '') { app.innerHTML = `<main class="screen ${cls}">${content}</main>`; }
-function deltaMark(size = 'large') { return `<svg class="delta ${size}" viewBox="0 0 140 140" role="img" aria-label="OneArete Delta"><circle class="ring" cx="70" cy="70" r="56"/><path class="glyph" d="M70 25 L112 108 M112 108 L28 108 M28 108 L63 39"/></svg>`; }
-function button(label, action, secondary = false) { return `<button class="action ${secondary ? 'secondary':''}" data-action="${action}">${label}</button>`; }
+function shell(content, cls=''){ app.innerHTML=`<main class="screen ${cls}">${content}</main>`; }
+function deltaMark(size='large'){return `<svg class="delta ${size}" viewBox="0 0 140 140" aria-hidden="true"><circle class="ring" cx="70" cy="70" r="56"/><path class="glyph" d="M70 25 L112 108 M112 108 L28 108 M28 108 L63 39"/></svg>`;}
+function button(label, action, secondary=false){return `<button class="action ${secondary?'secondary':''}" data-action="${action}">${label}</button>`;}
+function nav(active){return `<nav class="tabbar">${[['today','Today'],['journal','Journal'],['academy','Academy'],['profile','Profile']].map(([id,label])=>`<button class="tab ${active===id?'active':''}" data-route="${id}"><span>${icon(id)}</span>${label}</button>`).join('')}</nav>`;}
+function icon(id){return ({today:'◯',journal:'≡',academy:'△',profile:'⌁'})[id];}
+function route(name){clearInterval(timer);timer=null; releaseWakeLock(); ({splash,onboardingName,onboardingIdentity,onboardingBody,onboardingPurpose,manifesto,today,thinking,decisionView,practice,reflect,journal,academy,profile,settings,humanModel}[name]||splash)(); scrollTo(0,0);}
 
-function route(name) {
-  clearInterval(timer); timer = null;
-  ({ splash, onboarding, observe, thinking, mission, execute, reflect, journal, history }[name] || splash)();
-  window.scrollTo(0,0);
-}
+function splash(){shell(`${deltaMark()}<div class="brand"><div class="eyebrow">ONEARETE</div><h1>STRATEGOS</h1><p>Know yourself.<br>Improve deliberately.</p></div><button class="tap" data-action="begin">Tap to begin</button>`,'splash');}
+function onboardingFrame(step,total,content){shell(`<header>${deltaMark('small')}<span>STRATEGOS</span><span class="step">${step}/${total}</span></header><div class="onboard-progress"><i style="width:${step/total*100}%"></i></div><section class="stack">${content}</section>`,'onboarding');}
+function onboardingName(){onboardingFrame(1,4,`<p class="eyebrow">HUMAN MODEL</p><h2>Let us begin with you.</h2><label class="field"><span>Your name</span><input id="name-input" autocomplete="name" value="${esc(draft.name)}" placeholder="Name"></label><label class="field"><span>Age</span><input id="age-input" type="number" min="13" max="110" value="${draft.age||''}" placeholder="Age"></label>${button('CONTINUE','onboard-name')}`);}
+function onboardingIdentity(){onboardingFrame(2,4,`<p class="eyebrow">IDENTITY</p><h2>Who do you choose<br>to become?</h2><p class="muted">Choose the identity that should guide your first decisions.</p><div class="choice-grid identity">${['Stronger','Wiser','More disciplined','More resilient','A better parent','A better partner'].map(x=>`<button class="choice ${draft.identity===x?'selected':''}" data-identity="${x}">${x}</button>`).join('')}</div>${button('CONTINUE','onboard-identity')}`);}
+function onboardingBody(){onboardingFrame(3,4,`<p class="eyebrow">CONTEXT</p><h2>What should Strategos respect?</h2><label class="field"><span>Experience</span><select id="experience-input"><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></label><label class="field"><span>Time usually available</span><select id="minutes-input">${[5,10,15,20,30,45].map(v=>`<option value="${v}" ${draft.availableMinutes===v?'selected':''}>${v} minutes</option>`).join('')}</select></label><label class="field"><span>Injuries or limitations</span><textarea id="injuries-input" placeholder="Optional">${esc(draft.injuries)}</textarea></label>${button('CONTINUE','onboard-body')}`); setTimeout(()=>{document.querySelector('#experience-input').value=draft.experience||'beginner'},0);}
+function onboardingPurpose(){onboardingFrame(4,4,`<p class="eyebrow">TELOS</p><h2>What matters enough<br>to guide your choices?</h2><label class="field"><span>Purpose, responsibility or aspiration</span><textarea id="purpose-input" placeholder="For example: stay strong for my family">${esc(draft.purpose)}</textarea></label><p class="privacy-note">Your Human Model belongs to you and is stored on this device.</p>${button('CREATE MY HUMAN MODEL','complete-onboarding')}`);}
+function manifesto(){shell(`<section class="manifesto">${deltaMark('small')}<p class="eyebrow">WELCOME, ${esc(state.profile.name).toUpperCase()}</p><h2>This is not a fitness application.</h2><p>It is a lifelong practice.</p><p>You are not competing with anyone. You are learning to become someone you can rely on.</p><blockquote>Every practice is one vote for the person you wish to become.</blockquote>${button('I COMMIT','accept-manifesto')}</section>`,'manifesto-screen');}
 
-function splash() {
-  shell(`${deltaMark()}<div class="brand"><div class="eyebrow">ONEARETE</div><h1>STRATEGOS</h1><p>Know yourself.<br/>Improve deliberately.</p></div><button class="tap" data-action="begin">Tap to begin</button>`, 'splash');
-}
+function today(){const p=state.profile; shell(`<header>${deltaMark('small')}<span>STRATEGOS</span><button class="icon-btn" data-action="settings" aria-label="Settings">⋯</button></header><section class="stack home"><p class="eyebrow">TODAY</p><h2>${greeting()}${p.name?`, ${esc(p.name)}`:''}.</h2><p class="lead">What is today’s highest-return decision?</p>${question('How did you sleep?','sleep',[[4,'Excellent'],[3,'Good'],[2,'Fair'],[1,'Poor']])}${question('Energy','energy',[[3,'High'],[2,'Medium'],[1,'Low']])}${question('Time available','time',[[5,'5'],[15,'15'],[30,'30'],[60,'60+']])}${question('Today’s greatest challenge','challenge',[['body','Body'],['mind','Mind'],['focus','Focus'],['recovery','Recovery'],['family','Family'],['work','Work']])}${button('CONSULT STRATEGOS','consult')}</section>${nav('today')}`);}
+function question(title,key,opts){return `<div class="question"><h3>${title}</h3><div class="choice-row">${opts.map(([v,l])=>`<button class="pill ${context[key]===v?'selected':''}" data-key="${key}" data-value="${v}">${l}${key==='time'?' min':''}</button>`).join('')}</div></div>`;}
+function thinking(){shell(`${deltaMark()}<div class="thinking-copy"><p class="eyebrow">CONSULT</p><h2>Evaluating today’s context.</h2><p id="thinking-line" class="muted">Reading constraints…</p></div>`,'thinking'); const lines=['Reading constraints…','Comparing possible practices…','Estimating long-term return…','Decision prepared.'];let i=0;const c=setInterval(()=>{const el=document.querySelector('#thinking-line');if(el)el.textContent=lines[++i]||lines.at(-1)},450);setTimeout(()=>{clearInterval(c);decision=decide(context,state.history);state.current={context,decision,startedAt:null};saveState(state);route('decisionView')},1900);}
+function decisionView(){decision ||= state.current?.decision || decide(context,state.history);const d=decision;shell(`<header>${deltaMark('small')}<span>STRATEGOS</span><button class="icon-btn" data-action="today">×</button></header><section class="practice-hero"><p class="eyebrow">TODAY’S PRACTICE</p><h2>${d.mission.name}</h2><div class="practice-meta"><span>${d.duration} min</span><span>${d.mission.virtue}</span></div><div class="delta-score"><span>EXPECTED Δ</span><strong>+${d.delta.overall.toFixed(2)}</strong></div></section><section class="reasoning"><div class="section-title"><span>WHY THIS PRACTICE</span><span>${d.confidence}% confidence</span></div>${d.reasons.map(r=>`<p><i></i>${r}</p>`).join('')}<details><summary>What was also considered?</summary><p class="muted">${d.alternatives.join(' and ')} produced a lower expected return today.</p></details></section><div class="bottom-actions">${button('I COMMIT','commit')}<button class="text-btn" data-action="today">Reassess context</button></div>`);}
 
-function onboarding() {
-  shell(`<header>${deltaMark('small')}<span>STRATEGOS</span></header><section class="stack"><p class="eyebrow">FIRST PRINCIPLE</p><h2>Who do you choose<br/>to become?</h2><p class="muted">Choose the identity that should guide your first decisions.</p><div class="choice-grid identity">${['Stronger','Wiser','More disciplined','More resilient','A better parent','A better partner'].map(x=>`<button class="choice" data-identity="${x}">${x}</button>`).join('')}</div></section>`);
-}
+async function acquireWakeLock(){if(!state.settings.wakeLock||!('wakeLock' in navigator))return;try{wakeLock=await navigator.wakeLock.request('screen')}catch{}}
+async function releaseWakeLock(){try{await wakeLock?.release()}catch{} wakeLock=null;}
+function practice(){const d=decision||state.current?.decision;if(!d){route('today');return;} acquireWakeLock(); const phases=d.mission.phases; phaseIndex=0; state.current.startedAt=new Date().toISOString();const total=d.duration*60,source=phases.reduce((a,p)=>a+p[1],0),scale=total/source;state.current.adjusted=phases.map(p=>[p[0],Math.max(20,Math.round(p[1]*scale)),p[2]]);saveState(state);speak('Prepare.');runPhase(state.current.adjusted);}
+function runPhase(phases){const p=phases[phaseIndex];if(!p){route('reflect');return;}secondsLeft=p[1];tone(660);speak(`${p[0]}. Begin.`);shell(`<header><span class="eyebrow">PRACTICE</span><button class="icon-btn" data-action="abandon">×</button></header><section class="execution"><p class="phase-count">${phaseIndex+1} / ${phases.length}</p><h2>${p[0]}</h2><div class="clock" id="clock">${formatTime(secondsLeft)}</div><p>${p[2]}</p><div class="progress"><span id="phase-progress"></span></div></section><div class="bottom-actions"><button class="action secondary" data-action="next-phase">Next</button></div>`,'execute');timer=setInterval(()=>{secondsLeft--;const c=document.querySelector('#clock'),bar=document.querySelector('#phase-progress');if(c)c.textContent=formatTime(secondsLeft);if(bar)bar.style.width=`${100*(1-secondsLeft/p[1])}%`;if(secondsLeft===10)speak('Ten seconds.');if(secondsLeft<=0){clearInterval(timer);tone(880,.12);vibrate(35);phaseIndex++;runPhase(phases)}},1000);}
+function reflect(){releaseWakeLock();const d=decision||state.current?.decision;shell(`<header>${deltaMark('small')}<span>STRATEGOS</span></header><section class="stack center"><p class="eyebrow">REFLECT</p><h2>Practice completed.</h2><p class="lead">Take one minute. Notice how you feel.</p><h3>Better?</h3><div class="reflection">${[['yes','Yes'],['partly','Partly'],['no','No']].map(([v,l])=>`<button class="choice" data-reflection="${v}">${l}</button>`).join('')}</div><div class="delta-score compact"><span>PRACTICE Δ</span><strong>+${d.delta.overall.toFixed(2)}</strong></div></section>`);}
 
-function observe() {
-  const name = state.profile?.name || '';
-  shell(`<header>${deltaMark('small')}<span>STRATEGOS</span><button class="icon-btn" data-action="history" aria-label="History">⌁</button></header><section class="stack"><p class="eyebrow">OBSERVE</p><h2>${greeting()}${name ? `, ${esc(name)}`:''}.</h2><p class="muted">Four signals. Less than twenty seconds.</p>${question('How did you sleep?','sleep',[[4,'Excellent'],[3,'Good'],[2,'Fair'],[1,'Poor']])}${question('Energy','energy',[[3,'High'],[2,'Medium'],[1,'Low']])}${question('Time available','time',[[5,'5'],[15,'15'],[30,'30'],[60,'60+']])}${question('Today’s greatest challenge','challenge',[['body','Body'],['mind','Mind'],['focus','Focus'],['recovery','Recovery'],['family','Family'],['work','Work']])}${button('CONSULT STRATEGOS','consult')}</section>`);
-}
-function question(title,key,opts){return `<div class="question"><h3>${title}</h3><div class="choice-row">${opts.map(([v,l])=>`<button class="pill ${context[key]===v?'selected':''}" data-key="${key}" data-value="${v}">${l}${key==='time'?' min':''}</button>`).join('')}</div></div>`}
+function journal(){shell(`<header>${deltaMark('small')}<span>JOURNAL</span></header><section class="stack"><p class="eyebrow">YOUR BOOK</p><h2>Who are you becoming?</h2>${state.history.length?state.history.map(e=>`<article class="journal-page"><time>${new Date(e.completedAt).toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'})}</time><h3>${journalTitle(e.reflection)}</h3><p>You chose <strong>${esc(e.decision.mission.virtue.toLowerCase())}</strong> through ${esc(e.decision.mission.name.toLowerCase())}.</p><span>Δ +${e.decision.delta.overall.toFixed(2)}</span></article>`).join(''):`<div class="empty"><h3>Your first page has not been written.</h3><p class="muted">Complete a Practice to begin.</p></div>`}</section>${nav('journal')}`);}
+function academy(){shell(`<header>${deltaMark('small')}<span>ACADEMY</span></header><section class="stack"><p class="eyebrow">LEARN WHEN NEEDED</p><h2>Knowledge in context.</h2><p class="lead">The Academy will appear inside Practice whenever technique, purpose or progression matters.</p><div class="academy-card"><span>PRINCIPLE 01</span><h3>Guide before measuring.</h3><p>Strategos teaches cadence and technique first. Sensors and computer vision come later.</p></div><div class="academy-card"><span>PRINCIPLE 02</span><h3>Quality before intensity.</h3><p>A deliberate repetition is more valuable than a rushed one.</p></div></section>${nav('academy')}`);}
+function profile(){const p=state.profile;shell(`<header>${deltaMark('small')}<span>PROFILE</span><button class="icon-btn" data-action="settings">⋯</button></header><section class="stack"><p class="eyebrow">HUMAN MODEL</p><h2>${esc(p.name||'You')}</h2><div class="model-card"><span>IDENTITY</span><strong>${esc(p.identity||'Not defined')}</strong></div><div class="model-card"><span>PURPOSE</span><strong>${esc(p.purpose||'Still emerging')}</strong></div><div class="model-grid"><div><span>Experience</span><strong>${capitalize(p.experience)}</strong></div><div><span>Time</span><strong>${p.availableMinutes} min</strong></div><div><span>Practices</span><strong>${state.history.length}</strong></div><div><span>Lifetime Δ</span><strong>+${state.deltaTotal.toFixed(2)}</strong></div></div>${button('VIEW HUMAN MODEL','human-model',true)}</section>${nav('profile')}`);}
+function humanModel(){const p=state.profile;shell(`<header>${deltaMark('small')}<span>HUMAN MODEL</span><button class="icon-btn" data-action="profile">×</button></header><section class="stack"><p class="lead">A living representation of the person Strategos serves.</p>${[['BODY',`Experience: ${capitalize(p.experience)} · ${p.availableMinutes} minutes available`],['MIND',`Chosen identity: ${p.identity||'Not yet defined'}`],['RELATIONSHIPS','Built progressively through voluntary context.'],['PURPOSE',p.purpose||'Still emerging.'],['LEGACY','Not yet defined. This should take years, not minutes.']].map(([h,b])=>`<article class="dimension"><span>${h}</span><p>${esc(b)}</p></article>`).join('')}</section>`);}
+function settings(){shell(`<header>${deltaMark('small')}<span>SETTINGS</span><button class="icon-btn" data-action="profile">×</button></header><section class="stack"><p class="eyebrow">PRACTICE GUIDANCE</p>${toggle('Voice guidance','voice')}${toggle('Sounds','sounds')}${toggle('Haptics','haptics')}${toggle('Keep screen awake','wakeLock')}<p class="eyebrow section-gap">DATA</p><div class="settings-row"><span>Storage</span><strong>On this device</strong></div><button class="text-btn danger" data-action="reset">Reset Strategos</button></section>`);}
+function toggle(label,key){return `<label class="settings-row"><span>${label}</span><input type="checkbox" data-setting="${key}" ${state.settings[key]?'checked':''}><i class="switch"></i></label>`;}
 
-function thinking() {
-  shell(`${deltaMark()}<div class="thinking-copy"><p class="eyebrow">STRATEGOS</p><h2>Evaluating today’s context.</h2><p id="thinking-line" class="muted">Reading constraints…</p></div>`, 'thinking');
-  const lines=['Reading constraints…','Comparing possible missions…','Estimating long-term return…','Decision prepared.']; let i=0;
-  const cycle=setInterval(()=>{ const el=document.querySelector('#thinking-line'); i += 1; if(el) el.textContent=lines[i] || lines[lines.length - 1]; },520);
-  setTimeout(()=>{clearInterval(cycle); decision=decide(context,state.history); state.current={context,decision,startedAt:null};saveState(state);route('mission')},2300);
-}
+function saveReflection(value){const entry={...state.current,reflection:value,completed:true,completedAt:new Date().toISOString()};state.history.unshift(entry);state.deltaTotal=+(state.deltaTotal+entry.decision.delta.overall).toFixed(2);state.humanModel.updatedAt=entry.completedAt;state.current=null;saveState(state);decision=null;route('journal');}
+function formatTime(s){return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;}
+function greeting(){const h=new Date().getHours();return h<12?'Good morning':h<18?'Good afternoon':'Good evening';}
+function capitalize(s=''){return s.charAt(0).toUpperCase()+s.slice(1);}
+function journalTitle(r){return r==='yes'?'A sound decision.':r==='partly'?'A useful signal.':'A correction, not a failure.';}
 
-function mission() {
-  decision ||= state.current?.decision || decide(context,state.history);
-  const d=decision;
-  shell(`<header>${deltaMark('small')}<span>STRATEGOS</span><button class="icon-btn" data-action="observe" aria-label="Back">×</button></header><section class="mission-hero"><p class="eyebrow">TODAY’S MISSION</p><h2>${d.mission.name}</h2><div class="mission-meta"><span>${d.duration} min</span><span>${d.mission.virtue}</span></div><div class="delta-score"><span>EXPECTED Δ</span><strong>+${d.delta.overall.toFixed(2)}</strong></div></section><section class="reasoning"><div class="section-title"><span>WHY THIS MISSION</span><span>${d.confidence}% confidence</span></div>${d.reasons.map(r=>`<p><i></i>${r}</p>`).join('')}<details><summary>What was also considered?</summary><p class="muted">${d.alternatives.join(' and ')} produced a lower expected return in today’s context.</p></details></section><div class="bottom-actions">${button('I COMMIT','commit')}<button class="text-btn" data-action="observe">Reassess context</button></div>`);
-}
-
-function execute() {
-  const d=decision || state.current.decision; const phases=d.mission.phases; phaseIndex=0;
-  state.current.startedAt = new Date().toISOString(); saveState(state);
-  const total=d.duration*60; const sourceTotal=phases.reduce((a,p)=>a+p[1],0); const scale=total/sourceTotal;
-  const adjusted=phases.map(p=>[p[0],Math.max(20,Math.round(p[1]*scale)),p[2]]); state.current.adjusted=adjusted;saveState(state);
-  runPhase(adjusted);
-}
-function runPhase(phases){ const p=phases[phaseIndex]; if(!p){finishMission();return;} secondsLeft=p[1];
-  shell(`<header><span class="eyebrow">MISSION IN PROGRESS</span><button class="icon-btn" data-action="abandon">×</button></header><section class="execution"><p class="phase-count">${phaseIndex+1} / ${phases.length}</p><h2>${p[0]}</h2><div class="clock" id="clock">${formatTime(secondsLeft)}</div><p>${p[2]}</p><div class="progress"><span id="phase-progress"></span></div></section><div class="bottom-actions"><button class="action secondary" data-action="next-phase">Next phase</button></div>`,'execute');
-  timer=setInterval(()=>{secondsLeft--; const c=document.querySelector('#clock'); const bar=document.querySelector('#phase-progress'); if(c)c.textContent=formatTime(secondsLeft); if(bar)bar.style.width=`${100*(1-secondsLeft/p[1])}%`; if(secondsLeft<=0){clearInterval(timer);vibrate(35);phaseIndex++;runPhase(phases)}},1000)
-}
-function finishMission(){clearInterval(timer);route('reflect')}
-
-function reflect() {
-  const d=decision||state.current.decision;
-  shell(`<header>${deltaMark('small')}<span>STRATEGOS</span></header><section class="stack center"><p class="eyebrow">REFLECT</p><h2>Was Strategos right?</h2><p class="muted">Your answer improves future decisions.</p><div class="reflection">${[['yes','Yes'],['partly','Partly'],['no','No']].map(([v,l])=>`<button class="choice" data-reflection="${v}">${l}</button>`).join('')}</div><div class="delta-score compact"><span>MISSION Δ</span><strong>+${d.delta.overall.toFixed(2)}</strong></div></section>`);
-}
-
-function journal(entry) {
-  const d=entry.decision;
-  shell(`<header>${deltaMark('small')}<span>STRATEGOS</span><button class="icon-btn" data-action="history">⌁</button></header><section class="stack"><p class="eyebrow">TODAY’S JOURNAL</p><h2>${journalTitle(entry.reflection)}</h2><p class="journal-copy">Today you chose <strong>${d.mission.virtue.toLowerCase()}</strong> through a ${d.mission.name.toLowerCase()} mission. ${entry.reflection==='yes'?'The decision matched your condition.':'Your response has been stored so Strategos can adjust.'}</p><div class="vector"><h3>Δ VECTOR</h3>${Object.entries(d.delta).filter(([k])=>k!=='overall').map(([k,v])=>`<div><span>${capitalize(k)}</span><strong>${v>=0?'+':''}${v.toFixed(2)}</strong></div>`).join('')}<div class="overall"><span>Overall</span><strong>+${d.delta.overall.toFixed(2)}</strong></div></div><blockquote>Every decision shapes who you become.</blockquote>${button('RETURN TOMORROW','observe')}<button class="text-btn" data-action="reset">Reset demo data</button></section>`);
-}
-
-function history() {
-  shell(`<header>${deltaMark('small')}<span>STRATEGIC TIMELINE</span><button class="icon-btn" data-action="observe">×</button></header><section class="stack"><div class="total-delta"><span>LIFETIME Δ</span><strong>+${state.deltaTotal.toFixed(2)}</strong></div>${state.history.length?state.history.map(e=>`<article class="history-item"><time>${new Date(e.completedAt).toLocaleDateString(undefined,{day:'numeric',month:'short'})}</time><div><h3>${e.decision.mission.name}</h3><p>${e.reflection} · ${e.decision.duration} min</p></div><strong>+${e.decision.delta.overall.toFixed(2)}</strong></article>`).join(''):`<div class="empty"><h2>No decisions yet.</h2><p class="muted">Your strategic timeline begins with the first completed mission.</p></div>`}${button('TODAY','observe')}</section>`);
-}
-
-function saveReflection(value){const entry={...state.current,reflection:value,completed:true,completedAt:new Date().toISOString()};state.history.unshift(entry);state.deltaTotal=+(state.deltaTotal+entry.decision.delta.overall).toFixed(2);state.current=null;saveState(state);journal(entry)}
-function formatTime(s){return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`}
-function greeting(){const h=new Date().getHours();return h<12?'Good morning':h<18?'Good afternoon':'Good evening'}
-function capitalize(s){return s.charAt(0).toUpperCase()+s.slice(1)}
-function journalTitle(r){return r==='yes'?'A sound decision.':r==='partly'?'A useful signal.':'A correction, not a failure.'}
-
-app.addEventListener('click',e=>{
-  const t=e.target.closest('button'); if(!t)return; vibrate();
-  if(t.dataset.identity){state.profile={identity:t.dataset.identity,name:''};saveState(state);route('observe');return}
-  if(t.dataset.key){const k=t.dataset.key;context[k]=['sleep','energy','time'].includes(k)?Number(t.dataset.value):t.dataset.value;route('observe');return}
-  if(t.dataset.reflection){saveReflection(t.dataset.reflection);return}
+app.addEventListener('change',e=>{const k=e.target.dataset.setting;if(k){state.settings[k]=e.target.checked;saveState(state);vibrate();}});
+app.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;vibrate();
+  if(t.dataset.route){route(t.dataset.route);return;}
+  if(t.dataset.identity){draft.identity=t.dataset.identity;route('onboardingIdentity');return;}
+  if(t.dataset.key){const k=t.dataset.key;context[k]=['sleep','energy','time'].includes(k)?Number(t.dataset.value):t.dataset.value;route('today');return;}
+  if(t.dataset.reflection){saveReflection(t.dataset.reflection);return;}
   const a=t.dataset.action;
-  if(a==='begin') route(state.profile?'observe':'onboarding');
-  if(a==='consult') route('thinking');
-  if(a==='commit') route('execute');
-  if(a==='next-phase'){clearInterval(timer);phaseIndex++;runPhase(state.current.adjusted)}
-  if(a==='abandon' && confirm('End this mission?')) route('observe');
-  if(a==='history') route('history');
-  if(a==='observe') route('observe');
-  if(a==='reset' && confirm('Reset all Strategos data?')){resetState();state=loadState();route('splash')}
+  if(a==='begin')route(state.onboardingComplete?'today':'onboardingName');
+  if(a==='onboard-name'){draft.name=document.querySelector('#name-input').value.trim();draft.age=Number(document.querySelector('#age-input').value)||null;if(!draft.name){document.querySelector('#name-input').focus();return;}route('onboardingIdentity');}
+  if(a==='onboard-identity'){if(!draft.identity)return;route('onboardingBody');}
+  if(a==='onboard-body'){draft.experience=document.querySelector('#experience-input').value;draft.availableMinutes=Number(document.querySelector('#minutes-input').value);draft.injuries=document.querySelector('#injuries-input').value.trim();route('onboardingPurpose');}
+  if(a==='complete-onboarding'){draft.purpose=document.querySelector('#purpose-input').value.trim();draft.createdAt=new Date().toISOString();state.profile={...state.profile,...draft};state.humanModel={...state.humanModel,mind:{identity:draft.identity},purpose:{statement:draft.purpose},updatedAt:new Date().toISOString()};saveState(state);route('manifesto');}
+  if(a==='accept-manifesto'){state.onboardingComplete=true;saveState(state);context.time=state.profile.availableMinutes;route('today');}
+  if(a==='consult')route('thinking'); if(a==='commit')route('practice');
+  if(a==='next-phase'){clearInterval(timer);phaseIndex++;runPhase(state.current.adjusted);}
+  if(a==='abandon'&&confirm('End this Practice?'))route('today');
+  if(['today','profile','settings'].includes(a))route(a);
+  if(a==='human-model')route('humanModel');
+  if(a==='reset'&&confirm('Reset all Strategos data?')){resetState();state=loadState();location.reload();}
 });
 
-
-try {
-  route('splash');
-} catch (error) {
-  console.error('Strategos failed to start', error);
-  app.innerHTML = `<main class="screen boot-error"><section class="stack center"><p class="eyebrow">STRATEGOS</p><h2>Unable to start.</h2><p class="muted">Refresh the page. If the problem remains, clear this site’s cached data.</p></section></main>`;
-}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&timer)acquireWakeLock();});
+try{route('splash')}catch(error){console.error(error);app.innerHTML='<main class="screen boot-error"><section class="stack center"><h2>Unable to start.</h2><p>Refresh the page.</p></section></main>';}
