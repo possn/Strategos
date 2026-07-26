@@ -24,3 +24,3457 @@
 
 /* v0.7.0 — Understanding Me */
 .understanding-screen{gap:14px}.understanding-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.understanding-summary span{border:1px solid var(--line);border-radius:14px;padding:12px 8px;color:var(--muted);font-size:10px;text-align:center}.insight{margin-top:0}.insight.challenged{border-color:#604747}.insight-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.insight-head .eyebrow{margin:0}.insight-head span{white-space:nowrap}.insight-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.insight-actions button{border:1px solid var(--line);border-radius:12px;background:#151411;color:#c9c1b5;padding:11px 8px;font-size:11px}.insight-actions button:first-child{color:#d9c79f}.insight small{display:block;color:#b99494;line-height:1.45;margin-top:12px}.understanding-changes{border-top:1px solid var(--line);padding-top:20px}.understanding-changes>article{display:grid;grid-template-columns:54px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid #24221e}.understanding-changes time{color:var(--bronze);font-size:11px}.understanding-changes strong{font-size:13px}.understanding-changes p{color:var(--muted);font-size:12px;line-height:1.45;margin:5px 0 0}.correction-screen textarea{width:100%;min-height:160px;resize:vertical;border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text);padding:18px;font:16px/1.5 Georgia,serif;outline:none}.correction-screen textarea:focus{border-color:var(--bronze)}
+
+
+/* v0.8.0 — Adaptive Strategos */
+.advisor-coverage,.monthly-council{border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,var(--panel2),var(--panel));padding:20px}.advisor-coverage h3{font-family:Georgia,serif;font-size:22px;font-weight:400;margin:8px 0 18px}.advisor-coverage article{padding:13px 0;border-top:1px solid #26231e}.advisor-coverage article:first-of-type{border-top:0}.coverage-head{display:flex;justify-content:space-between;font-size:13px}.coverage-head span{color:#d6b77e}.coverage-track{height:5px;border-radius:99px;background:#28251f;margin:9px 0;overflow:hidden}.coverage-track i{display:block;height:100%;background:linear-gradient(90deg,#78603c,#d2ad6e);border-radius:99px}.advisor-coverage article p{color:var(--muted);font-size:11px;margin:0}.monthly-council>summary{cursor:pointer;color:#e6dccb;font-size:13px;font-weight:650;list-style:none}.monthly-council>summary:after{content:'−';float:right;color:var(--bronze)}.monthly-council:not([open])>summary:after{content:'+'}.council-summary{font-family:Georgia,serif;font-size:18px;line-height:1.45;color:#ddd2c0}.monthly-council article{padding:14px 0;border-top:1px solid #28251f}.monthly-council article div{display:flex;justify-content:space-between;gap:12px}.monthly-council article span{color:var(--bronze);font-size:10px}.monthly-council article p{color:var(--muted);font-size:12px;line-height:1.5;margin:7px 0 0}.agora-panel article small{display:block;color:var(--bronze);font-size:10px;margin-top:8px}
+
+/* v0.8.1 Phase 3 — local data ownership */
+.data-notice{border:1px solid rgba(198,170,106,.35);border-radius:16px;padding:14px 16px;background:rgba(198,170,106,.08)}
+.data-notice strong{display:block;margin-bottom:4px}.data-notice p{margin:0;color:var(--muted)}
+.data-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media (max-width:420px){.data-actions{grid-template-columns:1fr}}
+
+
+/* v0.8.1 — accessibility and resilient PWA experience */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,[tabindex="-1"]:focus-visible{outline:2px solid #e5c38b;outline-offset:3px}
+.icon-btn,.round-control,.pause-control,.tap{min-width:44px;min-height:44px}
+.screen:focus{outline:none}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+  .splash .delta,.thinking .delta .glyph,.thinking .delta .ring{animation:none!important}
+  .splash .glyph{stroke-dashoffset:0!important}
+  .splash .ring{stroke-dasharray:302 50!important}
+}
+
+
+/* v0.9.0 Phase 2 — accountable learning review */
+.learning-review{display:grid;gap:12px}
+.learning-item{padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.learning-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.learning-head span{text-transform:uppercase;font-size:.72rem;letter-spacing:.08em}
+.learning-item.confirmed{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.learning-item.rejected{opacity:.78}
+.learning-item.expired{opacity:.62}
+.learning-item small{display:block;margin-top:8px}
+
+
+/* v0.9.0 Phase 3 — judgement stability and re-evaluation */
+.judgement-review-notice{padding:16px;border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line));border-radius:18px;background:var(--surface)}
+.judgement-review-notice p:last-child{margin-bottom:0}
+.stability-note,.validity-note{margin-top:12px;font-size:.9rem}
+.validity-note{opacity:.72}
+
+
+/* v0.10.0 Phase 1 — decision boundaries and provenance */
+.decision-boundaries{display:grid;gap:14px}
+.boundary-summary{display:flex;flex-wrap:wrap;gap:8px}
+.boundary-summary span,.provenance-tags span{padding:7px 10px;border:1px solid var(--line);border-radius:999px;font-size:.78rem}
+.boundary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.boundary-grid article,.alternative-card,.provenance-panel{padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.boundary-grid h3,.alternative-card h3{margin-top:0}
+.provenance-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+@media(max-width:680px){.boundary-grid{grid-template-columns:1fr}}
+
+
+/* v0.10.0 Phase 2 — minority reports and deliberation trace */
+.minority-reports{display:grid;gap:12px}
+.minority-summary{margin-top:-4px}
+.minority-report{padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.minority-report>div{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.minority-report>div span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.minority-report.high,.minority-report.critical{border-color:color-mix(in srgb,#a53c2f 55%,var(--line))}
+.minority-preference{font-size:.85rem;font-weight:600}
+.deliberation-trace{border:1px solid var(--line);border-radius:18px;padding:14px 16px;background:var(--surface)}
+.trace-event{padding:12px 0;border-bottom:1px solid var(--line)}
+.trace-event:last-child{border-bottom:0}
+.trace-event>div{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.trace-event>div>span:last-child{font-size:.78rem;opacity:.7}
+.trace-order{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;border:1px solid var(--line);font-size:.75rem}
+
+
+/* v0.10.0 Phase 3 — correction propagation and decision audit */
+.correction-audit{display:grid;gap:12px}
+.audit-event{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.audit-event h4{margin-bottom:6px}
+.audit-event ul{margin-top:6px}
+
+
+/* v0.10.0 — Quiet Scale visual refinement
+   Strategos should feel confident through restraint, not visual volume. */
+:root{
+  --content-max:500px;
+  --radius-card:18px;
+  --space-card:17px;
+}
+
+.screen{
+  max-width:var(--content-max);
+  padding-left:20px;
+  padding-right:20px;
+}
+
+header{
+  height:50px;
+  font-size:11px;
+  letter-spacing:.16em;
+}
+
+.delta.large{
+  width:126px;
+  height:126px;
+}
+
+.splash .delta.large{
+  width:124px;
+  height:124px;
+}
+
+.splash .brand{
+  margin-top:20px;
+}
+
+.splash .eyebrow{
+  font-size:9px;
+  letter-spacing:.26em;
+}
+
+.splash .brand h1{
+  font-size:25px;
+  letter-spacing:.26em;
+  margin:9px 0 15px;
+}
+
+.splash .brand p{
+  font-size:18px;
+  line-height:1.42;
+}
+
+.splash .tap{
+  bottom:calc(34px + env(safe-area-inset-bottom));
+  font-size:9px;
+  letter-spacing:.15em;
+  opacity:.72;
+}
+
+.stack{
+  gap:19px;
+  padding-top:31px;
+}
+
+.stack h2,
+.thinking-copy h2{
+  font-size:34px;
+  line-height:1.12;
+}
+
+.choice,
+.pill{
+  padding:15px 13px;
+  font-size:14px;
+}
+
+.pill{
+  padding:10px 12px;
+  font-size:12px;
+}
+
+.action{
+  padding:15px;
+  font-size:11px;
+}
+
+.onboarding .delta.large{
+  width:112px;
+  height:112px;
+}
+
+.onboarding .stack h2{
+  font-size:32px;
+}
+
+.name-input{
+  font-size:30px;
+}
+
+.thinking-copy{
+  margin-top:25px;
+}
+
+.thinking-copy h2{
+  font-size:27px;
+}
+
+.advisor-lights{
+  margin:20px 0;
+  gap:8px;
+}
+
+.advisor-lights span{
+  padding:9px 11px;
+  font-size:11px;
+}
+
+.mission-hero{
+  padding:44px 0 29px;
+}
+
+.mission-hero h2{
+  font-size:52px;
+  margin:11px 0 16px;
+}
+
+.mission-meta span{
+  padding:7px 10px;
+  font-size:11px;
+}
+
+.delta-score{
+  margin-top:28px;
+  padding:17px 0;
+}
+
+.delta-score strong{
+  font-size:34px;
+}
+
+.reasoning,
+.understanding-card,
+.judgement-card,
+.practice-proposal,
+.agora-panel,
+.unknowns,
+.insight,
+.journey-item,
+.decision-boundaries,
+.minority-report,
+.audit-event,
+.learning-item{
+  border-radius:var(--radius-card);
+}
+
+.reasoning,
+.understanding-card,
+.judgement-card,
+.practice-proposal,
+.agora-panel,
+.unknowns,
+.insight,
+.journey-item{
+  padding:var(--space-card);
+}
+
+.understanding-card h2,
+.judgement-card h2,
+.practice-proposal h2{
+  font-size:24px;
+}
+
+.living-graph{
+  border-radius:21px;
+  padding:16px 14px 12px;
+}
+
+.graph-heading h3{
+  font-size:19px;
+}
+
+.living-graph svg{
+  max-width:286px;
+}
+
+.living-graph.compact svg{
+  max-width:220px;
+}
+
+.execution h2{
+  font-size:40px;
+}
+
+.clock{
+  font-size:66px;
+}
+
+.total-delta strong{
+  font-size:32px;
+}
+
+.insight strong{
+  font-size:18px;
+}
+
+.tabbar button{
+  font-size:9px;
+}
+
+@media(max-width:390px){
+  .screen{
+    padding-left:18px;
+    padding-right:18px;
+  }
+  .splash .delta.large{
+    width:116px;
+    height:116px;
+  }
+  .splash .brand h1{
+    font-size:23px;
+  }
+  .splash .brand p{
+    font-size:17px;
+  }
+  .mission-hero h2{
+    font-size:48px;
+  }
+}
+
+@media(max-height:720px){
+  .splash .delta.large{
+    width:104px;
+    height:104px;
+  }
+  .splash .brand{
+    margin-top:16px;
+  }
+  .splash .brand h1{
+    margin-bottom:12px;
+  }
+  .splash .brand p{
+    font-size:16px;
+  }
+  .splash .tap{
+    bottom:calc(24px + env(safe-area-inset-bottom));
+  }
+}
+
+@media(min-width:700px){
+  .stack{
+    padding-top:46px;
+  }
+}
+
+
+/* v0.11.0 Phase 1 — choice sovereignty */
+.person-choice,.choice-audit{display:grid;gap:12px}
+.person-choice{padding:17px;border:1px solid var(--line);border-radius:var(--radius-card);background:var(--surface)}
+.person-choice h3{margin:0}
+.choice-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.choice-actions button{padding:12px;border:1px solid var(--line);border-radius:14px;background:transparent;color:inherit}
+.choice-actions button:first-child{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.choice-record{font-size:.88rem;margin:0}
+.choice-event{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.choice-event>div{display:flex;justify-content:space-between;gap:12px}
+.choice-event span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+@media(max-width:420px){.choice-actions{grid-template-columns:1fr}}
+
+
+/* v0.11.0 Phase 2 — contextual preference governance */
+.preference-governance{display:grid;gap:12px}
+.preference-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.preference-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.preference-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.preference-item.confirmed{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.preference-item.rejected,.preference-item.expired{opacity:.66}
+.preference-summary{margin:0}
+
+
+/* v0.11.0 Phase 3 — choice-to-outcome integrity */
+.outcome-integrity{display:grid;gap:12px}
+.outcome-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.outcome-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.outcome-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.outcome-item.abandoned{opacity:.72}
+.outcome-item.reflected{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.outcome-item small{display:block;margin-top:7px}
+
+
+/* v0.11.0 final — cross-system agency integrity */
+.agency-integrity-summary{padding:15px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.integrity-stats{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.integrity-stats span{padding:7px 10px;border:1px solid var(--line);border-radius:999px;font-size:.78rem}
+.integrity-warning{font-weight:600}
+
+
+/* v0.12.0 Phase 1 — voluntary commitment windows */
+.commitment-panel,.commitment-history{display:grid;gap:12px}
+.commitment-panel{padding:17px;border:1px solid var(--line);border-radius:var(--radius-card);background:var(--panel)}
+.commitment-panel h3{margin:0}
+.commitment-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.commitment-actions button{padding:12px;border:1px solid var(--line);border-radius:14px;background:transparent;color:inherit}
+.commitment-actions button:first-child{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.commitment-status{margin:0;font-weight:600}
+.commitment-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.commitment-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.commitment-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.commitment-item.cancelled,.commitment-item.expired{opacity:.68}
+.commitment-item small{display:block;margin-top:7px}
+@media(max-width:420px){.commitment-actions{grid-template-columns:1fr}}
+
+
+/* v0.12.0 Phase 2 — friction-aware follow-through */
+.friction-prep,.friction-history{display:grid;gap:10px}
+.friction-prep{padding:13px;border:1px dashed var(--line);border-radius:15px}
+.friction-prep h4{margin:0}
+.friction-actions{display:flex;flex-wrap:wrap;gap:7px}
+.friction-actions button{padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:transparent;color:inherit;font-size:.76rem}
+.friction-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.friction-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.friction-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.friction-item small{display:block;margin-top:7px}
+.friction-item.closed{opacity:.78}
+
+
+/* v0.12.0 Phase 3 — adaptive fallback integrity */
+.fallback-card,.fallback-history{display:grid;gap:10px}
+.fallback-card{padding:12px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--surface) 85%,var(--paper))}
+.fallback-actions{display:flex;gap:8px;flex-wrap:wrap}
+.fallback-actions button{padding:9px 11px;border:1px solid var(--line);border-radius:12px;background:transparent;color:inherit}
+.fallback-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.fallback-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.fallback-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.fallback-item.completed{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.fallback-item.abandoned,.fallback-item.declined{opacity:.7}
+
+
+/* v0.12.0 final — follow-through integrity */
+.follow-through-summary{padding:15px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+
+
+/* v0.13.0 Phase 1 — structured reflection integrity */
+.structured-reflection,.reflection-history{display:grid;gap:12px}
+.structured-reflection label{display:grid;gap:7px;font-size:.8rem;letter-spacing:.04em}
+.structured-reflection select,.structured-reflection textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:inherit;font:inherit}
+.reflection-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.reflection-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.reflection-item>div:first-child span{font-size:.72rem;letter-spacing:.07em}
+.reflection-item small{display:block;margin-top:7px}
+
+
+/* v0.13.0 Phase 2 — Quiet Scale II and living membrane
+   Smaller, calmer, closer to the elegance of v0.8. */
+:root{
+  --content-max:456px;
+  --space-card:15px;
+  --radius-card:17px;
+}
+
+.screen{
+  max-width:var(--content-max);
+  padding-left:18px;
+  padding-right:18px;
+}
+
+header{
+  height:46px;
+  font-size:10px;
+}
+
+header .delta.small{
+  width:27px;
+  height:27px;
+}
+
+.splash .delta.large{
+  width:106px;
+  height:106px;
+}
+
+.splash .brand{
+  margin-top:17px;
+}
+
+.splash .eyebrow{
+  font-size:8px;
+}
+
+.splash .brand h1{
+  font-size:22px;
+  margin:8px 0 12px;
+}
+
+.splash .brand p{
+  font-size:16px;
+  line-height:1.43;
+}
+
+.splash .tap{
+  font-size:8px;
+  bottom:calc(30px + env(safe-area-inset-bottom));
+}
+
+.stack{
+  gap:16px;
+  padding-top:25px;
+}
+
+.observe-stack{
+  padding-top:21px;
+  gap:16px;
+}
+
+.stack h2,
+.thinking-copy h2{
+  font-size:30px;
+  line-height:1.09;
+}
+
+.observe-stack>div:first-child .eyebrow{
+  font-size:9px;
+}
+
+.observe-stack>div:first-child .muted{
+  font-size:13px;
+}
+
+.choice,
+.pill{
+  padding:13px 12px;
+  font-size:13px;
+}
+
+.pill{
+  padding:9px 11px;
+  font-size:11px;
+}
+
+.question{
+  padding:15px 0;
+}
+
+.action{
+  padding:14px;
+  font-size:10px;
+}
+
+.mission-hero{
+  padding:36px 0 24px;
+}
+
+.mission-hero h2{
+  font-size:45px;
+}
+
+.delta-score strong{
+  font-size:30px;
+}
+
+.reasoning,
+.understanding-card,
+.judgement-card,
+.practice-proposal,
+.agora-panel,
+.unknowns,
+.insight,
+.journey-item{
+  padding:15px;
+}
+
+.living-graph{
+  padding:14px 13px 11px;
+  border-radius:19px;
+}
+
+.graph-heading h3{
+  font-size:17px;
+  margin-top:5px;
+}
+
+.graph-state{
+  font-size:8px;
+  padding:6px 8px;
+}
+
+.living-graph svg{
+  max-width:246px;
+}
+
+.living-graph.compact svg{
+  max-width:190px;
+}
+
+.graph-note{
+  max-width:250px;
+  font-size:10px;
+  margin-top:-1px;
+}
+
+.graph-note strong{
+  color:#d8ba83;
+  font-weight:600;
+}
+
+.graph-membrane{
+  fill:rgba(184,148,88,.025);
+  stroke:#b89458;
+  stroke-width:.8;
+  opacity:.28;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 0 4px rgba(184,148,88,.12));
+  animation:membraneCurrent 8.8s linear infinite;
+}
+
+.graph-link{
+  stroke-dasharray:2 5;
+  animation:linkCurrent 8.5s linear infinite;
+}
+
+.graph-link.dominant-link{
+  stroke-width:1.35;
+  filter:drop-shadow(0 0 4px rgba(184,148,88,.34));
+}
+
+.dominant-node .node-core{
+  animation:dominantCore 3.6s ease-in-out infinite;
+}
+
+.dominant-node .node-halo{
+  animation:dominantHalo 4.2s ease-in-out infinite;
+}
+
+.node-label{
+  font-size:7.3px;
+}
+
+.dominant-node .node-label{
+  fill:#dfc18b;
+  font-weight:600;
+}
+
+.execution h2{
+  font-size:36px;
+}
+
+.clock{
+  font-size:59px;
+}
+
+.tabbar{
+  min-height:60px;
+}
+
+.tabbar button{
+  font-size:8px;
+}
+
+@keyframes membraneCurrent{
+  to{stroke-dashoffset:-28}
+}
+
+@keyframes linkCurrent{
+  to{stroke-dashoffset:-24}
+}
+
+@keyframes dominantCore{
+  0%,100%{filter:drop-shadow(0 0 5px rgba(184,148,88,.46));transform:scale(1)}
+  50%{filter:drop-shadow(0 0 13px rgba(218,181,112,.88));transform:scale(1.16)}
+}
+
+@keyframes dominantHalo{
+  0%,100%{transform:scale(.92);opacity:.09}
+  50%{transform:scale(1.32);opacity:.22}
+}
+
+@media(max-width:390px){
+  .screen{
+    padding-left:16px;
+    padding-right:16px;
+  }
+  .splash .delta.large{
+    width:100px;
+    height:100px;
+  }
+  .splash .brand h1{
+    font-size:21px;
+  }
+  .splash .brand p{
+    font-size:15px;
+  }
+  .stack h2,
+  .thinking-copy h2{
+    font-size:28px;
+  }
+  .living-graph.compact svg{
+    max-width:182px;
+  }
+}
+
+@media(max-height:720px){
+  .splash .delta.large{
+    width:92px;
+    height:92px;
+  }
+  .splash .brand p{
+    font-size:14px;
+  }
+  .observe-stack{
+    padding-top:17px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .graph-membrane,
+  .graph-link,
+  .dominant-node .node-core,
+  .dominant-node .node-halo{
+    animation:none;
+  }
+  .graph-membrane animate,
+  .graph-link animate,
+  .graph-node animateTransform{
+    display:none;
+  }
+}
+
+
+/* v0.13.0 Phase 3 — Footer Fix, Scale Restraint and Graph Warmth */
+:root{
+  --content-max:432px;
+  --footer-height:56px;
+}
+
+body{
+  padding-bottom:calc(var(--footer-height) + env(safe-area-inset-bottom));
+}
+
+.screen{
+  max-width:var(--content-max);
+  padding-left:15px;
+  padding-right:15px;
+}
+
+.stack{
+  gap:14px;
+  padding-top:20px;
+}
+
+.observe-stack{
+  padding-top:18px;
+  gap:14px;
+}
+
+.stack h2,
+.thinking-copy h2{
+  font-size:27px;
+  line-height:1.07;
+}
+
+.observe-stack>div:first-child .muted{
+  font-size:12px;
+}
+
+.eyebrow{
+  font-size:8px;
+  letter-spacing:.22em;
+}
+
+.choice,
+.pill{
+  padding:11px 10px;
+  font-size:12px;
+}
+
+.question{
+  padding:13px 0;
+}
+
+.question h3{
+  font-size:15px;
+}
+
+.action{
+  padding:13px;
+  font-size:9px;
+}
+
+header{
+  height:42px;
+  font-size:9px;
+}
+
+header .delta.small{
+  width:24px;
+  height:24px;
+}
+
+.living-graph{
+  padding:12px 11px 10px;
+  border-radius:17px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(184,148,88,.085), transparent 48%),
+    rgba(17,15,12,.92);
+}
+
+.graph-heading h3{
+  font-size:16px;
+}
+
+.graph-state{
+  font-size:7px;
+  padding:5px 7px;
+}
+
+.living-graph svg{
+  max-width:228px;
+}
+
+.living-graph.compact svg{
+  max-width:176px;
+}
+
+.graph-orbit{
+  stroke:rgba(184,148,88,.14);
+}
+
+.graph-membrane{
+  fill:rgba(184,148,88,.07);
+  stroke:rgba(208,171,103,.56);
+  stroke-width:.9;
+  opacity:.72;
+  filter:drop-shadow(0 0 6px rgba(184,148,88,.18));
+}
+
+.graph-web .graph-link{
+  stroke:rgba(202,166,99,.66);
+  stroke-width:1;
+}
+
+.graph-link.dominant-link{
+  stroke:rgba(232,198,132,.9);
+  stroke-width:1.3;
+  filter:drop-shadow(0 0 5px rgba(212,176,108,.34));
+}
+
+.graph-center{
+  fill:#c39a58;
+  stroke:rgba(238,210,153,.45);
+}
+
+.graph-pulse{
+  fill:rgba(184,148,88,.045);
+  stroke:rgba(184,148,88,.2);
+}
+
+.node-core{
+  fill:#d1a85f;
+  stroke:#e3c386;
+}
+
+.node-halo{
+  fill:rgba(184,148,88,.28);
+}
+
+.node-label{
+  fill:#d0c7b9;
+  font-size:6.9px;
+}
+
+.graph-note{
+  font-size:9px;
+  max-width:225px;
+  color:rgba(222,215,203,.74);
+}
+
+/* Fixed footer: stable, smaller and detached from document flow. */
+.tabbar{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:80;
+  height:calc(var(--footer-height) + env(safe-area-inset-bottom));
+  min-height:0;
+  padding:0 18px env(safe-area-inset-bottom);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  align-items:center;
+  background:rgba(5,5,5,.96);
+  border-top:1px solid rgba(184,148,88,.12);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.tabbar button{
+  height:var(--footer-height);
+  min-height:0;
+  padding:0;
+  font-size:7.5px;
+  letter-spacing:.02em;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(222,215,203,.5);
+}
+
+.tabbar button.active{
+  color:#d6ad68;
+}
+
+.tabbar button::before{
+  display:none;
+}
+
+/* Prevent content from being hidden behind the fixed footer. */
+main,
+#app{
+  padding-bottom:calc(var(--footer-height) + 18px + env(safe-area-inset-bottom));
+}
+
+.splash{
+  padding-bottom:0;
+}
+
+@media(max-width:390px){
+  :root{
+    --content-max:408px;
+    --footer-height:54px;
+  }
+  .screen{
+    padding-left:14px;
+    padding-right:14px;
+  }
+  .stack h2,
+  .thinking-copy h2{
+    font-size:25px;
+  }
+  .living-graph.compact svg{
+    max-width:168px;
+  }
+  .question h3{
+    font-size:14px;
+  }
+}
+
+@media(max-height:720px){
+  .stack{
+    padding-top:16px;
+  }
+  .living-graph.compact svg{
+    max-width:158px;
+  }
+}
+
+
+/* v0.13.0 final — outcome attribution */
+.attribution-history{display:grid;gap:12px}
+.attribution-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.attribution-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.attribution-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.attribution-item small{display:block;margin-top:7px}
+
+
+/* v0.14.0 Phase 1 — longitudinal outcome synthesis */
+.outcome-patterns{display:grid;gap:12px}
+.outcome-pattern-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.outcome-pattern-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.outcome-pattern-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.outcome-pattern-item small{display:block;margin-top:7px}
+.outcome-pattern-item.stable{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.outcome-pattern-item.rejected{opacity:.66}
+.outcome-pattern-item button{margin-top:10px;padding:9px 11px;border:1px solid var(--line);border-radius:12px;background:transparent;color:inherit}
+
+/* v0.14.0 Phase 2 — pattern transfer boundaries */
+.pattern-transfers{display:grid;gap:12px}.pattern-transfer-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}.pattern-transfer-item>div:first-child{display:flex;justify-content:space-between;gap:12px}.pattern-transfer-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}.pattern-transfer-item small{display:block;margin-top:7px}.pattern-transfer-item.supported{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}.pattern-transfer-item.blocked,.pattern-transfer-item.rejected{opacity:.66}.pattern-transfer-item button{margin-top:10px;padding:9px 11px;border:1px solid var(--line);border-radius:12px;background:transparent;color:inherit}
+
+
+/* v0.14.0 Phase 3 — navigation clarity and progressive disclosure */
+:root{
+  --footer-height:58px;
+  --footer-offset:8px;
+}
+
+body{
+  padding-bottom:calc(var(--footer-height) + var(--footer-offset) * 2 + env(safe-area-inset-bottom));
+}
+
+#app,
+main{
+  padding-bottom:calc(var(--footer-height) + var(--footer-offset) * 2 + 24px + env(safe-area-inset-bottom));
+}
+
+.tabbar{
+  position:fixed;
+  left:50%;
+  right:auto;
+  bottom:calc(var(--footer-offset) + env(safe-area-inset-bottom));
+  transform:translateX(-50%);
+  z-index:120;
+  width:min(410px,calc(100% - 20px));
+  height:var(--footer-height);
+  padding:5px;
+  border:1px solid rgba(184,148,88,.18);
+  border-radius:20px;
+  background:rgba(8,8,7,.94);
+  box-shadow:0 10px 32px rgba(0,0,0,.38);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  grid-template-columns:repeat(4,1fr);
+}
+
+.tabbar button{
+  height:48px;
+  padding:3px 2px;
+  border-radius:15px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  font-size:7.5px;
+  line-height:1;
+  letter-spacing:.01em;
+  color:rgba(222,215,203,.58);
+}
+
+.tabbar button.active{
+  background:rgba(184,148,88,.11);
+  color:#ddb974;
+}
+
+.tab-icon{
+  font-size:12px;
+  line-height:1;
+  opacity:.82;
+}
+
+.tabbar button.active .tab-icon{
+  opacity:1;
+}
+
+.understanding-switcher{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding:2px 0 8px;
+  scrollbar-width:none;
+}
+
+.understanding-switcher::-webkit-scrollbar{
+  display:none;
+}
+
+.understanding-switcher button{
+  flex:0 0 auto;
+  padding:8px 11px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:transparent;
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:.04em;
+}
+
+.understanding-switcher button.active{
+  border-color:rgba(214,173,104,.7);
+  background:rgba(184,148,88,.1);
+  color:#e1c28b;
+}
+
+.understanding-group.is-hidden{
+  display:none;
+}
+
+.understanding-screen{
+  gap:16px;
+}
+
+@media(max-width:390px){
+  .tabbar{
+    width:calc(100% - 16px);
+    bottom:calc(6px + env(safe-area-inset-bottom));
+  }
+  .tabbar button{
+    font-size:7px;
+  }
+}
+
+
+/* v0.14.1 — Primary navigation viewport hotfix
+   Never centre the footer with transforms: mobile in-app browsers may use a
+   transformed containing block and clip the first destinations. */
+.tabbar{
+  position:fixed;
+  left:max(8px,env(safe-area-inset-left));
+  right:max(8px,env(safe-area-inset-right));
+  bottom:calc(6px + env(safe-area-inset-bottom));
+  transform:none;
+  width:auto;
+  max-width:410px;
+  margin-inline:auto;
+  box-sizing:border-box;
+  overflow:visible;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+
+.tabbar button{
+  min-width:0;
+  width:100%;
+  overflow:visible;
+}
+
+.tabbar button span:last-child{
+  display:block;
+  max-width:100%;
+  white-space:nowrap;
+  overflow:visible;
+}
+
+@media(max-width:390px){
+  .tabbar{
+    left:max(6px,env(safe-area-inset-left));
+    right:max(6px,env(safe-area-inset-right));
+    width:auto;
+    max-width:none;
+    transform:none;
+  }
+}
+
+
+/* v0.14.2 — Primary navigation structural repair
+   Full-width viewport footer. No centring, max-width, transforms or floating
+   geometry that can move the first destinations outside an iOS viewport. */
+:root{
+  --footer-height:58px;
+  --footer-offset:0px;
+}
+
+body{
+  padding-bottom:calc(var(--footer-height) + env(safe-area-inset-bottom));
+}
+
+#app,
+main{
+  padding-bottom:calc(var(--footer-height) + 24px + env(safe-area-inset-bottom));
+}
+
+.tabbar{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  transform:none !important;
+  margin:0 !important;
+  width:100% !important;
+  max-width:none !important;
+  height:calc(var(--footer-height) + env(safe-area-inset-bottom));
+  padding:
+    4px
+    max(8px,env(safe-area-inset-right))
+    env(safe-area-inset-bottom)
+    max(8px,env(safe-area-inset-left));
+  box-sizing:border-box;
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  align-items:stretch;
+  overflow:hidden !important;
+  border:0;
+  border-top:1px solid rgba(184,148,88,.15);
+  border-radius:0;
+  background:rgba(5,5,5,.97);
+  box-shadow:0 -8px 24px rgba(0,0,0,.24);
+  z-index:2147483000;
+}
+
+.tabbar button{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:relative;
+  min-width:0 !important;
+  width:auto !important;
+  height:54px;
+  padding:4px 1px;
+  margin:0;
+  overflow:hidden !important;
+  border:0;
+  border-radius:12px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  font-size:7.5px;
+  line-height:1;
+}
+
+.tabbar button:nth-child(1),
+.tabbar button:nth-child(2),
+.tabbar button:nth-child(3),
+.tabbar button:nth-child(4){
+  display:flex !important;
+}
+
+.tabbar button span:last-child{
+  display:block !important;
+  width:100%;
+  max-width:100%;
+  overflow:hidden !important;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  text-align:center;
+}
+
+.tabbar button.active{
+  background:rgba(184,148,88,.09);
+}
+
+@media(max-width:390px){
+  .tabbar{
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding-left:max(5px,env(safe-area-inset-left));
+    padding-right:max(5px,env(safe-area-inset-right));
+  }
+
+  .tabbar button{
+    font-size:7px;
+  }
+}
+
+.longitudinal-evidence-panel{padding:15px;border:1px solid var(--line);border-radius:17px;background:var(--surface)}
+.longitudinal-evidence-panel h3{font-size:15px;font-weight:500}
+.longitudinal-evidence-panel article{display:grid;grid-template-columns:1fr auto;gap:5px 12px;padding:11px 0;border-top:1px solid var(--line)}
+.longitudinal-evidence-panel article p,.longitudinal-evidence-panel article small{grid-column:1/-1;margin:0}
+.longitudinal-evidence-panel article span{color:var(--bronze);font-size:12px}
+.longitudinal-evidence-panel article p{font-size:12px;line-height:1.45}
+.longitudinal-evidence-panel article small{color:var(--muted);font-size:9px}
+
+
+/* v0.14.4 — longitudinal judgement accountability */
+.longitudinal-accountability{display:grid;gap:12px}
+.longitudinal-audit-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.longitudinal-audit-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.longitudinal-audit-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.longitudinal-audit-item small{display:block;margin-top:7px}
+.longitudinal-audit-item.review-required{border-color:rgba(190,125,86,.55)}
+.audit-warning{color:#d5a27c}
+
+
+/* v0.15.0 Phase 1 — prediction calibration */
+.forecast-panel,.prediction-calibration{display:grid;gap:12px}
+.forecast-panel{padding:15px;border:1px solid var(--line);border-radius:17px;background:var(--surface)}
+.forecast-panel h3{font-size:15px;font-weight:500}
+.forecast-audit-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.forecast-audit-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.forecast-audit-item>div:first-child span{text-transform:uppercase;font-size:.72rem;letter-spacing:.07em}
+.forecast-audit-item small{display:block;margin-top:7px}
+.forecast-audit-item.overestimated{border-color:rgba(190,125,86,.45)}
+.forecast-audit-item.underestimated{border-color:rgba(129,157,113,.45)}
+
+
+/* v0.15.0 Phase 2 — governed confidence calibration */
+.calibration-governance-panel{padding:15px;border:1px solid var(--line);border-radius:17px;background:var(--surface)}
+.calibration-governance-panel h3{font-size:15px;font-weight:500}
+.calibration-governance-panel small{display:block;margin-top:8px;color:var(--muted);font-size:9px;line-height:1.45}
+
+
+/* v0.15.0 Phase 4 — calibration drift and accountability */
+.calibration-drift-panel{padding:15px;border:1px solid rgba(190,125,86,.5);border-radius:17px;background:var(--surface)}
+.calibration-drift-panel h3{font-size:15px;font-weight:500}
+.calibration-drift-panel small{display:block;margin-top:8px;color:#d5a27c;font-size:9px}
+.calibration-accountability{display:grid;gap:12px}
+.calibration-accountability-item{padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.calibration-accountability-item>div:first-child{display:flex;justify-content:space-between;gap:12px}
+.calibration-accountability-item>div:first-child span{color:var(--bronze);font-size:12px}
+.calibration-accountability-item small{display:block;margin-top:7px;color:var(--muted)}
+
+
+/* v0.16.0 Phase 1 — daily flow and reflection continuity */
+.reflection-screen{gap:16px}
+.reflection-essential{display:grid;gap:12px;padding:15px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.reflection-detail{border:1px solid var(--line);border-radius:18px;padding:14px 15px;background:rgba(255,255,255,.015)}
+.reflection-detail>summary{cursor:pointer;color:#ded5c7;font-size:12px}
+.reflection-detail .structured-reflection{margin-top:14px}
+.reflection-save-note{text-align:center;color:var(--muted);font-size:9px;margin-top:-4px}
+.reflection-essential label,.reflection-detail label{display:grid;gap:7px;font-size:10px;color:var(--muted)}
+.reflection-essential select,.reflection-detail select,.reflection-detail textarea{width:100%}
+
+.continuity-card{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;padding:14px 15px;border:1px solid rgba(184,148,88,.3);border-radius:18px;background:rgba(184,148,88,.055)}
+.continuity-card h3{margin:2px 0 0;font-size:14px;font-weight:500}
+.continuity-card .action{width:auto;min-width:88px;margin:0;padding:10px 13px}
+@media(max-width:390px){.continuity-card{grid-template-columns:1fr}.continuity-card .action{width:100%}}
+
+
+/* v0.16.1 — authoritative primary navigation repair
+   Restores the stable v0.8 behaviour: a full-width, attached viewport footer. */
+:root{
+  --strategos-nav-height:62px;
+}
+
+body{
+  padding-bottom:calc(var(--strategos-nav-height) + env(safe-area-inset-bottom)) !important;
+}
+
+main.screen{
+  min-height:100dvh;
+  padding-bottom:calc(var(--strategos-nav-height) + 28px + env(safe-area-inset-bottom)) !important;
+}
+
+.tabbar{
+  position:fixed !important;
+  inset:auto 0 0 0 !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  transform:none !important;
+  margin:0 !important;
+  width:100% !important;
+  max-width:none !important;
+  min-width:0 !important;
+  height:calc(var(--strategos-nav-height) + env(safe-area-inset-bottom)) !important;
+  min-height:calc(var(--strategos-nav-height) + env(safe-area-inset-bottom)) !important;
+  padding:
+    0
+    max(10px,env(safe-area-inset-right))
+    env(safe-area-inset-bottom)
+    max(10px,env(safe-area-inset-left)) !important;
+  box-sizing:border-box !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  align-items:stretch !important;
+  overflow:hidden !important;
+  border:0 !important;
+  border-top:1px solid rgba(184,148,88,.16) !important;
+  border-radius:0 !important;
+  background:rgba(5,5,5,.985) !important;
+  box-shadow:0 -6px 20px rgba(0,0,0,.28) !important;
+  backdrop-filter:blur(18px) !important;
+  -webkit-backdrop-filter:blur(18px) !important;
+  z-index:2147483000 !important;
+}
+
+.tabbar button,
+.tabbar button:nth-child(1),
+.tabbar button:nth-child(2),
+.tabbar button:nth-child(3),
+.tabbar button:nth-child(4){
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  min-width:0 !important;
+  width:100% !important;
+  height:var(--strategos-nav-height) !important;
+  margin:0 !important;
+  padding:8px 2px 7px !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  overflow:hidden !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:4px !important;
+  color:rgba(222,215,203,.58) !important;
+  font-size:9px !important;
+  line-height:1 !important;
+  letter-spacing:.01em !important;
+}
+
+.tabbar button.active{
+  color:#ddb974 !important;
+  background:rgba(184,148,88,.045) !important;
+}
+
+.tabbar .tab-icon{
+  display:block !important;
+  min-height:14px;
+  font-size:15px !important;
+  line-height:1 !important;
+  opacity:.82;
+}
+
+.tabbar button span:last-child{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  text-align:center !important;
+}
+
+@supports (height:100svh){
+  main.screen{min-height:100svh}
+}
+
+@media(max-width:390px){
+  .tabbar{
+    padding-left:max(6px,env(safe-area-inset-left)) !important;
+    padding-right:max(6px,env(safe-area-inset-right)) !important;
+  }
+  .tabbar button{
+    font-size:8px !important;
+  }
+}
+
+
+/* v0.16.2 — focused judgement and Agora motion */
+.agora-orbit{
+  position:relative;
+  width:150px;
+  height:150px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 20px;
+}
+
+.agora-orbit .delta{
+  position:relative;
+  z-index:2;
+}
+
+.agora-orbit::before{
+  content:"";
+  position:absolute;
+  inset:2px;
+  border-radius:50%;
+  border:2px solid transparent;
+  border-top-color:rgba(214,173,104,.9);
+  border-right-color:rgba(214,173,104,.34);
+  box-shadow:0 0 28px rgba(184,148,88,.12);
+  animation:agora-orbit-turn 2.8s linear infinite;
+}
+
+.agora-orbit::after{
+  content:"";
+  position:absolute;
+  inset:16px;
+  border-radius:50%;
+  border:1px solid rgba(184,148,88,.12);
+}
+
+@keyframes agora-orbit-turn{
+  to{transform:rotate(360deg)}
+}
+
+.judgement-focus{
+  display:grid;
+  gap:14px;
+}
+
+.judgement-focus-head{
+  padding:4px 2px 2px;
+}
+
+.judgement-focus-head h2{
+  margin:5px 0 12px;
+  font-size:clamp(28px,7vw,40px);
+  line-height:1.08;
+}
+
+.focused-practice{
+  display:grid;
+  gap:18px;
+}
+
+.judgement-rationale{
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--surface);
+}
+
+.judgement-rationale>p{
+  margin:5px 0 0;
+  line-height:1.55;
+}
+
+.judgement-rationale ul{
+  margin:12px 0 0;
+  padding-left:18px;
+}
+
+.judgement-rationale li{
+  margin:7px 0;
+  color:var(--muted);
+  line-height:1.45;
+}
+
+.nearest-alternative{
+  padding-top:11px;
+  border-top:1px solid var(--line);
+}
+
+.reasoning-link{
+  width:100%;
+  padding:13px 15px;
+  border:1px solid rgba(184,148,88,.24);
+  border-radius:16px;
+  background:transparent;
+  color:#d9b778;
+  font:inherit;
+}
+
+.compact-caution,.compact-forecast{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(255,255,255,.015);
+  font-size:11px;
+}
+
+.compact-caution{
+  border-color:rgba(190,125,86,.42);
+}
+
+.compact-caution span,.compact-forecast span{
+  color:var(--muted);
+}
+
+.focused-choice{
+  margin-top:2px;
+}
+
+.latest-deliberation{
+  padding:15px;
+  border:1px solid rgba(184,148,88,.2);
+  border-radius:18px;
+  background:rgba(184,148,88,.035);
+}
+
+.understanding-deliberation{
+  margin-top:12px;
+  border-top:1px solid var(--line);
+  padding-top:12px;
+}
+
+.understanding-deliberation>summary{
+  cursor:pointer;
+  color:#d9b778;
+}
+
+.understanding-deliberation .explain-section{
+  margin-top:16px;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .agora-orbit::before{animation:none}
+}
+
+
+/* v0.16.4 — Agora ring repair
+   Animate the existing SVG ring only. No additional circles. */
+.agora-orbit::before,
+.agora-orbit::after{
+  content:none !important;
+  display:none !important;
+}
+
+.agora-orbit .delta{
+  animation:none !important;
+}
+
+.agora-orbit .delta .glyph{
+  animation:none !important;
+  transform:none !important;
+}
+
+.agora-orbit .delta .ring{
+  animation:agora-existing-ring-turn 3.2s linear infinite !important;
+  transform-origin:70px 70px !important;
+  transform-box:view-box !important;
+}
+
+@keyframes agora-existing-ring-turn{
+  from{transform:rotate(-40deg)}
+  to{transform:rotate(320deg)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .agora-orbit .delta .ring{
+    animation:none !important;
+    transform:rotate(-40deg) !important;
+  }
+}
+
+
+/* v0.16.5 — audited judgement density */
+.judgement-focus-head h2{font-size:clamp(24px,6.2vw,34px);line-height:1.06;margin-bottom:10px}
+.judgement-meta{gap:8px}
+.focused-practice{padding:16px}
+.focused-practice h2{font-size:clamp(26px,6vw,34px)}
+.focused-practice .delta-score{margin-top:12px;padding:13px 0}
+.judgement-rationale{padding:14px 15px}
+
+
+/* v0.16.6 — in-app usage guide */
+.guide-entry h3{margin:3px 0 7px}
+.context-help{
+  width:100%;
+  margin:-4px 0 10px;
+  padding:9px 4px;
+  border:0;
+  background:transparent;
+  color:rgba(218,184,125,.82);
+  font:inherit;
+  font-size:10px;
+  text-align:center;
+}
+.context-help.inline{
+  width:auto;
+  margin:9px 0 0;
+  padding:0;
+  text-align:left;
+}
+.usage-guide{gap:14px}
+.guide-principle{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 15px;
+  border:1px solid rgba(184,148,88,.22);
+  border-radius:17px;
+  background:rgba(184,148,88,.045);
+}
+.guide-principle span{color:var(--muted)}
+.guide-section{
+  border:1px solid var(--line);
+  border-radius:17px;
+  padding:0 15px;
+  background:var(--surface);
+}
+.guide-section[open]{border-color:rgba(184,148,88,.28)}
+.guide-section summary{
+  cursor:pointer;
+  padding:15px 0;
+  color:#e4ddd2;
+  font-size:14px;
+  font-weight:600;
+}
+.guide-section>div{
+  padding:0 0 15px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.guide-section p{margin:0 0 10px}
+.guide-flow{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:7px;
+  margin-top:14px;
+}
+.guide-flow span{
+  padding:6px 9px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#ddd4c7;
+  font-size:10px;
+}
+.guide-flow i{
+  color:#b89458;
+  font-style:normal;
+}
+
+.practice-session-strip{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px;color:var(--muted);font-size:10px}
+.practice-session-strip strong{color:#d9cfbf;font-weight:500}
+.next-phase-card{display:grid;grid-template-columns:1fr auto;gap:4px 12px;margin-top:16px;padding:12px 14px;border:1px solid rgba(184,148,88,.18);border-radius:15px;background:rgba(184,148,88,.035)}
+.next-phase-card span{grid-column:1/-1;color:#b89458;font-size:9px;letter-spacing:.16em}
+.next-phase-card strong{font-size:13px;font-weight:500}.next-phase-card small{color:var(--muted)}.next-phase-card.final{grid-template-columns:1fr}
+.practice-total-progress{height:3px;margin-top:9px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
+.practice-total-progress span{display:block;height:100%;border-radius:inherit;background:rgba(214,173,104,.7);transition:width .45s linear}
+.practice-controls button:disabled{opacity:.25;pointer-events:none}
+.resume-session-summary{display:flex;justify-content:space-between;gap:12px;width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:15px;font-size:10px}
+.resume-session-summary span{color:var(--muted)}
+.resume-next{display:flex;justify-content:space-between;gap:12px;width:100%;color:var(--muted);font-size:10px}.resume-next strong{color:#ddd4c7}
+
+
+/* v0.17.0 Phase 2 — in-app Practice closure */
+.practice-exit-screen{gap:18px}
+.practice-exit-progress{
+  display:grid;
+  gap:5px;
+  padding:15px;
+  border:1px solid rgba(184,148,88,.22);
+  border-radius:17px;
+  background:rgba(184,148,88,.045);
+}
+.practice-exit-progress strong{
+  font-size:18px;
+  font-weight:500;
+}
+.practice-exit-progress span{
+  color:var(--muted);
+  font-size:10px;
+}
+.practice-exit-actions{
+  display:grid;
+  gap:9px;
+}
+.practice-exit-actions .action{
+  margin:0;
+}
+.practice-exit-actions p{
+  margin:0 4px 8px;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+.danger-btn.subtle{
+  margin-top:5px;
+  border-color:rgba(181,92,92,.28);
+  color:rgba(224,164,164,.84);
+  background:transparent;
+}
+
+
+/* v0.17.0 Phase 3 — technique, adaptation and safety */
+.practice-guidance-card{
+  display:grid;
+  gap:8px;
+  margin-top:16px;
+}
+.guidance-recommendation{
+  display:grid;
+  gap:5px;
+  padding:12px 14px;
+  border:1px solid rgba(184,148,88,.2);
+  border-radius:15px;
+  background:rgba(184,148,88,.04);
+}
+.guidance-recommendation span{
+  color:#b89458;
+  font-size:9px;
+  letter-spacing:.14em;
+}
+.guidance-recommendation strong{
+  color:#e2d9cc;
+  font-size:12px;
+  font-weight:500;
+  line-height:1.45;
+}
+.practice-guidance-card .exercise-guide{
+  margin:0;
+}
+.safety-guide{
+  border-color:rgba(181,92,92,.26) !important;
+}
+.safety-guide summary{
+  color:rgba(224,164,164,.88);
+}
+
+
+/* v0.17.0 Phase 4 — transparent context adaptation */
+.guidance-recommendation small{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+
+
+/* v0.17.0 Phase 5 — person-directed Practice adaptation */
+.adaptation-choice{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+}
+.adaptation-choice button{
+  min-height:34px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:transparent;
+  color:var(--muted);
+  font:inherit;
+  font-size:10px;
+}
+.adaptation-choice button.selected{
+  border-color:rgba(184,148,88,.42);
+  background:rgba(184,148,88,.09);
+  color:#e1c896;
+}
+.guidance-recommendation[data-active-adaptation="regression"]{
+  border-color:rgba(112,154,151,.28);
+}
+.guidance-recommendation[data-active-adaptation="progression"]{
+  border-color:rgba(184,148,88,.34);
+}
+
+
+/* v0.17.0 Phase 6 — adaptation accountability */
+.field-note{
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:400;
+  line-height:1.4;
+}
+.adaptation-accountability-note{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid rgba(184,148,88,.2);
+  border-radius:15px;
+  background:rgba(184,148,88,.04);
+  text-align:left;
+}
+.adaptation-accountability-note span{
+  color:#b89458;
+  font-size:9px;
+  letter-spacing:.14em;
+}
+.adaptation-accountability-note p{
+  margin:7px 0 5px;
+  color:#ddd4c7;
+  font-size:11px;
+  line-height:1.45;
+}
+.adaptation-accountability-note small{
+  color:var(--muted);
+  font-size:9px;
+}
+
+
+/* v0.17.1 — Living Human Graph wave and judgement scroll continuity */
+.living-graph svg{
+  overflow:hidden !important;
+}
+.living-graph .graph-node{
+  transform:none !important;
+}
+.living-graph .node-core,
+.living-graph .node-halo{
+  transform-box:fill-box;
+  transform-origin:center;
+}
+.living-graph .graph-link{
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+#commitment-panel{
+  scroll-margin-top:calc(env(safe-area-inset-top) + 26px);
+  scroll-margin-bottom:calc(112px + env(safe-area-inset-bottom));
+}
+#commitment-start,
+#commitment-options{
+  scroll-margin-top:calc(env(safe-area-inset-top) + 32px);
+  scroll-margin-bottom:calc(120px + env(safe-area-inset-bottom));
+}
+@media(prefers-reduced-motion:reduce){
+  .living-graph animate,
+  .living-graph animateTransform{
+    display:none;
+  }
+}
+
+
+/* v0.17.2 — runtime control integrity */
+.setting-status{display:block;margin-top:6px;color:rgba(184,148,88,.78);font-size:9px;line-height:1.35}
+.setting-disabled{opacity:.62}
+.setting-disabled .switch{cursor:not-allowed}
+
+
+/* v0.18.0 Phase 1 — governed adaptation pattern candidates */
+.adaptation-pattern-item{
+  display:grid;
+  gap:7px;
+  padding:13px 14px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:rgba(255,255,255,.012);
+}
+.adaptation-pattern-item+ .adaptation-pattern-item{
+  margin-top:9px;
+}
+.adaptation-pattern-item>div{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+.adaptation-pattern-item strong{
+  color:#ddd4c7;
+  font-size:12px;
+}
+.adaptation-pattern-item span{
+  color:#b89458;
+  font-size:9px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.adaptation-pattern-item p{
+  margin:0;
+  color:#cbc2b5;
+  font-size:11px;
+  line-height:1.45;
+}
+.adaptation-pattern-item small{
+  color:var(--muted);
+  font-size:9px;
+}
+
+
+/* v0.18.0 Phase 2 — adaptation pattern review */
+.adaptation-pattern-item.confirmed{
+  border-color:rgba(112,154,151,.28);
+}
+.adaptation-pattern-item.rejected{
+  opacity:.72;
+}
+.adaptation-pattern-item.rejected span{
+  color:rgba(224,164,164,.82);
+}
+
+
+/* v0.18.2 — clear optional reflection guidance */
+.reflection-detail summary{
+  display:grid;
+  gap:5px;
+  align-items:start;
+}
+.reflection-detail summary span{
+  color:#ddd4c7;
+  font-size:13px;
+}
+.reflection-detail summary small{
+  max-width:34rem;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:400;
+  line-height:1.45;
+}
+.reflection-detail-intro{
+  padding:13px 14px;
+  border:1px solid rgba(184,148,88,.18);
+  border-radius:15px;
+  background:rgba(184,148,88,.035);
+}
+.reflection-detail-intro strong{
+  display:block;
+  color:#ddd4c7;
+  font-size:11px;
+  line-height:1.5;
+}
+.reflection-detail-intro p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+.structured-reflection label{
+  display:grid;
+  gap:7px;
+}
+.structured-reflection .field-note{
+  margin:0;
+}
+
+
+/* v0.18.3 — confirmed adaptation defaults remain subordinate to person choice */
+.guidance-recommendation small{
+  display:block;
+}
+
+
+/* v0.18.5 — inline alternative-choice continuation */
+.choice-reason-panel{
+  display:grid;
+  gap:12px;
+  margin-top:14px;
+  padding:14px;
+  border:1px solid rgba(184,148,88,.22);
+  border-radius:16px;
+  background:rgba(184,148,88,.04);
+  scroll-margin-top:calc(env(safe-area-inset-top) + 24px);
+  scroll-margin-bottom:calc(120px + env(safe-area-inset-bottom));
+}
+.choice-reason-panel label{
+  display:grid;
+  gap:6px;
+}
+.choice-reason-panel label span{
+  color:#ddd4c7;
+  font-size:12px;
+}
+.choice-reason-panel label small{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+.choice-reason-panel textarea{
+  width:100%;
+  box-sizing:border-box;
+}
+.choice-reason-panel>div{
+  display:grid;
+  gap:8px;
+}
+.choice-reason-panel .action{
+  margin:0;
+}
+
+
+/* v0.18.6 — suspended confirmed-default review */
+.adaptation-pattern-item.review-required{
+  border-color:rgba(181,92,92,.34);
+}
+.adaptation-pattern-item.review-required>div>span{
+  color:rgba(224,164,164,.9);
+}
+.confirmed-default-health{
+  display:grid;
+  gap:6px;
+  padding:11px 12px;
+  border:1px solid rgba(184,148,88,.16);
+  border-radius:13px;
+  background:rgba(184,148,88,.025);
+}
+.review-required .confirmed-default-health{
+  border-color:rgba(181,92,92,.22);
+  background:rgba(181,92,92,.035);
+}
+.confirmed-default-health strong{
+  color:#ddd4c7;
+  font-size:10px;
+}
+.confirmed-default-health p{
+  margin:0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+.confirmed-default-health details{
+  margin-top:3px;
+}
+.confirmed-default-health summary{
+  color:#cbbca7;
+  font-size:9px;
+}
+.confirmed-default-health ul{
+  display:grid;
+  gap:5px;
+  margin:8px 0 0;
+  padding:0;
+  list-style:none;
+}
+.confirmed-default-health li{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:var(--muted);
+  font-size:9px;
+}
+.confirmed-default-health li strong{
+  font-weight:500;
+}
+
+
+/* v0.18.7 — Journey adaptation provenance */
+.journey-adaptation{
+  margin-top:10px;
+  padding-top:9px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.journey-adaptation summary{
+  color:#cbbca7;
+  font-size:10px;
+}
+.journey-adaptation>div{
+  display:grid;
+  gap:7px;
+  padding-top:8px;
+}
+.journey-adaptation p{
+  margin:0;
+  color:#cbc2b5;
+  font-size:10px;
+  line-height:1.45;
+}
+.journey-adaptation small,
+.journey-choice{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+.journey-adaptation ul{
+  display:grid;
+  gap:6px;
+  margin:2px 0 0;
+  padding:0;
+  list-style:none;
+}
+.journey-adaptation li{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:2px 10px;
+  padding:8px 9px;
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:10px;
+}
+.journey-adaptation li span{
+  color:#d8cfc2;
+  font-size:10px;
+}
+.journey-adaptation li strong{
+  color:#d4b06f;
+  font-size:10px;
+  font-weight:500;
+}
+.journey-adaptation li small{
+  grid-column:1/-1;
+}
+.journey-choice{
+  display:block;
+  margin-top:9px;
+}
+
+
+/* v0.18.8 — adaptation accountability audit trace */
+.adaptation-audit-item{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(255,255,255,.012);
+}
+.adaptation-audit-item+ .adaptation-audit-item{
+  margin-top:8px;
+}
+.adaptation-audit-item.review-required{
+  border-color:rgba(181,92,92,.28);
+}
+.adaptation-audit-item summary{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 13px;
+  color:#d8cfc2;
+  font-size:10px;
+}
+.adaptation-audit-item summary strong{
+  color:#b89458;
+  font-size:9px;
+  font-weight:500;
+  text-transform:uppercase;
+}
+.adaptation-audit-item>div{
+  display:grid;
+  gap:7px;
+  padding:0 13px 13px;
+}
+.adaptation-audit-item p,
+.adaptation-audit-item small{
+  margin:0;
+  color:var(--muted);
+  font-size:9px;
+}
+.adaptation-audit-item ol{
+  display:grid;
+  gap:8px;
+  margin:4px 0 0;
+  padding:0;
+  list-style:none;
+}
+.adaptation-audit-item li{
+  display:grid;
+  grid-template-columns:44px 1fr;
+  gap:8px;
+}
+.adaptation-audit-item time{
+  color:#8d857a;
+  font-size:8px;
+}
+.adaptation-audit-item li div{
+  display:grid;
+  gap:2px;
+}
+.adaptation-audit-item li strong{
+  color:#d8cfc2;
+  font-size:9px;
+  font-weight:500;
+}
+.adaptation-audit-item li span{
+  color:var(--muted);
+  font-size:8px;
+  line-height:1.4;
+}
+
+
+/* v0.18.9 — reconfirmation integrity */
+.reconfirmation-gate{
+  display:block;
+  grid-column:1/-1;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+.adaptation-pattern-item .insight-actions button:disabled{
+  opacity:.42;
+  cursor:not-allowed;
+}
+
+/* v0.19.0 Phase 1 — Practice contract */
+.practice-contract{margin:14px 0;border:1px solid rgba(184,148,88,.18);border-radius:15px;background:rgba(184,148,88,.028)}
+.practice-contract>summary{padding:12px 13px;color:#d8cfc2;font-size:10px}
+.practice-contract>div{display:grid;gap:11px;padding:0 13px 13px}
+.contract-intention{margin:0;color:#ddd4c7;font-size:11px;line-height:1.5}
+.practice-contract dl{display:grid;gap:9px;margin:0}
+.practice-contract dl>div{display:grid;gap:3px}
+.practice-contract dt{color:#a99a87;font-size:8px;letter-spacing:.08em;text-transform:uppercase}
+.practice-contract dd{margin:0;color:#cbc2b5;font-size:10px;line-height:1.45}
+.practice-contract small{color:var(--muted);font-size:9px;line-height:1.45}
+.practice-contract details details{padding-top:4px;border-top:1px solid rgba(255,255,255,.05)}
+.practice-contract details details summary{color:#bfb2a1;font-size:9px}
+.practice-contract ul{display:grid;gap:6px;margin:8px 0 0;padding-left:16px}
+.practice-contract li{color:var(--muted);font-size:9px;line-height:1.45}
+.resume-contract{display:block;color:var(--muted);font-size:9px;line-height:1.45}
+
+
+/* v0.19.0 Phase 2 — Practice contract resolution */
+.reflection-contract{
+  display:grid;
+  gap:5px;
+  padding:12px 13px;
+  border:1px solid rgba(184,148,88,.16);
+  border-radius:14px;
+  background:rgba(184,148,88,.025);
+}
+.reflection-contract strong{
+  color:#ddd4c7;
+  font-size:11px;
+  line-height:1.45;
+}
+.reflection-contract small{
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+.journey-contract-outcome{
+  margin-top:9px;
+  padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.journey-contract-outcome summary{
+  color:#cbbca7;
+  font-size:10px;
+}
+.journey-contract-outcome>div{
+  display:grid;
+  gap:4px;
+  padding-top:7px;
+}
+.journey-contract-outcome strong{
+  color:#d4b06f;
+  font-size:9px;
+  text-transform:uppercase;
+}
+.journey-contract-outcome p,
+.journey-contract-outcome small{
+  margin:0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+
+
+/* v0.19.0 Phase 3 — Practice contract calibration candidates */
+.contract-calibration-item{
+  display:grid;
+  gap:7px;
+  padding:12px 13px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(255,255,255,.012);
+}
+.contract-calibration-item+ .contract-calibration-item{
+  margin-top:8px;
+}
+.contract-calibration-item>div{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+.contract-calibration-item strong{
+  color:#d8cfc2;
+  font-size:10px;
+}
+.contract-calibration-item>div span{
+  color:#b89458;
+  font-size:8px;
+  text-transform:uppercase;
+}
+.contract-calibration-item p,
+.contract-calibration-item small{
+  margin:0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+.contract-calibration-item details{
+  padding-top:4px;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.contract-calibration-item summary{
+  color:#cbbca7;
+  font-size:9px;
+}
+.contract-calibration-audit-item{
+  border:1px solid var(--line);
+  border-radius:13px;
+}
+.contract-calibration-audit-item+ .contract-calibration-audit-item{
+  margin-top:8px;
+}
+.contract-calibration-audit-item summary{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 12px;
+  color:#d8cfc2;
+  font-size:9px;
+}
+.contract-calibration-audit-item summary strong{
+  color:#b89458;
+  font-size:8px;
+  text-transform:uppercase;
+}
+.contract-calibration-audit-item>div{
+  display:grid;
+  gap:5px;
+  padding:0 12px 12px;
+}
+.contract-calibration-audit-item p,
+.contract-calibration-audit-item small{
+  margin:0;
+  color:var(--muted);
+  font-size:8px;
+  line-height:1.45;
+}
+
+
+/* v0.19.0 Phase 5 — person-authorised contract revision */
+.contract-revision-item{
+  display:grid;
+  gap:7px;
+  padding:12px 13px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(255,255,255,.012);
+}
+.contract-revision-item+ .contract-revision-item{margin-top:8px}
+.contract-revision-item.accepted{border-color:rgba(184,148,88,.28)}
+.contract-revision-item>div:first-child{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+.contract-revision-item strong{color:#d8cfc2;font-size:10px}
+.contract-revision-item>div:first-child span{
+  color:#b89458;
+  font-size:8px;
+  text-transform:uppercase;
+}
+.contract-revision-item p{
+  margin:0;
+  color:#cbc2b5;
+  font-size:9px;
+  line-height:1.45;
+}
+.contract-revision-item small{
+  color:var(--muted);
+  font-size:8px;
+  line-height:1.45;
+}
+
+
+/* v0.20.0 Phase 1 — Practice dose evidence */
+.practice-dose-item{
+  display:grid;
+  gap:7px;
+  padding:12px 13px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(255,255,255,.012);
+}
+.practice-dose-item+ .practice-dose-item{margin-top:8px}
+.practice-dose-item>div{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+.practice-dose-item strong{color:#d8cfc2;font-size:10px}
+.practice-dose-item>div span{
+  color:#b89458;
+  font-size:8px;
+  text-transform:uppercase;
+}
+.practice-dose-item p,
+.practice-dose-item small{
+  margin:0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+.practice-dose-item details{
+  padding-top:4px;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.practice-dose-item summary{color:#cbbca7;font-size:9px}
+.practice-dose-audit-item{
+  border:1px solid var(--line);
+  border-radius:13px;
+}
+.practice-dose-audit-item+ .practice-dose-audit-item{margin-top:8px}
+.practice-dose-audit-item summary{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 12px;
+  color:#d8cfc2;
+  font-size:9px;
+}
+.practice-dose-audit-item summary strong{
+  color:#b89458;
+  font-size:8px;
+  text-transform:uppercase;
+}
+.practice-dose-audit-item>div{
+  display:grid;
+  gap:5px;
+  padding:0 12px 12px;
+}
+.practice-dose-audit-item p,
+.practice-dose-audit-item small{
+  margin:0;
+  color:var(--muted);
+  font-size:8px;
+  line-height:1.45;
+}
+
+
+/* v0.20.0 Phase 3 — person-authorised duration proposal */
+.practice-dose-revision-item{
+  display:grid;
+  gap:7px;
+  padding:12px 13px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:rgba(255,255,255,.012);
+}
+.practice-dose-revision-item+ .practice-dose-revision-item{margin-top:8px}
+.practice-dose-revision-item.accepted{border-color:rgba(184,148,88,.28)}
+.practice-dose-revision-item>div:first-child{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+.practice-dose-revision-item strong{color:#d8cfc2;font-size:10px}
+.practice-dose-revision-item>div:first-child span{
+  color:#b89458;
+  font-size:8px;
+  text-transform:uppercase;
+}
+.practice-dose-revision-item p{
+  margin:0;
+  color:#cbc2b5;
+  font-size:10px;
+  line-height:1.45;
+}
+.practice-dose-revision-item small{
+  color:var(--muted);
+  font-size:8px;
+  line-height:1.45;
+}
+
+
+/* v0.20.0 Phase 4 — accepted duration outcome accountability */
+.practice-dose-revision-item.review-required{
+  border-color:rgba(184,148,88,.34);
+  background:rgba(184,148,88,.025);
+}
+.journey-dose-revision{
+  margin-top:9px;
+  padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.journey-dose-revision summary{
+  color:#cbbca7;
+  font-size:10px;
+}
+.journey-dose-revision>div{
+  display:grid;
+  gap:4px;
+  padding-top:7px;
+}
+.journey-dose-revision strong{
+  color:#d4b06f;
+  font-size:9px;
+}
+.journey-dose-revision p,
+.journey-dose-revision small{
+  margin:0;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.45;
+}
+
+
+/* v0.21.0 Phase 1 — Practice Library foundation */
+.practice-library>p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}
+.practice-library-item{
+  border:1px solid var(--line);
+  border-radius:13px;
+}
+.practice-library-item+ .practice-library-item{margin-top:8px}
+.practice-library-item summary{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 12px;
+  color:#d8cfc2;
+  font-size:10px;
+}
+.practice-library-item summary strong{
+  color:#b89458;
+  font-size:8px;
+  text-transform:uppercase;
+}
+.practice-library-item>div{
+  display:grid;
+  gap:5px;
+  padding:0 12px 12px;
+}
+.practice-library-item p,
+.practice-library-item small{
+  margin:0;
+  color:var(--muted);
+  font-size:8px;
+  line-height:1.45;
+}
+.practice-library-audit-item{
+  display:grid;
+  gap:5px;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+}
+.practice-library-audit-item+ .practice-library-audit-item{margin-top:7px}
+.practice-library-audit-item>div{display:flex;justify-content:space-between;gap:12px}
+.practice-library-audit-item strong{color:#d8cfc2;font-size:9px}
+.practice-library-audit-item span{color:#b89458;font-size:8px;text-transform:uppercase}
+.practice-library-audit-item small{color:var(--muted);font-size:8px;line-height:1.45}
+
+
+/* v0.21.0 Phase 2 — contextual Practice eligibility */
+.practice-eligibility{
+  display:grid;
+  gap:4px;
+  padding:10px 12px;
+  border:1px solid rgba(184,148,88,.22);
+  border-radius:13px;
+  background:rgba(184,148,88,.02);
+}
+.practice-eligibility strong{color:#d4b06f;font-size:9px;text-transform:uppercase}
+.practice-eligibility span,.practice-eligibility small{color:var(--muted);font-size:8px;line-height:1.45}
+.practice-eligibility-item{
+  display:grid;
+  gap:6px;
+  padding:11px 12px;
+  border:1px solid var(--line);
+  border-radius:13px;
+}
+.practice-eligibility-item+ .practice-eligibility-item{margin-top:8px}
+.practice-eligibility-item.blocked{border-color:rgba(184,148,88,.32)}
+.practice-eligibility-item>div{display:flex;justify-content:space-between;gap:12px}
+.practice-eligibility-item strong{color:#d8cfc2;font-size:9px}
+.practice-eligibility-item span{color:#b89458;font-size:8px;text-transform:uppercase}
+.practice-eligibility-item p,.practice-eligibility-item li,.practice-eligibility-item small{color:var(--muted);font-size:8px;line-height:1.45}
+.practice-eligibility-item p{margin:0}
+.practice-eligibility-item ul{margin:0;padding-left:16px}
+.practice-eligibility-audit-item{border:1px solid var(--line);border-radius:12px}
+.practice-eligibility-audit-item+ .practice-eligibility-audit-item{margin-top:7px}
+.practice-eligibility-audit-item summary{display:flex;justify-content:space-between;gap:12px;padding:10px 11px;color:#d8cfc2;font-size:9px}
+.practice-eligibility-audit-item summary strong{color:#b89458;font-size:8px;text-transform:uppercase}
+.practice-eligibility-audit-item>div{display:grid;gap:5px;padding:0 11px 11px}
+.practice-eligibility-audit-item p,.practice-eligibility-audit-item small{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+
+
+/* v0.21.0 Phase 3 — governed eligibility exclusion */
+.eligibility-exclusions{
+  margin-top:9px;
+  padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.eligibility-exclusions summary{color:#cbbca7;font-size:9px}
+.eligibility-exclusions p,.eligibility-exclusions small{
+  margin:6px 0 0;color:var(--muted);font-size:8px;line-height:1.45
+}
+
+
+/* v0.21.0 Phase 4 — Practice content provenance */
+.journey-practice-content{
+  margin-top:9px;
+  padding-top:8px;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.journey-practice-content summary{color:#cbbca7;font-size:10px}
+.journey-practice-content>div{display:grid;gap:4px;padding-top:7px}
+.journey-practice-content strong{color:#d4b06f;font-size:9px}
+.journey-practice-content p,.journey-practice-content small{
+  margin:0;color:var(--muted);font-size:8px;line-height:1.45
+}
+.practice-content-audit-item{border:1px solid var(--line);border-radius:12px}
+.practice-content-audit-item+ .practice-content-audit-item{margin-top:7px}
+.practice-content-audit-item summary{
+  display:flex;justify-content:space-between;gap:12px;padding:10px 11px;color:#d8cfc2;font-size:9px
+}
+.practice-content-audit-item summary strong{color:#b89458;font-size:8px;text-transform:uppercase}
+.practice-content-audit-item>div{display:grid;gap:5px;padding:0 11px 11px}
+.practice-content-audit-item p,.practice-content-audit-item small{
+  margin:0;color:var(--muted);font-size:8px;line-height:1.45
+}
+
+
+/* v0.22.0 Phase 1 — progressive Human Model foundation */
+.human-model-foundation>p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}
+.human-model-foundation>small{color:var(--muted);font-size:8px;line-height:1.45}
+.human-model-dimensions{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.human-model-dimensions article{display:grid;gap:5px;padding:9px 10px;border:1px solid var(--line);border-radius:12px}
+.human-model-dimensions article>div{display:flex;justify-content:space-between;gap:8px}
+.human-model-dimensions strong{color:#d8cfc2;font-size:8px;text-transform:uppercase}
+.human-model-dimensions span{color:#b89458;font-size:8px}
+.human-model-dimensions small{color:var(--muted);font-size:7px;line-height:1.4}
+.human-model-dimensions article.unknown{opacity:.72}
+.human-model-evidence{border:1px solid var(--line);border-radius:12px}
+.human-model-evidence summary{padding:10px 11px;color:#cbbca7;font-size:9px}
+.human-model-evidence>div{display:grid;gap:5px;padding:0 11px 11px}
+.human-model-evidence p{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+.human-model-evidence p.eyebrow{margin-top:5px;color:#b89458}
+.human-model-audit-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.human-model-audit-grid article{display:grid;gap:3px;padding:10px;border:1px solid var(--line);border-radius:12px}
+.human-model-audit-grid strong{color:#d4b06f;font-size:14px}
+.human-model-audit-grid span{color:var(--muted);font-size:8px}
+
+
+/* v0.22.0 Phase 2 — person review of Human Model evidence */
+.human-model-evidence-item{
+  display:grid;gap:6px;padding:9px 10px;border:1px solid var(--line);border-radius:11px
+}
+.human-model-evidence-item+ .human-model-evidence-item{margin-top:6px}
+.human-model-evidence-item.rejected{opacity:.72}
+.human-model-evidence-item>div:first-child{display:flex;justify-content:space-between;gap:10px}
+.human-model-evidence-item strong{color:#d8cfc2;font-size:8px}
+.human-model-evidence-item span{color:#b89458;font-size:7px;text-transform:uppercase}
+.human-model-evidence-item p,.human-model-evidence-item small{margin:0;color:var(--muted);font-size:8px;line-height:1.4}
+.human-model-correction-target{
+  display:grid;gap:4px;padding:11px 12px;border:1px solid var(--line);border-radius:12px
+}
+.human-model-correction-target strong{color:#d8cfc2;font-size:11px}
+.human-model-correction-target small{color:var(--muted);font-size:8px}
+
+
+/* v0.22.0 Phase 3 — Human Model deliberation evidence boundary */
+.judgement-human-model,
+.journey-human-model-snapshot{
+  margin-top:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05)
+}
+.judgement-human-model summary,
+.journey-human-model-snapshot summary{color:#cbbca7;font-size:9px}
+.judgement-human-model>div,
+.journey-human-model-snapshot>div{display:grid;gap:5px;padding-top:7px}
+.judgement-human-model strong,
+.journey-human-model-snapshot strong{color:#d4b06f;font-size:9px}
+.judgement-human-model p,.judgement-human-model small,
+.journey-human-model-snapshot p,.journey-human-model-snapshot small{
+  margin:0;color:var(--muted);font-size:8px;line-height:1.45
+}
+.human-model-snapshot-audit>p,.human-model-snapshot-audit>small{
+  margin:0;color:var(--muted);font-size:8px;line-height:1.45
+}
+
+
+/* v0.22.0 Phase 4 — person-authorised stable fact promotion */
+.human-model-promotion{display:grid;gap:6px;padding:10px 11px;border:1px solid var(--line);border-radius:12px}
+.human-model-promotion+ .human-model-promotion{margin-top:7px}
+.human-model-promotion.promoted{border-color:rgba(184,148,88,.28)}
+.human-model-promotion.rejected{opacity:.72}
+.human-model-promotion>div:first-child{display:flex;justify-content:space-between;gap:10px}
+.human-model-promotion strong{color:#d8cfc2;font-size:8px}
+.human-model-promotion span{color:#b89458;font-size:7px;text-transform:uppercase}
+.human-model-promotion p,.human-model-promotion small{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+
+.judgement-safety-envelope,.journey-safety-envelope{margin-top:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05)}
+.judgement-safety-envelope summary,.journey-safety-envelope summary{color:#cbbca7;font-size:9px}
+.judgement-safety-envelope>div,.journey-safety-envelope>div{display:grid;gap:5px;padding-top:7px}
+.judgement-safety-envelope strong,.journey-safety-envelope strong{color:#d4b06f;font-size:9px}
+.judgement-safety-envelope p,.judgement-safety-envelope small,.judgement-safety-envelope li,.journey-safety-envelope p,.journey-safety-envelope small{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+.judgement-safety-envelope ul{margin:0;padding-left:16px}
+
+.safety-acknowledgement{display:grid;gap:5px;padding:9px 10px;border:1px solid var(--line);border-radius:11px}
+.safety-acknowledgement.pending{border-color:rgba(184,148,88,.32)}
+.safety-acknowledgement.complete{opacity:.78}
+.safety-acknowledgement strong{color:#d4b06f;font-size:8px;text-transform:uppercase}
+.safety-acknowledgement p,.safety-start-gate{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+.safety-acknowledgement button{justify-self:start}
+
+
+/* v0.23.0 Phase 3 — runtime safety interruption */
+.practice-header-actions{display:flex;align-items:center;gap:8px}
+.runtime-safety-trigger{font-size:8px;color:#d4b06f}
+.runtime-safety-panel{display:grid;gap:8px;padding:12px;border:1px solid rgba(184,148,88,.35);border-radius:13px;background:rgba(184,148,88,.035)}
+.runtime-safety-panel h3,.runtime-safety-panel p{margin:0}
+.runtime-safety-panel h3{color:#d8cfc2;font-size:12px}
+.runtime-safety-panel p{color:var(--muted);font-size:9px;line-height:1.5}
+.runtime-safety-actions{display:grid;gap:7px}
+.journey-runtime-safety{margin-top:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05)}
+.journey-runtime-safety summary{color:#cbbca7;font-size:9px}
+.journey-runtime-safety>div{display:grid;gap:5px;padding-top:7px}
+.journey-runtime-safety strong{color:#d4b06f;font-size:9px}
+.journey-runtime-safety p,.journey-runtime-safety small{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+
+
+/* v0.24.0 Phase 1 — canonical Explain Engine record */
+.judgement-explain-record,.journey-explain-record{
+  margin-top:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05)
+}
+.judgement-explain-record summary,.journey-explain-record summary{color:#cbbca7;font-size:9px}
+.judgement-explain-record>div,.journey-explain-record>div{display:grid;gap:5px;padding-top:7px}
+.judgement-explain-record strong,.journey-explain-record strong{color:#d4b06f;font-size:9px}
+.judgement-explain-record p,.judgement-explain-record small,
+.journey-explain-record p,.journey-explain-record small{
+  margin:0;color:var(--muted);font-size:8px;line-height:1.45
+}
+.explain-record-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.explain-record-grid article{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid var(--line);border-radius:11px}
+.explain-record-grid strong{color:#d8cfc2;font-size:8px}
+.explain-record-grid span{color:#b89458;font-size:9px}
+.canonical-explain-record>details{border:1px solid var(--line);border-radius:12px}
+.canonical-explain-record>details>summary{padding:10px 11px;color:#cbbca7;font-size:9px}
+.explain-record-details{display:grid;gap:5px;padding:0 11px 11px}
+.explain-record-details p{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+.explain-record-details p.eyebrow{margin-top:5px;color:#b89458}
+.explain-record-details small{color:#8f887e;font-size:7px}
+
+.judgement-explain-record,.journey-explain-record{margin-top:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05)}
+.judgement-explain-record summary,.journey-explain-record summary{color:#cbbca7;font-size:9px}
+.judgement-explain-record>div,.journey-explain-record>div{display:grid;gap:5px;padding-top:7px}
+.judgement-explain-record strong,.journey-explain-record strong{color:#d4b06f;font-size:9px}
+.judgement-explain-record p,.judgement-explain-record small,.journey-explain-record p,.journey-explain-record small{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+.explain-record-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.explain-record-grid article{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid var(--line);border-radius:11px}
+.explain-record-grid strong{color:#d8cfc2;font-size:8px}.explain-record-grid span{color:#b89458;font-size:9px}
+.canonical-explain-record>details{border:1px solid var(--line);border-radius:12px}.canonical-explain-record>details>summary{padding:10px 11px;color:#cbbca7;font-size:9px}
+.explain-record-details{display:grid;gap:5px;padding:0 11px 11px}.explain-record-details p{margin:0;color:var(--muted);font-size:8px;line-height:1.45}.explain-record-details p.eyebrow{margin-top:5px;color:#b89458}.explain-record-details small{color:#8f887e;font-size:7px}
+
+.explain-review{display:grid;gap:7px;padding:10px 11px;border:1px solid var(--line);border-radius:12px}
+.explain-review label{display:grid;gap:5px}
+.explain-review textarea{width:100%;min-height:72px;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025);color:#d8cfc2;font:inherit;resize:vertical}
+.explain-review p,.explain-review small{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+
+
+/* v0.24.1 — frozen footer and Understanding navigation repair */
+:root{--strategos-fixed-footer-height:72px}
+html,body{min-height:100%;overflow-x:hidden}
+body{padding-bottom:calc(var(--strategos-fixed-footer-height) + env(safe-area-inset-bottom)) !important}
+#app,main{padding-bottom:calc(var(--strategos-fixed-footer-height) + 22px + env(safe-area-inset-bottom)) !important}
+
+body #app .tabbar{
+  position:fixed !important;
+  inset:auto 0 0 0 !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  transform:none !important;
+  margin:0 !important;
+  width:100vw !important;
+  max-width:100vw !important;
+  height:calc(var(--strategos-fixed-footer-height) + env(safe-area-inset-bottom)) !important;
+  min-height:calc(var(--strategos-fixed-footer-height) + env(safe-area-inset-bottom)) !important;
+  padding:0 max(8px,env(safe-area-inset-right)) env(safe-area-inset-bottom) max(8px,env(safe-area-inset-left)) !important;
+  box-sizing:border-box !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  align-items:stretch !important;
+  overflow:hidden !important;
+  border-radius:0 !important;
+  border:0 !important;
+  border-top:1px solid rgba(184,148,88,.16) !important;
+  background:rgba(5,5,5,.985) !important;
+  box-shadow:0 -8px 22px rgba(0,0,0,.32) !important;
+  z-index:2147483646 !important;
+  isolation:isolate;
+  contain:layout paint;
+}
+body #app .tabbar button{
+  position:relative !important;
+  display:flex !important;
+  width:100% !important;
+  min-width:0 !important;
+  height:var(--strategos-fixed-footer-height) !important;
+  margin:0 !important;
+  padding:8px 2px 7px !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:4px !important;
+  pointer-events:auto !important;
+  touch-action:manipulation;
+}
+.understanding-recovery{padding-bottom:calc(var(--strategos-fixed-footer-height) + 24px)}
+
+
+/* v0.25.0 Phase 1 — voluntary emotional journal */
+.emotional-journal-journey{
+  display:grid;gap:10px;padding:14px 13px;border:1px solid var(--line);border-radius:16px
+}
+.emotional-journal-list{display:grid;gap:8px}
+.emotional-journal-list article{
+  display:grid;gap:6px;padding:10px 11px;border-top:1px solid var(--line)
+}
+.emotional-journal-list article>div{display:flex;justify-content:space-between;gap:10px}
+.emotional-journal-list time{color:#b89458;font-size:8px}
+.emotional-journal-list button{border:0;background:none;color:#cbbca7;font-size:8px}
+.emotional-journal-list p,.emotional-journal-list small{margin:0;color:var(--muted);font-size:8px;line-height:1.5}
+.emotional-journal-editor label{display:grid;gap:7px}
+.emotional-journal-editor label>span{color:#cbbca7;font-size:9px}
+.emotional-journal-editor textarea{
+  width:100%;min-height:220px;box-sizing:border-box;padding:13px;border:1px solid var(--line);
+  border-radius:14px;background:rgba(255,255,255,.025);color:#ded7cb;font:inherit;line-height:1.55;resize:vertical
+}
+.emotional-journal-editor>small{color:var(--muted);font-size:8px;line-height:1.5}
+.emotional-journal-actions{display:grid;gap:8px}
+
+.emotional-theme-picker{display:grid;gap:8px;padding:11px;border:1px solid var(--line);border-radius:13px}
+.emotional-theme-picker>div{display:flex;flex-wrap:wrap;gap:7px}
+.emotional-theme-picker .pill{font-size:8px;padding:8px 10px}
+.emotional-evolution,.emotional-evolution-understanding{display:grid;gap:9px;padding:13px;border:1px solid var(--line);border-radius:15px}
+.emotional-evolution-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.emotional-evolution-grid article{display:flex;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid var(--line);border-radius:11px}
+.emotional-evolution-grid strong{color:#d8cfc2;font-size:8px}
+.emotional-evolution-grid span{color:#b89458;font-size:9px}
+.emotional-evolution small,.emotional-evolution-understanding small{color:var(--muted);font-size:8px;line-height:1.45}
+
+.emotional-follow-up-editor,.emotional-follow-up-summary,.emotional-follow-up-understanding{display:grid;gap:9px;padding:11px;border:1px solid var(--line);border-radius:13px}
+.emotional-follow-up-editor>div:last-child{display:flex;flex-wrap:wrap;gap:7px}
+.emotional-follow-up-editor .pill{font-size:8px;padding:8px 10px}
+.emotional-follow-up-editor label{display:grid;gap:5px}
+.emotional-follow-up-editor textarea{width:100%;min-height:68px;padding:9px 10px;box-sizing:border-box;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.025);color:#d8cfc2;font:inherit;resize:vertical}
+.emotional-follow-up-current{display:grid;gap:6px}
+.emotional-follow-up-current strong{color:#d4b06f;font-size:9px}
+.emotional-follow-up-current p{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+.emotional-follow-up-status{display:grid;gap:3px;padding:7px 8px;border:1px solid rgba(184,148,88,.18);border-radius:9px}
+.emotional-follow-up-status strong{color:#d4b06f;font-size:8px}
+.emotional-follow-up-status span{color:var(--muted);font-size:7px;line-height:1.4}
+.emotional-follow-up-summary small,.emotional-follow-up-understanding small{color:var(--muted);font-size:8px;line-height:1.45}
+
+.personal-evidence-today,.personal-evidence-understanding,.personal-evidence-journey{display:grid;gap:10px;padding:13px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.015)}
+.personal-evidence-today{grid-template-columns:1fr auto;align-items:start}
+.personal-evidence-today h3,.personal-evidence-today p{margin:0}
+.personal-evidence-today p{margin-top:5px;color:var(--muted);font-size:8px;line-height:1.5}
+.personal-evidence-today>span{color:#d4b06f;font-size:18px;font-weight:600}
+.personal-evidence-today>small{grid-column:1/-1;color:var(--muted);font-size:7px;line-height:1.4}
+.personal-evidence-grid{display:grid;gap:8px}
+.personal-evidence-grid article{display:grid;gap:6px;padding:10px 11px;border:1px solid var(--line);border-radius:12px}
+.personal-evidence-grid article>div{display:flex;justify-content:space-between;gap:10px}
+.personal-evidence-grid strong{color:#d8cfc2;font-size:9px}
+.personal-evidence-grid span{color:#d4b06f;font-size:9px}
+.personal-evidence-grid p,.personal-evidence-grid small,.personal-evidence-understanding>small,.personal-evidence-journey>small{margin:0;color:var(--muted);font-size:8px;line-height:1.45}
+.personal-evidence-grid article.insufficient{opacity:.72}
+
+/* v0.28 — explicit belief review */
+.belief-grid{display:grid;gap:12px}.belief-grid article{padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}.belief-grid article>div:first-child{display:flex;justify-content:space-between;gap:12px;align-items:center}.belief-grid article span{text-transform:uppercase;font-size:.7rem;letter-spacing:.08em}.belief-grid article.confirmed{border-color:color-mix(in srgb,var(--ink) 36%,var(--line))}.belief-grid article.rejected{opacity:.68}.belief-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.belief-actions button{border:1px solid var(--line);border-radius:999px;background:transparent;padding:8px 12px;color:inherit}
+
+
+/* v0.29.0 progressive profile */
+.profile-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}.profile-form label{display:flex;flex-direction:column;gap:7px}.profile-form label span{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.profile-form input,.profile-form select,.profile-form textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--text);padding:13px;font:inherit}.profile-form textarea{resize:vertical}.profile-form .profile-wide{grid-column:1/-1}.profile-settings h3{line-height:1.35}@media(max-width:560px){.profile-form{grid-template-columns:1fr}.profile-form .profile-wide{grid-column:auto}}
+
+.signal-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.35rem}.signal-panel-head small{display:block;max-width:28rem;color:var(--muted);line-height:1.45}.signal-panel-head .text-btn{margin:0;padding:.25rem 0;white-space:nowrap}
+
+
+.daily-orientation,.checkin-trajectory{border:1px solid rgba(255,255,255,.11);border-radius:24px;padding:20px;background:rgba(255,255,255,.035);display:grid;gap:9px}
+.daily-orientation h3,.checkin-trajectory h3{margin:0;font-size:1.18rem}
+.daily-orientation p,.checkin-trajectory p{margin:0;line-height:1.55}
+.daily-orientation.protect{border-color:rgba(255,255,255,.18)}
+.daily-orientation.advance{background:rgba(255,255,255,.055)}
+.orientation-evidence{display:grid;gap:4px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.045)}
+.orientation-evidence span{font-size:.9rem;line-height:1.45}
+
+/* v0.32 Daily Story */
+.daily-story-hero{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:rgba(255,255,255,.025)}
+.daily-story-hero h3{margin:2px 0 0;font-size:1rem;font-weight:540}.daily-story-hero>span{font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.daily-story-timeline{display:grid;gap:12px;margin:18px 0;padding:18px;border:1px solid rgba(255,255,255,.1);border-radius:24px;background:rgba(255,255,255,.025)}
+.daily-story-day{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid rgba(255,255,255,.07)}.daily-story-day:first-of-type{border-top:0}.daily-story-day time,.daily-story-day small,.daily-story-day>span{font-size:.7rem;color:var(--muted)}.daily-story-day div{display:grid;gap:3px}.daily-story-day>span{text-transform:uppercase;letter-spacing:.08em}.daily-story-day.complete>span{color:var(--text)}
+
+/* v0.33 Morning Experience */
+.morning-focus{display:grid;gap:16px;padding:24px 20px;border:1px solid rgba(212,176,111,.22);border-radius:28px;background:radial-gradient(circle at 50% 0,rgba(184,148,88,.13),transparent 48%),rgba(255,255,255,.018)}
+.morning-focus-copy{display:grid;gap:7px}.morning-focus h1{margin:0;max-width:19ch;font-family:Georgia,serif;font-size:clamp(1.65rem,7vw,2.35rem);font-weight:400;line-height:1.08}.morning-salutation{order:-1;margin:0;color:var(--muted);font-size:.78rem}.morning-progress{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px}.morning-progress>span{height:2px;background:linear-gradient(90deg,#c8a568 var(--morning-progress),rgba(255,255,255,.1) var(--morning-progress));border-radius:99px}.morning-progress small{color:var(--muted);font-size:.66rem}.morning-primary{min-height:52px}.morning-why{border-top:1px solid var(--line);padding-top:12px}.morning-why summary{cursor:pointer;color:#d9c6a3;font-size:.78rem}.morning-why ul{display:grid;gap:8px;margin:12px 0 0;padding-left:18px;color:var(--muted);font-size:.76rem;line-height:1.45}.signal-panel-disclosure{padding-top:0;border-top:0}.signal-panel-disclosure>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;list-style:none;padding:16px;border:1px solid var(--line);border-radius:18px;cursor:pointer}.signal-panel-disclosure>summary::-webkit-details-marker{display:none}.signal-panel-disclosure>summary>span:first-child{display:grid;gap:4px}.signal-panel-disclosure>summary strong{font-size:.9rem}.signal-panel-disclosure>summary>span:last-child{color:#d4b06f;font-size:.72rem}.signal-panel-body{padding-top:18px}.signal-panel-disclosure[open]>summary{border-color:rgba(212,176,111,.28)}
+
+/* v0.34 — Focused Practice Experience */
+.practice-session-strip.focused{opacity:.78}
+.practice-focus{display:grid;justify-items:center;text-align:center;gap:.7rem;padding:1.1rem 0 .4rem}
+.practice-focus h2{font-size:clamp(2rem,8vw,3.6rem);margin:0;letter-spacing:-.035em}
+.practice-focus .clock{margin:.15rem 0;font-variant-numeric:tabular-nums}
+.practice-primary-cue{max-width:31rem;font-size:1.08rem;line-height:1.5;margin:.15rem auto 0;font-weight:650}
+.practice-focus small{max-width:28rem;color:var(--muted);line-height:1.45}
+.next-phase-card.quiet{opacity:.72;border-style:solid;background:transparent}
+.practice-guidance-card{margin-top:.8rem}
+.practice-guidance-card>.exercise-guide{margin-top:.45rem}
+@media (max-width:560px){.practice-focus{padding-top:.65rem}.practice-focus h2{font-size:2.25rem}.practice-primary-cue{font-size:1rem}.practice-guidance-card{padding:.8rem}}
+
+
+/* v0.35 — Evening Experience */
+.evening-invitation{display:grid;gap:14px;padding:18px;border:1px solid rgba(212,176,111,.2);border-radius:24px;background:linear-gradient(180deg,rgba(184,148,88,.07),rgba(255,255,255,.018))}
+.evening-invitation h3,.evening-invitation p{margin:0}.evening-invitation p:not(.eyebrow){margin-top:6px;color:var(--muted);font-size:.78rem;line-height:1.5}.evening-invitation.complete{opacity:.76}
+.evening-reflection-screen{min-height:72vh;align-content:center;gap:22px}.evening-reflection-heading{display:grid;gap:8px;text-align:center}.evening-reflection-heading h1{margin:0;font-family:Georgia,serif;font-size:clamp(2rem,9vw,3.2rem);font-weight:400;line-height:1.05}.evening-reflection-screen label{display:grid;gap:8px}.evening-reflection-screen label>span{color:#cbbca7;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}.evening-reflection-screen textarea{width:100%;min-height:150px;box-sizing:border-box;padding:16px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.025);color:var(--text);font:inherit;line-height:1.6;resize:vertical}.evening-reflection-actions{display:grid;gap:10px}.evening-reflection-screen>small{text-align:center;color:var(--muted);font-size:.68rem;line-height:1.45}
+
+.weekly-review-card{display:grid;gap:14px;margin:18px 0;padding:20px;border:1px solid rgba(255,255,255,.11);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.018))}
+.weekly-review-card>p{margin:0;line-height:1.55}
+.weekly-review-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.weekly-review-metrics article{display:grid;gap:4px;padding:12px;border-radius:16px;background:rgba(255,255,255,.04)}
+.weekly-review-metrics strong{font-size:1.35rem;font-weight:540}
+.weekly-review-metrics span{font-size:.72rem;color:var(--muted)}
+.weekly-review-preserved{display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.78rem;color:var(--muted)}
+@media(max-width:430px){.weekly-review-metrics{grid-template-columns:1fr}.weekly-review-metrics article{grid-template-columns:auto 1fr;align-items:baseline}}
+
+.weekly-direction-today{display:grid;gap:7px;margin:2px 0 14px;padding:17px 18px;border:1px solid rgba(255,255,255,.1);border-radius:21px;background:rgba(255,255,255,.025)}
+.weekly-direction-today h3,.weekly-direction-today p{margin:0}.weekly-direction-today small{color:var(--muted)}
+.weekly-intention{display:grid;gap:11px;padding-top:15px;border-top:1px solid rgba(255,255,255,.08)}
+.weekly-intention h3,.weekly-intention p{margin:0}.weekly-intention label{display:grid;gap:7px;font-size:.76rem;color:var(--muted)}
+.weekly-intention select,.weekly-intention input{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(0,0,0,.18);color:inherit;padding:12px 13px;font:inherit}
+.weekly-intention-actions{display:flex;gap:12px}
+
+
+/* v0.39.0 — Living Companion */
+.companion-presence{position:fixed;top:max(12px,env(safe-area-inset-top));left:calc(50% - 17px);z-index:35;width:34px;height:34px;pointer-events:none;opacity:.72}
+.companion-presence span,.living-companion-graph span{position:absolute;border:1px solid rgba(181,202,206,.32);border-radius:50%;inset:7px;animation:companion-breathe 5.8s ease-in-out infinite}
+.companion-presence span:nth-child(2),.living-companion-graph span:nth-child(2){inset:11px;animation-delay:-1.4s}.companion-presence span:nth-child(3),.living-companion-graph span:nth-child(3){inset:15px;animation-delay:-2.8s}
+.companion-presence i,.living-companion-graph i{position:absolute;left:50%;top:50%;width:4px;height:4px;border-radius:50%;background:currentColor;transform:translate(-50%,-50%);box-shadow:0 0 16px currentColor}
+@keyframes companion-breathe{0%,100%{transform:scale(.94);opacity:.38}50%{transform:scale(1.12);opacity:.9}}
+.living-companion-hero{min-height:calc(100svh - 150px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:72px 24px 36px;gap:18px}
+.living-companion-graph{position:relative;width:156px;height:156px;margin-bottom:6px;color:rgba(209,224,225,.9)}
+.living-companion-graph span{border-color:rgba(180,205,208,.22);inset:18px}.living-companion-graph span:nth-child(2){inset:38px}.living-companion-graph span:nth-child(3){inset:58px}
+.living-companion-hero h1{font-size:clamp(2rem,8vw,3.5rem);font-weight:430;letter-spacing:-.045em;margin:0}.companion-judgement{display:flex;flex-direction:column;gap:8px;max-width:620px}.companion-judgement small{opacity:.58;text-transform:uppercase;letter-spacing:.16em}.companion-judgement strong{font-size:clamp(1.35rem,5.5vw,2.15rem);font-weight:520;line-height:1.2}
+.living-companion-hero details{max-width:520px;width:100%;border:0;background:transparent}.living-companion-hero summary{cursor:pointer;list-style:none;opacity:.62;padding:8px}.living-companion-hero details div{padding:10px 18px 2px;border-top:1px solid rgba(255,255,255,.08)}.living-companion-hero details p{margin:.55rem 0;opacity:.75}.living-companion-hero details small{display:block;margin-top:12px;opacity:.5}
+.companion-primary{max-width:420px}.companion-continuity{font-size:.86rem;opacity:.5;margin:0}
+.route-today>header,.route-today>.continuity-card,.route-today>.observe-stack>div:first-child,.route-today .morning-focus,.route-today .daily-story-hero,.route-today .weekly-direction-today,.route-today .personal-evidence-today,.route-today .daily-orientation,.route-today .observe-stack>button[data-action="consult"]{display:none}
+.route-today .observe-stack{padding-top:0}.route-today .living-graph{opacity:.28;transform:scale(.78);margin-block:-28px}.route-today .context-help{opacity:.55}
+@media (prefers-reduced-motion:reduce){.companion-presence span,.living-companion-graph span{animation:none}}
+
+/* v0.39.0 — Living Architecture: the Human Model becomes visible life */
+.living-companion-hero{
+  position:relative;
+  min-height:calc(100svh - 122px);
+  padding:54px 22px 32px;
+  overflow:hidden;
+  isolation:isolate;
+}
+.living-companion-hero::before{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  inset:2% -34% 32%;
+  background:
+    radial-gradient(ellipse at 50% 42%,rgba(184,148,88,.105),transparent 39%),
+    radial-gradient(ellipse at 64% 28%,rgba(119,153,157,.055),transparent 33%);
+  filter:blur(12px);
+  pointer-events:none;
+}
+.living-companion-organism{
+  position:relative;
+  width:min(88vw,390px);
+  height:min(88vw,390px);
+  max-height:42svh;
+  display:grid;
+  place-items:center;
+  margin:-14px auto -42px;
+  pointer-events:none;
+}
+.living-graph.ambient{
+  width:100%;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  overflow:visible;
+  opacity:.96;
+  filter:drop-shadow(0 16px 38px rgba(0,0,0,.32));
+}
+.living-graph.ambient svg{width:100%;max-width:none;margin:0;overflow:visible}
+.living-graph.ambient .graph-membrane{
+  fill:rgba(184,148,88,.018);
+  stroke:rgba(209,185,137,.42);
+  stroke-width:.72;
+  filter:drop-shadow(0 0 9px rgba(184,148,88,.16));
+}
+.living-graph.ambient .graph-link{
+  stroke:rgba(197,175,134,.64);
+  stroke-width:.85;
+  stroke-dasharray:1 7;
+  opacity:.34!important;
+  filter:drop-shadow(0 0 5px rgba(184,148,88,.17));
+}
+.living-graph.ambient .graph-link.dominant-link{stroke-width:1.2;opacity:.58!important}
+.living-graph.ambient .graph-center{fill:#e2c58f;filter:drop-shadow(0 0 14px rgba(214,181,119,.72))}
+.living-graph.ambient .graph-pulse{stroke:rgba(218,191,141,.55);opacity:.3}
+.living-graph.ambient .node-core{fill:#d8b97f;stroke:#f2ddb2;stroke-width:.55;filter:drop-shadow(0 0 9px rgba(205,171,106,.52))}
+.living-graph.ambient .node-halo{fill:#d5ba87}
+.living-graph.ambient .node-label{fill:rgba(213,207,196,.68);font-size:7px;letter-spacing:.065em;text-transform:uppercase}
+.living-graph.ambient .node-trend{display:none}
+.living-companion-hero .companion-eyebrow{margin-top:6px}
+.living-companion-hero h1{font-family:Georgia,serif;font-weight:400}
+.route-today .observe-stack>.living-graph{display:none}
+.route-today .context-help{display:none}
+@media(max-height:700px){
+  .living-companion-organism{width:min(72vw,300px);height:min(72vw,300px);margin:-25px auto -48px}
+  .living-companion-hero{padding-top:35px;gap:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  .living-graph.ambient svg,.living-graph.ambient .graph-web,.living-graph.ambient .graph-center,.living-graph.ambient .node-core{animation:none}
+}
+
+/* v0.42.0 — Living Organism: one life clock, organic tension and depth */
+.living-graph{
+  --life-clock:16s;
+  position:relative;
+}
+.living-graph .organism-depth{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:72%;
+  aspect-ratio:1;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(213,184,128,.07),rgba(112,139,142,.025) 42%,transparent 72%);
+  filter:blur(18px);
+  opacity:.72;
+  pointer-events:none;
+}
+.living-graph svg{
+  position:relative;
+  z-index:1;
+  animation:none;
+}
+.organism-body{
+  transform-origin:center;
+  animation:organism-breath var(--life-clock) cubic-bezier(.45,0,.55,1) infinite;
+}
+.graph-membrane{
+  fill:rgba(184,148,88,.014);
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.graph-membrane-shadow{
+  fill:none;
+  stroke:rgba(184,148,88,.055);
+  stroke-width:7;
+  filter:blur(7px);
+  animation:membrane-shadow var(--life-clock) ease-in-out infinite;
+}
+.graph-web{animation:none}
+.graph-link{
+  stroke-dasharray:none;
+  stroke-linecap:round;
+  opacity:var(--filament-opacity,.28)!important;
+  animation:filament-life var(--life-clock) ease-in-out infinite;
+  vector-effect:non-scaling-stroke;
+}
+.graph-link.dominant-link{
+  opacity:calc(var(--filament-opacity,.28) + .18)!important;
+}
+.graph-node{
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:domain-breath var(--node-duration,14s) ease-in-out var(--node-delay,0s) infinite;
+}
+.node-halo{animation:halo-breath var(--node-duration,14s) ease-in-out var(--node-delay,0s) infinite}
+.node-core{animation:core-temperature var(--life-clock) ease-in-out infinite}
+.graph-center{
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:self-breath 12s cubic-bezier(.45,0,.55,1) infinite;
+}
+.graph-pulse{
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:none;
+}
+.graph-pulse-outer{opacity:.12;animation:self-field 12s ease-out infinite}
+.graph-pulse-inner{opacity:.2;animation:self-field 12s ease-out -6s infinite}
+.living-graph.ambient .graph-membrane{
+  stroke:rgba(209,185,137,.38);
+  stroke-width:.8;
+}
+.living-graph.ambient .graph-membrane-shadow{stroke:rgba(206,177,121,.08);stroke-width:9}
+.living-graph.ambient .graph-link{stroke:rgba(202,180,139,.58);stroke-width:.78}
+.living-graph.ambient .dominant-link{stroke-width:1.12}
+.living-graph.ambient .node-label{opacity:.74}
+
+@keyframes organism-breath{
+  0%,100%{transform:scale(.992) translateY(.6px)}
+  50%{transform:scale(1.008) translateY(-.6px)}
+}
+@keyframes membrane-shadow{
+  0%,100%{opacity:.28}
+  50%{opacity:.52}
+}
+@keyframes filament-life{
+  0%,100%{filter:drop-shadow(0 0 2px rgba(184,148,88,.08))}
+  50%{filter:drop-shadow(0 0 5px rgba(184,148,88,.19))}
+}
+@keyframes domain-breath{
+  0%,100%{transform:scale(.985)}
+  50%{transform:scale(1.025)}
+}
+@keyframes halo-breath{
+  0%,100%{opacity:.07}
+  50%{opacity:.18}
+}
+@keyframes core-temperature{
+  0%,100%{filter:drop-shadow(0 0 5px rgba(164,124,71,.32))}
+  50%{filter:drop-shadow(0 0 10px rgba(232,207,159,.62))}
+}
+@keyframes self-breath{
+  0%,100%{transform:scale(.96);opacity:.78;filter:drop-shadow(0 0 7px rgba(184,148,88,.34))}
+  50%{transform:scale(1.04);opacity:1;filter:drop-shadow(0 0 15px rgba(224,195,137,.72))}
+}
+@keyframes self-field{
+  0%{transform:scale(.72);opacity:.24}
+  75%,100%{transform:scale(1.55);opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .organism-body,.graph-membrane-shadow,.graph-link,.graph-node,.node-halo,.node-core,.graph-center,.graph-pulse{animation:none!important}
+  .graph-membrane animate,.graph-link animate{display:none!important}
+}
+
+/* v0.41 Daily Context Flow */
+.checkin-flow{padding:28px 16px 120px;gap:24px}.checkin-intro{display:grid;gap:12px}.checkin-intro h1{margin:0;font-family:Georgia,serif;font-weight:400;font-size:clamp(2rem,9vw,3rem);line-height:1.04}.checkin-intro>p{margin:0;color:var(--muted);line-height:1.55}.checkin-progress{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}.checkin-progress>span{height:2px;border-radius:99px;background:linear-gradient(90deg,#c8a568 var(--checkin-progress),rgba(255,255,255,.1) var(--checkin-progress))}.checkin-progress small{color:var(--muted)}.checkin-questions{display:grid;gap:0}.checkin-questions .question{padding:24px 0;border-top:1px solid var(--line)}.checkin-questions .question:first-child{border-top:0}.checkin-completion{position:sticky;bottom:86px;z-index:4;display:grid;gap:10px;padding:16px;border:1px solid rgba(200,165,104,.28);border-radius:22px;background:rgba(10,10,9,.94);backdrop-filter:blur(16px)}.checkin-completion p{margin:0;color:var(--muted);text-align:center}.checkin-completion .action:disabled{opacity:.42;cursor:not-allowed}.route-checkin .bottom-nav button[data-action="today"]{color:#d4b06f}
+
+/* v0.42 Invisible Flow — Today exposes one human next step, never system state. */
+.route-today{padding:0 0 calc(112px + env(safe-area-inset-bottom));min-height:100svh}
+.route-today>.tabbar{position:fixed}
+.companion-date{margin:4px 0 0;color:var(--gold);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;opacity:.82}
+.living-companion-hero.complete .companion-primary{display:none}
+.living-companion-hero .companion-judgement strong{max-width:640px}
+@media(max-width:600px){.living-companion-hero{min-height:calc(100svh - 96px);padding-bottom:132px}.living-companion-organism{margin-bottom:2px}}
+
+/* v0.44.0 — Current Moment Foundation */
+.progressive-checkin{min-height:calc(100dvh - 132px);justify-content:center;padding-bottom:96px}
+.progressive-checkin .checkin-progress{position:absolute;top:70px;left:20px;right:20px}
+.checkin-single{display:grid;gap:24px;align-content:center;min-height:54dvh}
+.checkin-step{margin:0;color:var(--muted);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.checkin-single .question{border:0;padding:0;background:transparent}
+.checkin-single .question h3{font-family:Georgia,serif;font-size:34px;line-height:1.16;font-weight:400;margin:0 0 24px}
+.checkin-single .choice-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.checkin-single .pill{min-height:54px}
+.checkin-trust{font-size:12px;line-height:1.5;margin:0}
+.checkin-ready{display:grid;gap:18px;align-content:center;min-height:54dvh}
+.checkin-ready h1{font-family:Georgia,serif;font-size:36px;line-height:1.14;font-weight:400;margin:0}
+.checkin-ready p{color:var(--muted);line-height:1.55;margin:0}
+.living-companion-hero.listen details,.living-companion-hero.ready details,.living-companion-hero.continuity details,.living-companion-hero.reflection details,.living-companion-hero.complete details{display:none}
+
+/* v0.45.0 — Experience Rewrite: the architecture recedes; the current moment remains. */
+.context-organism{position:relative;width:190px;height:190px;margin:0 auto 8px;display:grid;place-items:center}
+.context-organism .living-graph{width:100%;height:100%}
+.context-seed{--angle:calc(var(--seed-index) * 60deg - 90deg);position:absolute;left:calc(50% + cos(var(--angle))*82px);top:calc(50% + sin(var(--angle))*82px);width:9px;height:9px;border-radius:50%;border:1px solid rgba(200,165,104,.35);background:rgba(9,9,9,.9);transform:translate(-50%,-50%);transition:transform .45s ease,background .45s ease,box-shadow .45s ease}
+.context-seed.alive{background:var(--bronze);box-shadow:0 0 18px rgba(200,165,104,.42);transform:translate(-50%,-50%) scale(1.2)}
+.context-organism.complete{animation:context-settle 1.4s ease-in-out infinite alternate}
+.quiet-deliberation{min-height:100dvh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px;padding:24px}
+.quiet-organism{width:min(70vw,280px);height:min(70vw,280px);animation:quiet-breathe 3.8s ease-in-out infinite}
+.quiet-deliberation h2{font-family:Georgia,serif;font-size:34px;font-weight:400;margin:0}
+.quiet-deliberation p{max-width:290px}
+@keyframes quiet-breathe{50%{transform:scale(1.025);opacity:.88}}
+@keyframes context-settle{to{transform:scale(1.018)}}
+@media(prefers-reduced-motion:reduce){.quiet-organism,.context-organism.complete{animation:none}.context-seed{transition:none}}
+.context-seed:nth-of-type(1){left:50%;top:7%}.context-seed:nth-of-type(2){left:87%;top:28%}.context-seed:nth-of-type(3){left:87%;top:72%}.context-seed:nth-of-type(4){left:50%;top:93%}.context-seed:nth-of-type(5){left:13%;top:72%}.context-seed:nth-of-type(6){left:13%;top:28%}
+
+/* v0.46.2 — Organism symmetry and check-in hardening
+   The person sees a living presence, one sentence and one next action. */
+.route-today{
+  min-height:100dvh;
+  max-width:none;
+  padding:0;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 34%,rgba(174,135,78,.07),transparent 31%),
+    linear-gradient(180deg,#090908 0%,#0b0a09 72%,#080807 100%);
+}
+.route-today .tabbar{
+  background:linear-gradient(180deg,transparent,rgba(8,8,7,.92) 34%);
+  border-top:0;
+  padding-top:22px;
+  opacity:.72;
+}
+.current-moment{
+  min-height:calc(100dvh - 70px - env(safe-area-inset-bottom));
+  display:grid;
+  grid-template-rows:minmax(330px,56vh) 1fr;
+  align-items:center;
+  justify-items:center;
+  padding:calc(18px + env(safe-area-inset-top)) 24px 32px;
+  position:relative;
+}
+.organism-field{
+  width:min(92vw,430px);
+  aspect-ratio:1;
+  display:grid;
+  place-items:center;
+  position:relative;
+  isolation:isolate;
+  animation:organism-float 10s ease-in-out infinite;
+}
+.organism-aura{
+  position:absolute;
+  inset:17%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(202,161,92,.12),rgba(128,94,45,.04) 42%,transparent 72%);
+  filter:blur(18px);
+  animation:aura-breathe 8.5s ease-in-out infinite;
+  z-index:-1;
+}
+.organism-field .living-graph{width:100%;height:100%;padding:0;border:0;background:transparent;box-shadow:none}
+.organism-field svg{overflow:visible;filter:drop-shadow(0 10px 35px rgba(185,139,66,.08))}
+.current-moment.listen .organism-field{opacity:.72;filter:saturate(.68)}
+.current-moment.ready .organism-field,.current-moment.judgement .organism-field{opacity:1}
+.current-moment.complete .organism-field{opacity:.78;transform:scale(.96)}
+.moment-language{
+  width:min(100%,430px);
+  text-align:center;
+  align-self:start;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:15px;
+  margin-top:-12px;
+}
+.moment-greeting{
+  margin:0;
+  font-size:11px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:#81796f;
+}
+.moment-language h1{
+  max-width:390px;
+  margin:0;
+  font-family:Georgia,serif;
+  font-size:clamp(30px,8vw,42px);
+  line-height:1.12;
+  font-weight:400;
+  letter-spacing:-.025em;
+  color:#eee8dc;
+}
+.moment-action{
+  width:min(100%,330px);
+  min-height:54px;
+  margin-top:8px;
+  border:1px solid rgba(206,171,107,.38);
+  border-radius:999px;
+  background:rgba(176,132,68,.12);
+  color:#ead9b8;
+  font:600 11px/1.2 system-ui,sans-serif;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  box-shadow:0 12px 38px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.04);
+}
+.moment-action:active{transform:scale(.985)}
+.moment-why{width:min(100%,340px);margin-top:0;color:#8f877b;font-size:12px}
+.moment-why summary{cursor:pointer;list-style:none;padding:10px;color:#9b9285}
+.moment-why summary::-webkit-details-marker{display:none}
+.moment-why div{padding:0 18px 12px;line-height:1.55}
+.moment-why p{margin:0 0 8px}
+.moment-why small{color:#716a61}
+.moment-continuity{margin:2px 0 0;color:#8c8377;font-family:Georgia,serif;font-size:17px}
+
+.experience-flow{
+  max-width:none;
+  padding:0;
+  min-height:100dvh;
+  background:radial-gradient(circle at 50% 34%,rgba(174,135,78,.075),transparent 32%),#090908;
+}
+.seed-checkin{
+  min-height:100dvh;
+  display:grid;
+  grid-template-rows:minmax(330px,52vh) 1fr;
+  place-items:center;
+  padding:calc(18px + env(safe-area-inset-top)) 22px calc(30px + env(safe-area-inset-bottom));
+  position:relative;
+}
+.quiet-close{
+  position:absolute;
+  top:calc(14px + env(safe-area-inset-top));
+  right:18px;
+  width:44px;height:44px;
+  border:0;background:transparent;color:#777066;
+  font-size:28px;font-weight:200;z-index:4;
+}
+.seed-organism{
+  width:min(89vw,400px);
+  aspect-ratio:1;
+  position:relative;
+  display:grid;
+  place-items:center;
+}
+.seed-organism .living-graph{width:100%;height:100%;padding:0;border:0;background:transparent;box-shadow:none}
+.context-seed{
+  --angle:calc(var(--seed-index) * 60deg - 90deg);
+  position:absolute;
+  left:50%;top:50%;
+  width:11px;height:11px;
+  margin:-5.5px;
+  border-radius:50%;
+  transform:rotate(var(--angle)) translateX(158px) rotate(calc(-1 * var(--angle)));
+  border:1px solid rgba(181,152,100,.34);
+  background:#13110e;
+  box-shadow:0 0 0 7px rgba(174,135,78,.018);
+  transition:all .7s ease;
+}
+.context-seed.alive{
+  background:#c9a76b;
+  border-color:#e3c995;
+  box-shadow:0 0 15px rgba(214,174,102,.48),0 0 0 8px rgba(174,135,78,.04);
+  animation:seed-pulse 5s ease-in-out infinite;
+}
+.seed-question{
+  width:min(100%,430px);
+  align-self:start;
+  text-align:center;
+}
+.seed-question>p:first-child{
+  margin:0 0 16px;
+  color:#6f685f;
+  font-size:10px;
+  letter-spacing:.16em;
+}
+.seed-question .question h3{
+  margin:0 auto 22px;
+  max-width:390px;
+  font-family:Georgia,serif;
+  font-weight:400;
+  font-size:clamp(27px,7vw,36px);
+  line-height:1.15;
+  color:#eee7da;
+}
+.seed-question .choice-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.seed-question .pill{
+  flex:0 1 auto;
+  min-width:96px;
+  border-radius:999px;
+  background:rgba(255,255,255,.025);
+  border-color:#29251f;
+  color:#bcb3a6;
+  padding:14px 17px;
+}
+.seed-question .pill.selected,.seed-question .pill:active{border-color:#b99455;background:rgba(185,148,85,.13);color:#ead8b5}
+.seed-question>small{display:block;margin-top:22px;color:#5f5951;font-size:10px;letter-spacing:.03em}
+.seed-checkin.complete .seed-organism{animation:organism-settle 2.4s ease both}
+.seed-checkin.complete h1{font-family:Georgia,serif;font-weight:400;font-size:38px;margin:0 0 12px}
+.seed-checkin.complete .seed-question p{font-size:14px;letter-spacing:0;color:#827a70}
+
+.quiet-deliberation{min-height:100dvh;display:grid;place-content:center;justify-items:center;text-align:center;padding:24px;background:radial-gradient(circle,rgba(171,132,71,.07),transparent 34%),#090908}
+.quiet-deliberation .quiet-organism{width:min(92vw,430px);animation:deliberate-organism 2.35s ease-in-out both}
+.quiet-deliberation h2{font-family:Georgia,serif;font-weight:400;font-size:28px;margin:10px 0 6px;color:#e9e2d6}
+.quiet-deliberation p{font-size:11px;color:#716a61;letter-spacing:.02em}
+
+/* v0.50.0 — deliberating organism */
+.living-graph.deliberating .graph-center{filter:drop-shadow(0 0 20px rgba(214,181,119,.88))!important;animation-duration:1.6s!important}
+.living-graph.deliberating .graph-pulse-outer{animation-duration:5.5s!important}
+.living-graph.deliberating .graph-pulse-inner{animation-duration:5.5s!important;animation-delay:-2.75s!important}
+.living-graph.deliberating .node-halo{animation-duration:3.8s!important}
+.convergence-ring{fill:none;stroke:rgba(206,172,112,.28);stroke-width:1.4;pointer-events:none}
+
+@keyframes organism-float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.008)}}
+@keyframes aura-breathe{0%,100%{transform:scale(.92);opacity:.45}50%{transform:scale(1.08);opacity:.9}}
+@keyframes seed-pulse{0%,100%{transform:rotate(var(--angle)) translateX(158px) rotate(calc(-1 * var(--angle))) scale(.88)}50%{transform:rotate(var(--angle)) translateX(158px) rotate(calc(-1 * var(--angle))) scale(1.12)}}
+@keyframes deliberate-organism{0%{transform:scale(.96);filter:saturate(.65);opacity:.7}45%{transform:scale(1.03) rotate(.7deg);filter:saturate(1.1);opacity:1}100%{transform:scale(1);filter:saturate(1);opacity:.95}}
+@keyframes organism-settle{0%{transform:scale(1.035)}100%{transform:scale(1)}}
+@media(max-width:390px){.current-moment{grid-template-rows:minmax(285px,50vh) 1fr}.context-seed{transform:rotate(var(--angle)) translateX(135px) rotate(calc(-1 * var(--angle)))}@keyframes seed-pulse{0%,100%{transform:rotate(var(--angle)) translateX(135px) rotate(calc(-1 * var(--angle))) scale(.88)}50%{transform:rotate(var(--angle)) translateX(135px) rotate(calc(-1 * var(--angle))) scale(1.12)}}}
+
+/* v0.14.1 — Primary navigation viewport invariant retained in v0.46.1 */
+.tabbar{
+  position:fixed;
+  left:max(8px,env(safe-area-inset-left));
+  right:max(8px,env(safe-area-inset-right));
+  bottom:max(8px,env(safe-area-inset-bottom));
+  width:auto;
+  min-width:0;
+  transform:none;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.tabbar button{min-width:0}
+@media(max-width:390px){
+  .tabbar{max-width:none}
+}
+
+
+/* v0.46.2 — interaction hardening */
+.moment-action{position:relative;z-index:20;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.current-moment.listen .organism-field .graph-node{opacity:.88}
+.current-moment.listen .organism-field .graph-membrane{animation:none}
+.current-moment.listen .organism-field .graph-link animate,
+.current-moment.listen .organism-field .graph-membrane animate{display:none}
+
+
+/* v0.47.6 — deterministic check-in interaction and neutral symmetry */
+.seed-organism,.seed-organism *{pointer-events:none!important}
+.seed-question{position:relative;z-index:20;pointer-events:auto}
+.seed-question .choice-row,.seed-question .pill{pointer-events:auto!important}
+.seed-question .pill{position:relative;z-index:21;touch-action:manipulation;-webkit-user-select:none;user-select:none;cursor:pointer;min-height:54px}
+.checkin-organism{width:100%;height:100%;display:grid;place-items:center;pointer-events:none}
+.checkin-organism svg{width:100%;height:100%;overflow:visible;animation:checkin-breathe 8s ease-in-out infinite;transform-origin:center}
+.checkin-aura{fill:none;stroke:rgba(199,168,109,.13);stroke-width:1}
+.checkin-membrane{fill:rgba(183,145,81,.025);stroke:rgba(207,177,121,.38);stroke-width:1.2}
+.checkin-inner{fill:none;stroke:rgba(199,168,109,.10);stroke-width:.8;stroke-dasharray:2 8}
+.checkin-organism-node line{stroke:rgba(199,168,109,.23);stroke-width:.75}
+.checkin-node-halo{fill:rgba(199,168,109,.025);stroke:rgba(199,168,109,.19);stroke-width:1}
+.checkin-node-core{fill:#d3b477;stroke:#ead29e;stroke-width:.65;filter:drop-shadow(0 0 8px rgba(205,169,99,.35))}
+.checkin-center-halo{fill:none;stroke:rgba(199,168,109,.17);stroke-width:1}
+.checkin-center{fill:#d3b477;filter:drop-shadow(0 0 12px rgba(205,169,99,.42))}
+@keyframes checkin-breathe{0%,100%{transform:scale(.988);opacity:.82}50%{transform:scale(1.012);opacity:1}}
+@media(prefers-reduced-motion:reduce){.checkin-organism svg{animation:none}}
+
+/* v0.52.0 — explicit centering */
+#app{max-width:var(--content-max);margin-inline:auto;}
+.screen{margin-left:auto;margin-right:auto;}
+
+/* v0.53.0 — judgement screen redesign */
+.judgement-screen{display:flex;flex-direction:column;gap:22px;padding:22px 22px calc(var(--strategos-fixed-footer-height,72px) + 32px)}
+.judgement-hero{display:flex;flex-direction:column;gap:10px}
+.judgement-hero .eyebrow{font-size:.65rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin:0}
+.judgement-sentence{font-size:clamp(1.35rem,5vw,1.9rem);font-weight:600;line-height:1.25;color:var(--text);margin:0;letter-spacing:-.01em;font-family:Georgia,serif}
+.practice-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;display:flex;flex-direction:column;gap:12px}
+.practice-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.practice-card-identity{flex:1;display:flex;flex-direction:column;gap:5px}
+.practice-card-identity h2{font-size:.95rem;font-weight:600;color:var(--text);margin:0}
+.practice-card-identity p{font-size:.8rem;color:var(--muted);margin:0;line-height:1.4}
+.practice-duration{flex-shrink:0;font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--bronze);background:rgba(184,148,88,.1);border:1px solid rgba(184,148,88,.25);border-radius:99px;padding:4px 11px;white-space:nowrap;align-self:flex-start}
+.practice-voices{display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--line);padding-top:11px}
+.practice-voice{font-size:.77rem;color:var(--muted);line-height:1.45}
+.practice-voice strong{color:#d7d0c4;font-weight:500}
+.runner-up{border-top:1px solid var(--line);padding-top:10px}
+.runner-up-label{font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;display:block}
+.runner-up-name{font-size:.8rem;color:var(--muted);margin:0}
+.eligibility-warning{background:rgba(190,125,86,.08);border:1px solid rgba(190,125,86,.3);border-radius:14px;padding:13px 15px;font-size:.8rem;color:var(--text)}
+.eligibility-warning p{margin:4px 0 0;color:var(--muted);font-size:.76rem}
+.eligibility-warning small{display:block;margin-top:5px;color:var(--muted);font-size:.72rem}
+.safety-notice{background:rgba(184,148,88,.05);border:1px solid rgba(184,148,88,.2);border-radius:14px;padding:13px 15px;font-size:.8rem;color:var(--muted)}
+.safety-notice p{margin:4px 0 0;font-size:.77rem}
+.safety-notice small{display:block;margin-top:5px;font-size:.72rem;color:var(--muted)}
+.judgement-choice{display:flex;flex-direction:column;gap:10px}
+.choice-buttons{display:flex;flex-direction:column;gap:10px}
+.choice-accept{width:100%;padding:16px;font-size:.95rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0d0c0a;background:var(--bronze);border:none;border-radius:14px;cursor:pointer;transition:opacity .15s}
+.choice-accept:active{opacity:.8}
+.choice-alt{width:100%;padding:13px;font-size:.85rem;font-weight:600;color:var(--bronze);background:transparent;border:1.5px solid var(--bronze);border-radius:14px;cursor:pointer;transition:opacity .15s}
+.choice-alt:active{opacity:.7}
+.choice-minor-row{display:flex;gap:10px}
+.choice-minor{flex:1;padding:11px 10px;font-size:.78rem;font-weight:500;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:12px;cursor:pointer;transition:color .15s,border-color .15s}
+.choice-minor:active{color:var(--text);border-color:var(--muted)}
+.contract-label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0}
+.contract-review{font-size:.82rem;color:var(--muted);margin:0;font-style:italic}
+.deliberation-detail{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:4px}
+.deliberation-detail summary{list-style:none;padding:13px 15px;font-size:.78rem;font-weight:500;color:var(--muted);cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between}
+.deliberation-detail summary::-webkit-details-marker{display:none}
+.deliberation-detail summary::after{content:'\203a';font-size:1.1rem;transition:transform .2s}
+.deliberation-detail[open] summary::after{transform:rotate(90deg)}
+.deliberation-detail-body{padding:14px 15px 16px;display:flex;flex-direction:column;gap:16px;border-top:1px solid var(--line)}
+.deliberation-section{display:flex;flex-direction:column;gap:6px}
+.deliberation-section .eyebrow{margin:0}
+.deliberation-section p,.deliberation-section li,.deliberation-section small{font-size:.77rem;color:var(--muted);margin:0;line-height:1.5}
+.deliberation-section ul{margin:4px 0 0;padding-left:1.2em}
+.deliberation-meta{font-size:.72rem!important;color:var(--muted)!important}
+.deliberation-minority{border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+.deliberation-understanding-link{font-size:.78rem;padding:0;text-align:left}
+.judgement-footer-actions{display:flex;gap:10px;padding-top:4px}
+.judgement-footer-actions button{flex:1;padding:11px 10px;font-size:.75rem;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.judgement-footer-actions button:active{color:var(--text)}
