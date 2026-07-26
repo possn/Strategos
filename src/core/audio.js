@@ -13,14 +13,14 @@ function context() {
 
 export function unlockAudio() { context(); }
 
-export function playTone(kind = 'phase', enabled = true) {
+export function playTone(kind = 'phase', enabled = true, options = {}) {
   if (!enabled) return;
   const ctx = context();
   if (!ctx) return;
   const presets = {
     begin: [[392, .00, .45], [523.25, .14, .60]],
     phase: [[440, .00, .24]],
-    countdown: [[660, .00, .08]],
+    countdown: [[560 + (5-Math.max(1,Math.min(5,Number(options.remaining)||5)))*70, .00, .13]],
     finish: [[392, .00, .34], [523.25, .12, .48], [659.25, .26, .72]],
     complete: [[392, .00, .34], [523.25, .12, .48], [659.25, .26, .72]],
     pause: [[330, .00, .18]],
@@ -34,7 +34,7 @@ export function playTone(kind = 'phase', enabled = true) {
     oscillator.frequency.value = frequency;
     const start = ctx.currentTime + delay;
     gain.gain.setValueAtTime(0.0001, start);
-    gain.gain.exponentialRampToValueAtTime(0.055, start + .025);
+    gain.gain.exponentialRampToValueAtTime(kind==='countdown'?0.085:0.055, start + .025);
     gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
     oscillator.connect(gain).connect(ctx.destination);
     oscillator.start(start);
