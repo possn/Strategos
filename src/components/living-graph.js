@@ -3,14 +3,17 @@ const polar = (cx, cy, radius, angle) => {
   return { x: cx + radius * Math.cos(radians), y: cy + radius * Math.sin(radians) };
 };
 
-const motion = (index, compact) => {
-  const scale = compact ? 0.75 : 1;
-  const vectors = [[1.8,-2.4],[-2.1,-1.4],[2.4,1.5],[-1.7,2.2],[1.5,2.5],[-2.5,.8]];
-  const [x,y] = vectors[index % vectors.length];
-  return { x:(x*scale).toFixed(1), y:(y*scale).toFixed(1), duration:(7.6 + index * .73).toFixed(2) };
-};
+// Ambient presence is deliberately neutral: no inferred health state or moving geometry.
+export function renderAmbientOrganism(){
+  const nodes=Array.from({length:6},(_,index)=>{
+    const point=polar(120,120,76,index*60);
+    return `<circle cx="${point.x.toFixed(1)}" cy="${point.y.toFixed(1)}" r="4" class="ambient-node"/>`;
+  }).join('');
+  return `<div class="ambient-organism" role="img" aria-label="Presença visual do Strategos, sem pontuação de saúde"><svg viewBox="0 0 240 240" aria-hidden="true"><circle class="ambient-halo" cx="120" cy="120" r="54"/><circle class="ambient-orbit" cx="120" cy="120" r="76"/><circle class="ambient-inner" cx="120" cy="120" r="44"/>${nodes}<circle class="ambient-core" cx="120" cy="120" r="9"/></svg></div>`;
+}
 
-export function renderLivingGraph(graph, { compact = false } = {}) {
+export function renderLivingGraph(graph, { compact = false, ambient = false } = {}) {
+  if(ambient)return renderAmbientOrganism();
   const size = compact ? 240 : 310;
   const center = size / 2;
   const radius = compact ? 78 : 101;
@@ -19,25 +22,20 @@ export function renderLivingGraph(graph, { compact = false } = {}) {
     const point = polar(center, center, radius, angle);
     const core = 4.5 + node.energy * 6;
     const halo = core + 5 + node.volatility * 8;
-    return { ...node, ...point, angle, core, halo, motion: motion(index, compact) };
+    return { ...node, ...point, angle, core, halo };
   });
 
   const connections = nodes.map((node, index) => {
     const next = nodes[(index + 1) % nodes.length];
     const opacity = 0.12 + ((node.energy + next.energy) / 2) * 0.36;
-    const bend = (index % 2 ? -1 : 1) * (compact ? 5 : 8);
     const d1 = `M ${node.x.toFixed(1)} ${node.y.toFixed(1)} Q ${center} ${center} ${next.x.toFixed(1)} ${next.y.toFixed(1)}`;
-    const d2 = `M ${node.x.toFixed(1)} ${node.y.toFixed(1)} Q ${(center+bend).toFixed(1)} ${(center-bend*.65).toFixed(1)} ${next.x.toFixed(1)} ${next.y.toFixed(1)}`;
-    return `<path class="graph-link" style="opacity:${opacity.toFixed(2)}" d="${d1}">
-      <animate attributeName="d" values="${d1};${d2};${d1}" dur="${(8.8 + index*.67).toFixed(2)}s" repeatCount="indefinite" />
-    </path>`;
+    return `<path class="graph-link" style="opacity:${opacity.toFixed(2)}" d="${d1}"/>`;
   }).join('');
 
   const nodeMarkup = nodes.map(node => {
     const labelPoint = polar(center, center, radius + (compact ? 32 : 42), node.angle);
     const trend = node.momentum > 0.04 ? '↑' : node.momentum < -0.04 ? '↓' : '•';
     return `<g class="graph-node" data-dimension="${node.id}">
-      <animateTransform attributeName="transform" type="translate" values="0 0;${node.motion.x} ${node.motion.y};0 0;${-Number(node.motion.x)} ${-Number(node.motion.y)};0 0" dur="${node.motion.duration}s" repeatCount="indefinite" />
       <circle class="node-halo" cx="${node.x}" cy="${node.y}" r="${node.halo.toFixed(1)}" style="opacity:${(0.06 + node.confidence * 0.14).toFixed(2)}"/>
       <circle class="node-core" cx="${node.x}" cy="${node.y}" r="${node.core.toFixed(1)}"/>
       <text class="node-label" x="${labelPoint.x.toFixed(1)}" y="${labelPoint.y.toFixed(1)}">${node.label}</text>

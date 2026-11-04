@@ -3497,3 +3497,23 @@ body #app .tabbar button{
 
 .health-context-flow { max-width: 560px; margin: auto; text-align: left; }
 .health-context-flow .action { white-space: normal; line-height: 1.5; }
+
+.healthspan-content a { color: inherit; text-underline-offset: 4px; }
+.supplement-guide-header { position: sticky; top: 0; z-index: 10; background: var(--bg, #090909); padding-top: env(safe-area-inset-top); }
+.supplement-guide-header header { margin-top: 0; }
+.supplement-guide { max-width: 600px; margin: auto; padding: 24px 0 72px; text-align: left; line-height: 1.6; }
+.supplement-guide h1 { font-size: clamp(28px, 8vw, 40px); line-height: 1.15; }
+.supplement-guide p, .supplement-guide dd { font-size: 15px; }
+.supplement-list { margin: 32px 0; }
+.supplement-entry { border-top: 1px solid var(--line, #333); padding: 18px 0; }
+.supplement-entry:last-child { border-bottom: 1px solid var(--line, #333); }
+.supplement-entry summary { cursor: pointer; list-style-position: outside; margin-left: 18px; padding-right: 8px; }
+.supplement-entry summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.supplement-name { display: block; font-size: 21px; font-weight: 500; }
+.supplement-verdict { display: block; color: var(--muted, #aaa); font-size: 13px; line-height: 1.5; margin-top: 4px; }
+.supplement-detail { padding: 18px 0 10px; }
+.supplement-detail h2 { font-size: 21px; line-height: 1.35; }
+.supplement-detail dl > div { margin: 20px 0; }
+.supplement-detail dt { font-weight: 600; font-size: 13px; margin-bottom: 5px; }
+.supplement-detail dd { margin: 0; }
+.supplement-detail a { color: inherit; text-underline-offset: 4px; overflow-wrap: anywhere; }

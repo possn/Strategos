@@ -2,8 +2,11 @@
 
 A personal development application combining practical philosophy, deliberate action and evidence-informed health education. The frozen decision cycle remains: signals → understanding → independent advisors → Agora → judgement → explanation → human choice → practice → reflection → learning.
 
-## Current healthspan increment
+## Current interface and healthspan increment
 
+- The Home exposes sleep, nutrition and supplement entries beneath one primary check-in action. The main entry, check-in and navigation use Portuguese.
+- A single stylesheet owns motion: stable SVG geometry, one slow opacity breath, and no animation when reduced motion is requested.
+- The practice catalogue normalizes missing metadata without inventing evidence, preventing Understanding from falling back on a render error. Journey keeps its detailed history available on demand.
 - Six educational domains: movement, nutrition, sleep, mental wellbeing, relationships and functional autonomy.
 - Primary institutional sources and explicit clinical boundaries.
 - Each existing practice has a separate philosophical rationale, purpose and limits, available on demand.
@@ -31,7 +34,7 @@ npx playwright install --with-deps webkit
 npm run test:browser
 ```
 
-GitHub Actions runs three independent gates on every pull request: runtime syntax, architecture invariants, and WebKit with an iPhone viewport. The browser test covers onboarding, educational content, interruption and reload during check-in, deliberation, practice rationale and return continuity. It is browser emulation, not a physical-device test.
+GitHub Actions runs three independent gates on every pull request: runtime syntax, architecture invariants, and WebKit with an iPhone viewport. The browser test covers onboarding, educational content, interruption and reload during check-in, deliberation, practice rationale and return continuity. It is browser emulation, not a physical-device test. The workflow also captures iPhone and desktop screenshots for visual review, checks that health entries fit above mobile navigation, verifies reduced motion and opens every main tab.
 
 ## Next increments
 

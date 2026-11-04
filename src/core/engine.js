@@ -1,4 +1,4 @@
-import { CODEX } from '../data/codex.js?v=pathways1';
+import { CODEX } from '../data/codex.js?v=review1';
 
 const clamp = (n, min = 0, max = 1) => Math.min(max, Math.max(min, n));
 
