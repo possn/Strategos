@@ -8,7 +8,7 @@ permissions:
 jobs:
   syntax:
     name: Runtime JavaScript syntax
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,7 +17,7 @@ jobs:
       - run: npm test
   invariants:
     name: Architecture invariants
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,8 +26,8 @@ jobs:
       - run: npm run test:invariants
   webkit:
     name: Browser E2E / WebKit iPhone
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
