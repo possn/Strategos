@@ -3478,3 +3478,14 @@ body #app .tabbar button{
 .judgement-footer-actions{display:flex;gap:10px;padding-top:4px}
 .judgement-footer-actions button{flex:1;padding:11px 10px;font-size:.75rem;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:12px;cursor:pointer}
 .judgement-footer-actions button:active{color:var(--text)}
+
+/* Healthspan education stays secondary to the single daily action. */
+.healthspan-foundation { width: min(100%, 560px); margin: 0 auto 100px; padding: 0 24px; text-align: left; }
+.healthspan-foundation > summary { cursor: pointer; padding: 16px 0; font-size: 14px; opacity: .72; }
+.healthspan-foundation summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.healthspan-content { padding: 20px 0; line-height: 1.6; }
+.healthspan-content h2 { font-size: clamp(24px, 6vw, 32px); line-height: 1.2; }
+.healthspan-content p, .healthspan-content li { font-size: 15px; }
+.healthspan-domain { border-top: 1px solid currentColor; padding: 14px 0; }
+.healthspan-domain summary { cursor: pointer; font-size: 16px; }
+.healthspan-domain a { color: inherit; text-underline-offset: 4px; }

@@ -1,3 +1,4 @@
+import { renderHealthspanFoundation } from './components/healthspan.js?v=healthspan1';
 import { todaySignals,upsertDailyCheckIn,localDayKey,dailyCheckInForDay,dailyCheckInSummary } from './core/daily-signals.js?v=0476p1';
 import { buildDailyOrientation,recentCheckInTrajectory } from './core/daily-orientation.js?v=0476p1';
 import { upsertDailyStory,deriveDailyStory,dailyStorySummary,dailyStoryTimeline,dayNumber } from './core/daily-story.js?v=0476p1';
@@ -200,7 +201,7 @@ function onboarding(){
 }
 
 function today(){
-  shell(`${nav('today')}`);
+  shell(`${renderHealthspanFoundation()}${nav('today')}`);
   const startButton=app.querySelector('.moment-action[data-action="focus-signals"],.moment-action[data-action="checkin"]');
   if(startButton){
     const openCheckIn=event=>{
