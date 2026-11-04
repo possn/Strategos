@@ -41,7 +41,6 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   assert.equal(await page.locator('.moment-action').count(),1);
   await page.locator('.moment-action').click();
   await page.locator('button[data-choice-action="accept"]').click();
-  await page.locator('button[data-choice-reason-action="continue"]').click();
   await page.locator('button[data-commitment-action="now"]').click();
   await page.locator('button[data-action="commit"]').click();
   await page.locator('.route-execute').waitFor();
