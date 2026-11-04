@@ -1,4 +1,4 @@
-import { supportedPracticeDuration } from './practice-capacity.js?v=capacity1';
+import { supportedPracticeDuration } from './practice-capacity.js?v=healthcontext1';
 import { applyAdvisorMemory } from './advisor-memory.js?v=0476p1';
 import * as PracticeLibrary from '../data/codex.js?v=capacity1';
 const CODEX=PracticeLibrary.CODEX||[];

@@ -1,4 +1,4 @@
-import { createInitialState, migrateState, STATE_SCHEMA_VERSION, PRODUCT_VERSION } from './state-schema.js?v=0476p1';
+import { createInitialState, migrateState, STATE_SCHEMA_VERSION, PRODUCT_VERSION } from './state-schema.js?v=healthcontext1';
 
 const KEY='onearete.strategos.v090';
 const BACKUP_KEY='onearete.strategos.v090.backup';

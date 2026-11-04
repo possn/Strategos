@@ -8,7 +8,15 @@ export function supportedPracticeDuration(practice,availableMinutes){
 
 export function assessPracticeEligibility(practice,context={}){
   const reasons=[],matchedContraindications=[];
-  if(practice?.id==='strength'&&context.soreness==='significant'){
+  const practiceId=practice?.basePracticeId||practice?.id;
+  if(context.movementPreference==='avoid-movement'&&['strength','walk','recovery'].includes(practiceId)){
+    reasons.push('You asked to avoid practices involving movement.');
+    matchedContraindications.push('person-avoid-movement');
+  }else if(context.movementPreference==='avoid-strength'&&practiceId==='strength'){
+    reasons.push('You asked to avoid strength practice.');
+    matchedContraindications.push('person-avoid-strength');
+  }
+  if(practiceId==='strength'&&context.soreness==='significant'){
     reasons.push('Significant soreness excludes additional strength loading until reassessment.');
     matchedContraindications.push('significant-soreness');
   }
@@ -17,7 +25,7 @@ export function assessPracticeEligibility(practice,context={}){
     matchedContraindications.push('insufficient-time');
   }
   const blocked=reasons.length>0;
-  return {practiceId:practice?.id||'unknown',status:blocked?'blocked':'eligible',reasons:blocked?reasons:['No conflict with the checked time and soreness constraints was declared. This is not clinical clearance.'],matchedContraindications,selectionInfluence:0,assessedFrom:['time','soreness'],statement:blocked?reasons.join(' '):'Checked product constraints only; clinical suitability remains unknown.'};
+  return {practiceId:practice?.id||'unknown',status:blocked?'blocked':'eligible',reasons:blocked?reasons:['No conflict with the checked time and soreness constraints was declared. This is not clinical clearance.'],matchedContraindications,selectionInfluence:0,assessedFrom:['time','soreness','movementPreference'],statement:blocked?reasons.join(' '):'Checked product constraints only; clinical suitability remains unknown.'};
 }
 
 export function buildTimedPracticePlan(practice,durationMinutes,context={}){
