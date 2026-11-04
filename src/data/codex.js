@@ -64,3 +64,5 @@ export const CODEX = [
     ]
   }
 ];
+
+export { assessPracticeEligibility } from '../core/practice-capacity.js?v=capacity1';
