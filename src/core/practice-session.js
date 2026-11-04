@@ -57,6 +57,7 @@ export function snapshotPracticeContract(contract,at=new Date().toISOString()){
   return {...contract,createdAt:at,source:'current-judgement',editableDuringPractice:false};
 }
 function expectedEffectFor(practice,judgement){
+  if(practice?.planningOnly)return 'A concrete, feasible plan. Completion does not establish a change in sleep, diet or health.';
   const text=`${practice?.domain||''} ${practice?.id||''} ${practice?.name||''}`.toLowerCase();
   if(/recovery|restore|breath|calm|reset/.test(text))return 'A modest improvement in steadiness, recovery or perceived load.';
   if(/connection|relationship|social/.test(text))return 'A clearer sense of contact, support or relational presence.';
@@ -65,6 +66,7 @@ function expectedEffectFor(practice,judgement){
   return String(judgement?.forecast?.expectedEffect||'A useful, proportionate change in the area this Practice addresses.');
 }
 function reviewQuestionFor(practice){
+  if(practice?.planningOnly)return 'Did you leave with one feasible next step, without adding unnecessary burden?';
   const domain=String(practice?.domain||'').toLowerCase();
   if(domain==='recovery')return 'Did this leave you steadier or less burdened than before?';
   if(domain==='relationships')return 'Did this create meaningful contact or understanding?';
@@ -72,6 +74,7 @@ function reviewQuestionFor(practice){
   return 'Did the Practice produce the intended effect at an acceptable burden?';
 }
 function contractStopConditions(practice,context){
+  if(practice?.planningOnly)return ['You may stop when one feasible next step is clear.','Stop if planning increases distress; this is optional.','Respect existing clinical and dietary guidance.'];
   const conditions=['Stop for sharp pain, dizziness, loss of control or a clear worsening of distress.','You may end early and record what actually happened.'];
   const soreness=String(context?.soreness||'').toLowerCase();
   const energy=Number(context?.energy);
@@ -716,7 +719,7 @@ export function applyPracticeDoseRevisionToJudgement(judgement,revision,context=
   const proposed=Number(revision.proposedDurationMinutes);
   const minimum=Math.min(...(judgement.practice?.durationOptions||[]).map(Number));
   const available=Number(context.time);
-  if(!Number.isFinite(proposed)||!Number.isFinite(available)||proposed<minimum||proposed>available)return judgement;
+  if(!Number.isFinite(proposed)||!Number.isFinite(available)||proposed<minimum||proposed>available||(judgement.practice?.planningOnly&&proposed>Math.max(...judgement.practice.durationOptions.map(Number))))return judgement;
   return {
     ...judgement,
     duration:proposed,

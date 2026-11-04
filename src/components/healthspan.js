@@ -1,4 +1,4 @@
-import { HEALTHSPAN_DOMAINS, HEALTHSPAN_BOUNDARIES, HEALTHSPAN_REVIEWED_AT } from '../data/healthspan.js';
+import { HEALTHSPAN_DOMAINS, HEALTHSPAN_BOUNDARIES, HEALTHSPAN_REVIEWED_AT } from '../data/healthspan.js?v=pathways1';
 
 export function renderHealthspanFoundation(){
   return `<details class="healthspan-foundation" lang="pt-PT">

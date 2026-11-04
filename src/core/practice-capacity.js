@@ -9,6 +9,10 @@ export function supportedPracticeDuration(practice,availableMinutes){
 export function assessPracticeEligibility(practice,context={}){
   const reasons=[],matchedContraindications=[];
   const practiceId=practice?.basePracticeId||practice?.id;
+  if(practice?.requiredPriority&&practice.requiredPriority!==context.challenge){
+    reasons.push('This planning practice is offered only when you explicitly choose its daily priority.');
+    matchedContraindications.push('priority-not-requested');
+  }
   if(context.movementPreference==='avoid-movement'&&['strength','walk','recovery'].includes(practiceId)){
     reasons.push('You asked to avoid practices involving movement.');
     matchedContraindications.push('person-avoid-movement');
@@ -32,7 +36,7 @@ export function buildTimedPracticePlan(practice,durationMinutes,context={}){
   const eligibility=assessPracticeEligibility(practice,context);
   if(eligibility.status==='blocked')throw new Error(eligibility.reasons.join(' '));
   const minutes=Number(durationMinutes),minimum=Math.min(...practice.durationOptions.map(Number));
-  if(!Number.isFinite(minutes)||minutes<minimum||minutes>Number(context.time))throw new Error('The planned duration does not fit the current time and supported minimum.');
+  if(!Number.isFinite(minutes)||minutes<minimum||minutes>Number(context.time)||(practice.planningOnly&&minutes>Math.max(...practice.durationOptions.map(Number))))throw new Error('The planned duration does not fit the current time and supported minimum.');
   const phases=practice.phases;
   if(!Array.isArray(phases)||!phases.length)throw new Error('No practice phases are available.');
   const target=Math.round(minutes*60),floor=20;

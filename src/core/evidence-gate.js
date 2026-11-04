@@ -1,4 +1,4 @@
-import { declaredDailySignals, localDayKey, dailyCheckInForDay } from './daily-signals.js?v=healthspan2';
+import { declaredDailySignals, localDayKey, dailyCheckInForDay } from './daily-signals.js?v=pathways1';
 
 export const REQUIRED_DAILY_SIGNALS=['sleep','energy','time','challenge','soreness','emotionalLoad'];
 

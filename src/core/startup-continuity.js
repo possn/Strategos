@@ -1,4 +1,4 @@
-import { localDayKey,dailyCheckInForDay } from './daily-signals.js?v=healthspan2';
+import { localDayKey,dailyCheckInForDay } from './daily-signals.js?v=pathways1';
 
 export function resolveStartupDestination(state){
   if(!state?.profile||!state?.onboardingVersion){

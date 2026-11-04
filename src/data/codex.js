@@ -62,7 +62,26 @@ export const CODEX = [
       ['Connect', 600, 'Call, listen, play, or be fully present.', ['Put the phone away unless it is the means of contact.', 'Ask one genuine question.', 'Listen without preparing the next reply.']],
       ['Close', 30, 'End without rushing to the next thing.', ['Acknowledge the person directly.', 'Notice how the interaction changed your state.']]
     ]
+  },
+  {
+    id:'sleep-plan', name:'Preparar o sono', domain:'sleep', requiredPriority:'sleep', planningOnly:true,
+    durationOptions:[5,15], virtue:'Temperance',
+    baseDelta:{body:0,mind:0,relationships:0,purpose:0,legacy:0,agency:0},
+    phases:[
+      ['Reconhecer',60,'Identifica um obstáculo concreto ao descanso.', ['Escolhe apenas um: horários, luz, ruído ou falta de uma pausa antes de deitar.', 'Não precisas de explicar nem avaliar todos os problemas de sono.']],
+      ['Preparar',180,'Escolhe uma pequena mudança para a próxima oportunidade de descanso.', ['Planeia um momento tranquilo antes de deitar ou uma melhoria no ambiente.', 'Procura um horário regular quando for compatível com a tua vida e os teus turnos.', 'Não forces o adormecer nem reduzas o tempo de sono para cumprir este plano.']],
+      ['Escolher',60,'Anota o que farás e em que ocasião.', ['Terminar com uma ação possível é suficiente.', 'Esta preparação não é tempo de sono nem tratamento de insónia.', 'Se as dificuldades persistem ou prejudicam o dia, procura avaliação de saúde.']]
+    ]
+  },{
+    id:'meal-plan', name:'Planear uma refeição', domain:'nutrition', requiredPriority:'nutrition', planningOnly:true,
+    durationOptions:[5,15], virtue:'Wisdom',
+    baseDelta:{body:0,mind:0,relationships:0,purpose:0,legacy:0,agency:0},
+    phases:[
+      ['Observar',60,'Pensa numa próxima refeição e no que já tens disponível.', ['Parte de alimentos habituais que sabes serem compatíveis contigo.', 'Respeita alergias, restrições e orientações nutricionais ou clínicas existentes.']],
+      ['Planear',180,'Escolhe uma refeição viável e variada.', ['Considera variedade entre os alimentos que já toleras e utilizas.', 'A orientação geral da OMS valoriza fruta, hortícolas, leguminosas e cereais integrais; adapta-a às tuas necessidades.', 'O plano não exige contar calorias, restringir alimentos, jejuar ou acrescentar suplementos.']],
+      ['Facilitar',60,'Anota uma preparação ou compra que torne essa refeição mais fácil.', ['Escolhe um único próximo passo.', 'Planear não significa que já preparaste ou comeste a refeição.', 'Se tens um plano alimentar prescrito, mantém-no como referência.']]
+    ]
   }
 ];
 
-export { assessPracticeEligibility } from '../core/practice-capacity.js?v=healthcontext1';
+export { assessPracticeEligibility } from '../core/practice-capacity.js?v=pathways1';

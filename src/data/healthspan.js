@@ -19,6 +19,8 @@ export const HEALTHSPAN_BOUNDARIES = Object.freeze([
 
 // Rationale accompanies an existing deliberated practice; it never changes ranking.
 export const PRACTICE_FOUNDATIONS = Object.freeze({
+  'sleep-plan': Object.freeze({domain:'sleep',source:'https://www.nhlbi.nih.gov/health/sleep-deprivation/healthy-sleep-habits',principle:'Temperança: preparar condições para descansar, sem forçar resultados.',purpose:'Escolher uma pequena mudança no horário ou no ambiente de descanso.',limit:'É planeamento de um hábito, não sono realizado, tratamento de insónia ou evidência de melhoria clínica.'}),
+  'meal-plan': Object.freeze({domain:'nutrition',source:'https://www.who.int/news-room/fact-sheets/detail/healthy-diet',principle:'Sabedoria e simplicidade: tornar uma refeição possível com os recursos disponíveis.',purpose:'Planear uma refeição variada, com alimentos habituais e compatíveis contigo.',limit:'É planeamento, não uma refeição consumida nem uma prescrição alimentar. Respeita alergias e orientações clínicas existentes.'}),
   strength: Object.freeze({domain:'movement',principle:'Coragem com prudência: progredir dentro da capacidade atual.',purpose:'Trabalhar a força, uma componente da capacidade física.',limit:'Uma sessão não permite prever ganhos de força, autonomia ou anos de vida.'}),
   walk: Object.freeze({domain:'movement',principle:'Agir com simplicidade: um passo possível, sem forçar.',purpose:'Criar uma oportunidade de movimento adaptada ao dia.',limit:'Uma caminhada leve pode não atingir intensidade aeróbia moderada. Não equivale, por si só, às recomendações semanais.'}),
   recovery: Object.freeze({domain:'sleep',principle:'Temperança e flexibilidade: recuperar também faz parte do caminho.',purpose:'Dar espaço à recuperação e observar como te sentes.',limit:'Esta prática não trata insónia, doença ou lesão. Não é necessário controlar a respiração se isso causar desconforto.'}),
@@ -30,5 +32,5 @@ export function practiceFoundation(practiceId){
   if(!Object.hasOwn(PRACTICE_FOUNDATIONS,practiceId))return null;
   const record=PRACTICE_FOUNDATIONS[practiceId];
   const domain=HEALTHSPAN_DOMAINS.find(item=>item.id===record.domain);
-  return {...record,source:domain.source,reviewedAt:HEALTHSPAN_REVIEWED_AT};
+  return {...record,source:record.source||domain.source,reviewedAt:HEALTHSPAN_REVIEWED_AT};
 }

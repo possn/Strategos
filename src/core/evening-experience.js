@@ -1,4 +1,4 @@
-import { localDayKey } from './daily-signals.js?v=healthspan2';
+import { localDayKey } from './daily-signals.js?v=pathways1';
 
 export function buildEveningExperience({story=null,journalEntry=null,now=new Date()}={}){
   const day=localDayKey(now);
