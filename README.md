@@ -10,6 +10,8 @@ A personal development application combining practical philosophy, deliberate ac
 - Unanswered daily questions remain unanswered when saved and reloaded. Presentation defaults never become newly reported evidence.
 - Recommendations and alternatives fit the declared time budget. Phase timers sum to the planned duration exactly.
 - Declared significant soreness excludes strength loading; acknowledging a warning does not override an exclusion. These are limited product constraints, not clinical clearance.
+- Optional movement preferences require an explicit save action. They are local, editable and removable; exports include them and import preview discloses this. Previous decision explanations remain in history.
+- Current movement preferences are checked again before choice and execution, including when an older judgement is reopened.
 - The single daily primary action remains central.
 
 This increment does not provide personalized supplement plans, prescriptions, diagnoses, biological age estimates or lifespan predictions. Previously stored records may already contain defaults from older versions; missing answers cannot be reconstructed retrospectively.
@@ -32,7 +34,7 @@ GitHub Actions runs three independent gates on every pull request: runtime synta
 ## Next increments
 
 1. Audit the remaining practice and safety boundaries, including time budgets and explicit limitations.
-2. Extend the current person model with optional health context and consent, while preserving data export and correction.
+2. Extend the optional movement context to further health domains only when a reviewed pathway needs the information.
 3. Add evidence-reviewed movement, sleep and nutrition pathways through the existing decision architecture.
 4. Add a supplement evidence catalogue with population, outcome, uncertainty and interaction requirements.
 5. Validate longitudinal usefulness and adverse effects before broadening recommendations.

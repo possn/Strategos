@@ -3494,3 +3494,6 @@ body #app .tabbar button{
 .healthspan-practice summary { cursor: pointer; font-size: 14px; }
 .healthspan-practice p { font-size: 14px; }
 .healthspan-practice a { color: inherit; text-underline-offset: 4px; }
+
+.health-context-flow { max-width: 560px; margin: auto; text-align: left; }
+.health-context-flow .action { white-space: normal; line-height: 1.5; }

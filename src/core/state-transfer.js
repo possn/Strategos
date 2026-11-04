@@ -1,4 +1,4 @@
-import { migrateState, STATE_SCHEMA_VERSION, PRODUCT_VERSION } from './state-schema.js?v=0476p1';
+import { migrateState, STATE_SCHEMA_VERSION, PRODUCT_VERSION } from './state-schema.js?v=healthcontext1';
 
 export const STATE_EXPORT_FORMAT = 'onearete-strategos-state';
 export const STATE_EXPORT_VERSION = 1;
@@ -39,6 +39,7 @@ export function validateStateImport(value){
 export function createImportPreview(state,metadata={}){
   return {
     profileName:state.profile?.name||'No profile name',
+    hasHealthContext:Boolean(state.healthContext),
     historyCount:Array.isArray(state.history)?state.history.length:0,
     judgementCount:Array.isArray(state.judgements)?state.judgements.length:0,
     advisorMemoryCount:Object.keys(state.advisorMemories||{}).length,

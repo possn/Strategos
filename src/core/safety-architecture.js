@@ -1,4 +1,4 @@
-import { assessPracticeEligibility } from './practice-capacity.js?v=capacity1';
+import { assessPracticeEligibility } from './practice-capacity.js?v=healthcontext1';
 export const SAFETY_ARCHITECTURE_VERSION=2;
 
 export function buildSafetyEnvelope({context={},decision=null}={}){
@@ -26,13 +26,13 @@ export function buildSafetyEnvelope({context={},decision=null}={}){
   }));
   const selectedEligibility=decision?.practice?assessPracticeEligibility(decision.practice,context):null;
   const selectedPracticeBlocked=selectedEligibility?.status==='blocked';
-  const safetyExclusions=blockedPractices.filter(item=>!item.matchedContraindications.length||item.matchedContraindications.some(reason=>reason!=='insufficient-time'));
+  const safetyExclusions=blockedPractices.filter(item=>!item.matchedContraindications.length||item.matchedContraindications.some(reason=>!['insufficient-time','person-avoid-strength','person-avoid-movement'].includes(reason)));
   const status=selectedPracticeBlocked||criticalRisks.length||safetyExclusions.length?'constrained':cautions.length||advisorRisks.length?'caution':'clear';
   return {
     version:SAFETY_ARCHITECTURE_VERSION,
     createdAt:new Date().toISOString(),
     status,
-    contextSnapshot:{soreness:context.soreness??null,energy:context.energy??null,emotionalLoad:context.emotionalLoad??null,time:context.time??null},
+    contextSnapshot:{soreness:context.soreness??null,energy:context.energy??null,emotionalLoad:context.emotionalLoad??null,time:context.time??null,movementPreference:context.movementPreference||'not-shared'},
     selectedPracticeBlocked,selectedPracticeReasons:selectedEligibility?.reasons||[],
     blockedPractices,advisorRisks,criticalRisks,difficultToReverse,cautions,
     operatingBoundary:{behaviourChange:0,rankingChange:0,confidenceChange:0,durationChange:0,executionChange:selectedPracticeBlocked?1:0},

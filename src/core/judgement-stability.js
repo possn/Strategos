@@ -15,7 +15,8 @@ export function contextFingerprint(context={}){
     time:Number(context.time||0),
     challenge:context.challenge||'unknown',
     soreness:context.soreness||'unknown',
-    emotionalLoad:context.emotionalLoad||'unknown'
+    emotionalLoad:context.emotionalLoad||'unknown',
+    movementPreference:context.movementPreference||'not-shared'
   };
 }
 
@@ -29,9 +30,9 @@ export function compareDecisionContexts(previous={},next={}){
     if(delta>0)changes.push({field,from:a[field],to:b[field],material:field!=='time'&&delta>=2});
     distance+=Math.min(1,delta/range)*.18;
   }
-  for(const field of ['challenge','soreness','emotionalLoad']){
+  for(const field of ['challenge','soreness','emotionalLoad','movementPreference']){
     if(a[field]!==b[field]){
-      const material=field==='challenge'||b.soreness==='significant'||b.emotionalLoad==='heavy';
+      const material=field==='challenge'||field==='movementPreference'||b.soreness==='significant'||b.emotionalLoad==='heavy';
       changes.push({field,from:a[field],to:b[field],material});
       distance+=field==='challenge'?.22:.18;
     }

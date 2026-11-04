@@ -1,11 +1,13 @@
-export const STATE_SCHEMA_VERSION = 46;
-export const PRODUCT_VERSION = '0.45.0';
+import { normaliseHealthContext } from './health-context.js?v=healthcontext1';
+export const STATE_SCHEMA_VERSION = 47;
+export const PRODUCT_VERSION = '0.45.1';
 
 export function createInitialState(){
   return {
     schemaVersion: STATE_SCHEMA_VERSION,
     productVersion: PRODUCT_VERSION,
     profile:null,
+    healthContext:null,
     humanModel:null,
     history:[],
     judgements:[],
@@ -106,6 +108,7 @@ export function migrateState(input={}){
     ...state,
     schemaVersion:STATE_SCHEMA_VERSION,
     productVersion:PRODUCT_VERSION,
+    healthContext:normaliseHealthContext(state.healthContext),
     history:[...(state.history||[])],
     judgements:[...(state.judgements||[])],
     emotionalJournalEntries:[...(state.emotionalJournalEntries||[])],
