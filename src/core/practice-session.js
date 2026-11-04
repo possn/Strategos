@@ -711,11 +711,15 @@ export function effectivePracticeDoseRevision(decisions=[],practiceId){
     .sort((a,b)=>Date.parse(b.decidedAt||0)-Date.parse(a.decidedAt||0))[0]||null;
 }
 
-export function applyPracticeDoseRevisionToJudgement(judgement,revision){
+export function applyPracticeDoseRevisionToJudgement(judgement,revision,context=judgement?.context||{}){
   if(!judgement||!revision||revision.status!=='accepted'||revision.practiceId!==judgement?.practice?.id)return judgement;
+  const proposed=Number(revision.proposedDurationMinutes);
+  const minimum=Math.min(...(judgement.practice?.durationOptions||[]).map(Number));
+  const available=Number(context.time);
+  if(!Number.isFinite(proposed)||!Number.isFinite(available)||proposed<minimum||proposed>available)return judgement;
   return {
     ...judgement,
-    duration:revision.proposedDurationMinutes,
+    duration:proposed,
     doseRevisionId:revision.proposalId,
     doseRevisionSource:'person-accepted',
     baseDuration:Number(judgement.duration)||null

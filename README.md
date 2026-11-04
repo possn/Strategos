@@ -8,6 +8,8 @@ A personal development application combining practical philosophy, deliberate ac
 - Primary institutional sources and explicit clinical boundaries.
 - Each existing practice has a separate philosophical rationale, purpose and limits, available on demand.
 - Unanswered daily questions remain unanswered when saved and reloaded. Presentation defaults never become newly reported evidence.
+- Recommendations and alternatives fit the declared time budget. Phase timers sum to the planned duration exactly.
+- Declared significant soreness excludes strength loading; acknowledging a warning does not override an exclusion. These are limited product constraints, not clinical clearance.
 - The single daily primary action remains central.
 
 This increment does not provide personalized supplement plans, prescriptions, diagnoses, biological age estimates or lifespan predictions. Previously stored records may already contain defaults from older versions; missing answers cannot be reconstructed retrospectively.

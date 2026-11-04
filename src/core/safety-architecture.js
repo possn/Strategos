@@ -1,4 +1,5 @@
-export const SAFETY_ARCHITECTURE_VERSION=1;
+import { assessPracticeEligibility } from './practice-capacity.js?v=capacity1';
+export const SAFETY_ARCHITECTURE_VERSION=2;
 
 export function buildSafetyEnvelope({context={},decision=null}={}){
   const blockedPractices=[...(decision?.agora?.blockedPractices||[])].map(item=>({
@@ -23,15 +24,19 @@ export function buildSafetyEnvelope({context={},decision=null}={}){
     position:item.position,
     reason:item.reason
   }));
-  const status=criticalRisks.length||blockedPractices.length?'constrained':cautions.length||advisorRisks.length?'caution':'clear';
+  const selectedEligibility=decision?.practice?assessPracticeEligibility(decision.practice,context):null;
+  const selectedPracticeBlocked=selectedEligibility?.status==='blocked';
+  const safetyExclusions=blockedPractices.filter(item=>!item.matchedContraindications.length||item.matchedContraindications.some(reason=>reason!=='insufficient-time'));
+  const status=selectedPracticeBlocked||criticalRisks.length||safetyExclusions.length?'constrained':cautions.length||advisorRisks.length?'caution':'clear';
   return {
     version:SAFETY_ARCHITECTURE_VERSION,
     createdAt:new Date().toISOString(),
     status,
     contextSnapshot:{soreness:context.soreness??null,energy:context.energy??null,emotionalLoad:context.emotionalLoad??null,time:context.time??null},
+    selectedPracticeBlocked,selectedPracticeReasons:selectedEligibility?.reasons||[],
     blockedPractices,advisorRisks,criticalRisks,difficultToReverse,cautions,
-    operatingBoundary:{behaviourChange:0,rankingChange:0,confidenceChange:0,durationChange:0,executionChange:0},
-    statement:status==='constrained'?'Existing safeguards constrain the current deliberation.':status==='caution'?'Existing caution signals are visible, but no additional safety action is introduced.':'No existing critical risk or declared contraindication is active.'
+    operatingBoundary:{behaviourChange:0,rankingChange:0,confidenceChange:0,durationChange:0,executionChange:selectedPracticeBlocked?1:0},
+    statement:selectedPracticeBlocked?selectedEligibility.reasons.join(' '):status==='constrained'?'Existing safeguards constrain the current deliberation.':status==='caution'?'Existing caution signals are visible, but no additional safety action is introduced.':'No existing critical risk or declared contraindication is active.'
   };
 }
 
@@ -56,7 +61,7 @@ export function safetyEnvelopeSummary(envelope){
 export function safetyAcknowledgementRequirement(envelope){
   if(!envelope)return {required:false,reason:'No safety envelope is available.',status:'missing'};
   return {
-    required:envelope.status==='constrained',
+    required:envelope.status==='constrained'&&!envelope.selectedPracticeBlocked,
     reason:envelope.status==='constrained'
       ?'The current judgement contains an active safety constraint that must be acknowledged before Practice begins.'
       :'No additional safety acknowledgement is required.',
@@ -87,6 +92,8 @@ export function safetyAcknowledgementValid(acknowledgement,{envelope,judgementId
 }
 
 export function safetyStartGate({envelope,acknowledgement,judgementId}={}){
+  if(!envelope)return {canStart:false,required:false,blocked:true,reason:'Safety assessment is missing. Reassess before starting.'};
+  if(envelope.selectedPracticeBlocked)return {canStart:false,required:false,blocked:true,reason:(envelope.selectedPracticeReasons||[]).join(' ')||'This practice is excluded by the current declared constraints.'};
   const requirement=safetyAcknowledgementRequirement(envelope);
   if(!requirement.required)return {canStart:true,required:false,reason:'No additional safety acknowledgement is required.'};
   const valid=safetyAcknowledgementValid(acknowledgement,{envelope,judgementId});

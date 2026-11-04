@@ -1,5 +1,6 @@
+import { supportedPracticeDuration } from './practice-capacity.js?v=capacity1';
 import { applyAdvisorMemory } from './advisor-memory.js?v=0476p1';
-import * as PracticeLibrary from '../data/codex.js?v=0476p1';
+import * as PracticeLibrary from '../data/codex.js?v=capacity1';
 const CODEX=PracticeLibrary.CODEX||[];
 const assessPracticeEligibility=PracticeLibrary.assessPracticeEligibility||((practice,context={})=>{const blocked=practice?.id==='strength'&&context.soreness==='significant';return {practiceId:practice?.id||'unknown',status:blocked?'blocked':'eligible',reasons:[blocked?'Significant soreness makes strength loading inappropriate until reassessment.':'No declared contextual conflict is visible.'],matchedContraindications:blocked?['significant-soreness']:[],selectionInfluence:0};});
 import { evidenceItem, assessEvidenceDiversity, detectContradictions } from './evidence-integrity.js?v=0476p1';
@@ -32,8 +33,9 @@ export function conveneAgora(context, understanding, history=[], advisorMemories
   const ranked=Object.entries(totals)
     .filter(([id])=>!blocked.some(item=>item.practiceId===id))
     .sort((a,b)=>b[1]-a[1]);
+  if(!ranked.length)throw new Error('No supported practice fits the current declared constraints.');
   const winner=CODEX.find(item=>item.id===ranked[0][0]);
-  const duration=[...winner.durationOptions].reverse().find(d=>d<=context.time)||winner.durationOptions[0];
+  const duration=supportedPracticeDuration(winner,context.time);
   const margin=ranked.length>1?ranked[0][1]-ranked[1][1]:0;
   const contradictions=understanding.contradictions||detectContradictions(context,understanding,history);
   const evidenceDiversity=assessEvidenceDiversity(advisors);
