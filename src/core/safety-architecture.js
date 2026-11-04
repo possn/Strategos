@@ -1,4 +1,4 @@
-import { assessPracticeEligibility } from './practice-capacity.js?v=healthcontext1';
+import { assessPracticeEligibility } from './practice-capacity.js?v=pathways1';
 export const SAFETY_ARCHITECTURE_VERSION=2;
 
 export function buildSafetyEnvelope({context={},decision=null}={}){
@@ -26,7 +26,7 @@ export function buildSafetyEnvelope({context={},decision=null}={}){
   }));
   const selectedEligibility=decision?.practice?assessPracticeEligibility(decision.practice,context):null;
   const selectedPracticeBlocked=selectedEligibility?.status==='blocked';
-  const safetyExclusions=blockedPractices.filter(item=>!item.matchedContraindications.length||item.matchedContraindications.some(reason=>!['insufficient-time','person-avoid-strength','person-avoid-movement'].includes(reason)));
+  const safetyExclusions=blockedPractices.filter(item=>!item.matchedContraindications.length||item.matchedContraindications.some(reason=>!['insufficient-time','person-avoid-strength','person-avoid-movement','priority-not-requested'].includes(reason)));
   const status=selectedPracticeBlocked||criticalRisks.length||safetyExclusions.length?'constrained':cautions.length||advisorRisks.length?'caution':'clear';
   return {
     version:SAFETY_ARCHITECTURE_VERSION,

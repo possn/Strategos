@@ -88,7 +88,32 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await shortPage.locator('button[data-action="clear-health-profile"]').click();
   assert.equal(await shortPage.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).healthContext),null);
   assert.equal(await shortPage.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  for(const [priority,practiceId,source] of [['sleep','sleep-plan','nhlbi.nih.gov'],['nutrition','meal-plan','who.int']]){
+   const healthPage=await browser.newPage({...playwright.devices['iPhone 13']});
+   healthPage.on('pageerror',error=>errors.push(error.message));
+   await healthPage.goto('http://127.0.0.1:8080');
+   await healthPage.getByText('Tap to begin',{exact:true}).click();
+   for(let i=0;i<2;i++)await healthPage.getByRole('button',{name:'CONTINUE',exact:true}).click();
+   await healthPage.locator('#onboarding-name').fill(priority);
+   await healthPage.getByRole('button',{name:'BEGIN',exact:true}).click();
+   for(const [key,value] of [['sleep','3'],['energy','2'],['time','5'],['challenge',priority],['soreness','none'],['emotionalLoad','usual']])await healthPage.locator(`button[data-key="${key}"][data-value="${value}"]`).click();
+   await healthPage.locator('.moment-action').click();
+   await healthPage.locator('.judgement-sentence').waitFor();
+   const chosen=await healthPage.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).current.decision);
+   assert.equal(chosen.practice.id,practiceId);
+   assert.equal(chosen.delta.overall,0);
+   await healthPage.locator('.healthspan-practice summary').click();
+   assert.ok((await healthPage.locator('.healthspan-practice a').getAttribute('href')).includes(source));
+   await healthPage.locator('button[data-choice-action="accept"]').click();
+   await healthPage.locator('button[data-commitment-action="now"]').click();
+   await healthPage.locator('button[data-action="commit"]').click();
+   await healthPage.locator('.route-execute').waitFor();
+   const execution=await healthPage.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).current);
+   assert.equal(execution.adjusted.reduce((sum,phase)=>sum+phase[1],0),300);
+   assert.equal(await healthPage.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+   await healthPage.close();
+  }
   assert.deepEqual(errors,[]);
-  console.log('PASS: WebKit iPhone onboarding, partial check-in reload, judgement, practice execution/pause, five-minute alternative, optional context consent/cancel/reload/enforcement/deletion.');
+  console.log('PASS: WebKit iPhone onboarding, partial check-in reload, judgement, practice execution/pause, five-minute alternative, optional context consent/cancel/reload/enforcement/deletion and sleep/nutrition planning execution.');
  } finally {if(browser)await browser.close();server.kill();}
 })().catch(error=>{console.error(error);process.exitCode=1;});

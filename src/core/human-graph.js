@@ -54,7 +54,7 @@ function applyContextSignals(base, context) {
   if (present(context.challenge)) {
     base.purpose.energy = clamp(base.purpose.energy * 0.84 + 0.68 * 0.16, 0.18, 0.92);
     base.purpose.confidence = clamp(base.purpose.confidence + 0.10);
-    const secondary = { body: 'body', recovery: 'recovery', mind: 'mind', focus: 'mind', family: 'relationships', work: 'agency' }[context.challenge];
+    const secondary = { body: 'body', recovery: 'recovery', mind: 'mind', focus: 'mind', family: 'relationships', work: 'agency', sleep: 'recovery', nutrition: 'body' }[context.challenge];
     if (secondary) {
       base[secondary].energy = clamp(base[secondary].energy * 0.90 + 0.55 * 0.10, 0.18, 0.92);
     }
@@ -160,7 +160,7 @@ export function buildCheckinGraph(context = {}) {
   if (present(context.challenge)) {
     base.purpose.energy = 0.65;
     base.purpose.confidence = 0.52;
-    const secondary = { body: 'body', recovery: 'recovery', mind: 'mind', focus: 'mind', family: 'relationships', work: 'agency' }[context.challenge];
+    const secondary = { body: 'body', recovery: 'recovery', mind: 'mind', focus: 'mind', family: 'relationships', work: 'agency', sleep: 'recovery', nutrition: 'body' }[context.challenge];
     if (secondary) {
       base[secondary].energy = Math.max(base[secondary].energy, 0.36);
       base[secondary].confidence = Math.max(base[secondary].confidence, 0.28);

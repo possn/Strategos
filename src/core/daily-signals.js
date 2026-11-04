@@ -13,7 +13,7 @@ export function normaliseDailySignals(input={}){
     sleep:[1,2,3,4].includes(Number(source.sleep))?Number(source.sleep):DAILY_SIGNAL_DEFAULTS.sleep,
     energy:[1,2,3].includes(Number(source.energy))?Number(source.energy):DAILY_SIGNAL_DEFAULTS.energy,
     time:[5,15,30,60].includes(Number(source.time))?Number(source.time):DAILY_SIGNAL_DEFAULTS.time,
-    challenge:['body','mind','focus','recovery','family','work'].includes(source.challenge)?source.challenge:DAILY_SIGNAL_DEFAULTS.challenge,
+    challenge:['body','mind','focus','recovery','family','work','sleep','nutrition'].includes(source.challenge)?source.challenge:DAILY_SIGNAL_DEFAULTS.challenge,
     soreness:['none','mild','significant'].includes(source.soreness)?source.soreness:DAILY_SIGNAL_DEFAULTS.soreness,
     emotionalLoad:['light','usual','heavy'].includes(source.emotionalLoad)?source.emotionalLoad:DAILY_SIGNAL_DEFAULTS.emotionalLoad
   };
@@ -22,7 +22,7 @@ export function normaliseDailySignals(input={}){
 // Preserve absence: defaults are useful for presentation, never as reported evidence.
 export function declaredDailySignals(input={}){
   const source=input&&typeof input==='object'?input:{};
-  const allowed={sleep:[1,2,3,4],energy:[1,2,3],time:[5,15,30,60],challenge:['body','mind','focus','recovery','family','work'],soreness:['none','mild','significant'],emotionalLoad:['light','usual','heavy']};
+  const allowed={sleep:[1,2,3,4],energy:[1,2,3],time:[5,15,30,60],challenge:['body','mind','focus','recovery','family','work','sleep','nutrition'],soreness:['none','mild','significant'],emotionalLoad:['light','usual','heavy']};
   return Object.fromEntries(Object.entries(allowed).flatMap(([key,values])=>{
     const raw=source[key];
     if(raw===null||raw===undefined||raw===''||typeof raw==='boolean')return [];

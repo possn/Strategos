@@ -12,6 +12,8 @@ A personal development application combining practical philosophy, deliberate ac
 - Declared significant soreness excludes strength loading; acknowledging a warning does not override an exclusion. These are limited product constraints, not clinical clearance.
 - Optional movement preferences require an explicit save action. They are local, editable and removable; exports include them and import preview discloses this. Previous decision explanations remain in history.
 - Current movement preferences are checked again before choice and execution, including when an older judgement is reopened.
+- Explicit daily priorities for sleep and nutrition unlock short planning practices with NIH/WHO sources. They use the same advisors, choice, execution and reflection cycle.
+- Completing a planning practice records planning, not sleep achieved, food consumed or measured health improvement. No automatic capacity gains are assigned.
 - The single daily primary action remains central.
 
 This increment does not provide personalized supplement plans, prescriptions, diagnoses, biological age estimates or lifespan predictions. Previously stored records may already contain defaults from older versions; missing answers cannot be reconstructed retrospectively.

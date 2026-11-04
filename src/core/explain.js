@@ -34,7 +34,7 @@ export function buildExplanation(decision, context = {}) {
 
 function sleepLabel(value) { return ({1:'poor',2:'fair',3:'good',4:'excellent'})[value] || 'unreported'; }
 function energyLabel(value) { return ({1:'low',2:'moderate',3:'high'})[value] || 'unreported'; }
-function claimLabel(value) { return ({body:'your body',mind:'mental clarity',focus:'focused work',recovery:'recovery',family:'your relationships',work:'meaningful work'})[value] || 'your current priorities'; }
+function claimLabel(value) { return ({body:'your body',mind:'mental clarity',focus:'focused work',recovery:'recovery',family:'your relationships',work:'meaningful work',sleep:'preparing for rest',nutrition:'meal planning'})[value] || 'your current priorities'; }
 function lowerFirst(text='') { return text ? text[0].toLowerCase() + text.slice(1) : ''; }
 function confidenceText(value) {
   if (value >= 85) return 'I have relatively strong confidence, while remaining open to correction.';

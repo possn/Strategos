@@ -1,6 +1,7 @@
-import { supportedPracticeDuration } from './practice-capacity.js?v=healthcontext1';
+import { withHealthPathwayOpinion, boundPlanningConfidence } from './health-pathways.js?v=pathways1';
+import { supportedPracticeDuration } from './practice-capacity.js?v=pathways1';
 import { applyAdvisorMemory } from './advisor-memory.js?v=0476p1';
-import * as PracticeLibrary from '../data/codex.js?v=capacity1';
+import * as PracticeLibrary from '../data/codex.js?v=pathways1';
 const CODEX=PracticeLibrary.CODEX||[];
 const assessPracticeEligibility=PracticeLibrary.assessPracticeEligibility||((practice,context={})=>{const blocked=practice?.id==='strength'&&context.soreness==='significant';return {practiceId:practice?.id||'unknown',status:blocked?'blocked':'eligible',reasons:[blocked?'Significant soreness makes strength loading inappropriate until reassessment.':'No declared contextual conflict is visible.'],matchedContraindications:blocked?['significant-soreness']:[],selectionInfluence:0};});
 import { evidenceItem, assessEvidenceDiversity, detectContradictions } from './evidence-integrity.js?v=0476p1';
@@ -11,7 +12,7 @@ const clamp=(n,min=0,max=1)=>Math.min(max,Math.max(min,n));
 
 export function conveneAgora(context, understanding, history=[], advisorMemories={}, longitudinalEvidence=null, calibrationEvidence=null){
   const raw=[bodyAdvisor(context,understanding,history),recoveryAdvisor(context,understanding),mindAdvisor(context,understanding),agencyAdvisor(context,understanding),purposeAdvisor(context),relationshipsAdvisor(context)];
-  const advisors=raw.map(a=>applyAdvisorMemory(a,advisorMemories[a.advisor]));
+  let advisors=raw.map(a=>applyAdvisorMemory(withHealthPathwayOpinion(a,context),advisorMemories[a.advisor]));
   let totals=Object.fromEntries(CODEX.map(practice=>[practice.id,0]));
   for(const advisor of advisors){
     for(const [id,value] of Object.entries(advisor.scores)) totals[id]=(totals[id]||0)+value*advisor.weight;
@@ -36,6 +37,7 @@ export function conveneAgora(context, understanding, history=[], advisorMemories
   if(!ranked.length)throw new Error('No supported practice fits the current declared constraints.');
   const winner=CODEX.find(item=>item.id===ranked[0][0]);
   const duration=supportedPracticeDuration(winner,context.time);
+  advisors=advisors.map(advisor=>({...advisor,generalReason:advisor.reason,reason:advisor.practiceReasons?.[winner.id]||advisor.reason}));
   const margin=ranked.length>1?ranked[0][1]-ranked[1][1]:0;
   const contradictions=understanding.contradictions||detectContradictions(context,understanding,history);
   const evidenceDiversity=assessEvidenceDiversity(advisors);
@@ -46,7 +48,7 @@ export function conveneAgora(context, understanding, history=[], advisorMemories
   const baseConfidence=Math.round(clamp(.56+margin*.10+understanding.confidence/520-(criticalConcern?.12:0)-diversityPenalty-contradictionPenalty+longitudinalConfidence,.45,.90)*100);
   const calibrationVerification=verifyCalibrationEvidence(calibrationEvidence);
   const calibratedConfidence=applyCalibrationToConfidence(baseConfidence,calibrationEvidence);
-  const confidence=calibratedConfidence.confidence;
+  const confidence=boundPlanningConfidence(calibratedConfidence.confidence,winner);
   const delta=scaleDelta(winner.baseDelta,duration/15);
   const supporting=advisors.filter(a=>(a.scores[winner.id]||0)>.45).sort((a,b)=>(b.scores[winner.id]||0)-(a.scores[winner.id]||0));
   const cautioning=advisors.filter(a=>['Caution','Oppose'].includes(a.position));
@@ -71,7 +73,7 @@ export function conveneAgora(context, understanding, history=[], advisorMemories
   };
   const result={
     id:makeId('judgement'),createdAt:new Date().toISOString(),understanding,advisors,agora,
-    practice:winner,mission:winner,duration,confidence,confidenceLevel:confidenceLabel(confidence),unknowns:understanding.unknowns,contradictions,evidenceDiversity,longitudinalEvidence:longitudinalVerification.valid?longitudinalEvidence:null,longitudinalVerification,calibrationEvidence:calibrationVerification.valid?calibrationEvidence:null,calibrationVerification,baseConfidence,confidenceCalibration:calibratedConfidence,
+    practice:winner,mission:winner,duration,confidence,confidenceLevel:confidenceLabel(confidence),unknowns:understanding.unknowns,contradictions,evidenceDiversity,longitudinalEvidence:longitudinalVerification.valid?longitudinalEvidence:null,longitudinalVerification,calibrationEvidence:calibrationVerification.valid?calibrationEvidence:null,calibrationVerification,baseConfidence,confidenceCalibration:{...calibratedConfidence,confidence,planningCapApplied:confidence!==calibratedConfidence.confidence},planningOnly:Boolean(winner.planningOnly),confidenceMeaning:winner.planningOnly?'Practical fit of a planning action; not a probability of health improvement.':null,
     judgement:judgementText(winner.id,duration,context),explanation:supporting.slice(0,3).map(a=>a.reason),reasons:supporting.slice(0,3).map(a=>a.reason),
     alternatives:ranked.slice(1,3).map(([id])=>CODEX.find(x=>x.id===id).name),delta,scores:totals,intention:intention(winner.id),status:'current'
   };
@@ -102,8 +104,8 @@ function mindAdvisor(c,u){
 function agencyAdvisor(c,u){const heavy=c.emotionalLoad==='heavy';return opinion('Agency',heavy?'Caution':'Support',72,heavy?'The next action should remain deliberately small so it does not become another obligation.':`A ${c.time}-minute commitment is realistic enough to preserve follow-through.`,{strength:heavy?.08:c.time>=15?.6:.1,recovery:heavy?.82:.55,focus:heavy?.18:c.time>=15?.62:.2,walk:.65,connection:heavy?.7:.55},.9,[],[],[evidenceItem('current_signal','Available time and emotional load.',{source:'Today signals',reliability:'moderate'})])}
 function purposeAdvisor(c){const work=c.challenge==='work'||c.challenge==='focus',heavy=c.emotionalLoad==='heavy';return opinion('Purpose',work&&!heavy?'Support':'Neutral',70,work&&!heavy?'Finishing one meaningful task is aligned with today’s stated priority.':heavy?'Purpose does not require adding a demanding task when current burden is already high.':'No single purpose claim dominates today.',{focus:work&&!heavy?.85:.22,connection:c.challenge==='family'?.7:.25,strength:.3,recovery:heavy?.62:.3,walk:.3},.85,[],[],[evidenceItem('current_signal','Person-stated priority and emotional load.',{source:'Today signals',reliability:'moderate'})])}
 function relationshipsAdvisor(c){const relational=c.challenge==='family',heavy=c.emotionalLoad==='heavy';return opinion('Relationships',relational||heavy?'Support':'Neutral',relational?88:heavy?76:61,relational?'The most important pressure today is relational, not physical.':heavy?'Connection may provide support without adding another performance demand.':'No relevant relational conflict was identified.',{connection:relational?1:heavy?.72:.2,recovery:heavy?.55:.25,walk:.3,focus:heavy?.08:.2,strength:heavy?.04:.15},1,[],[],[evidenceItem('current_signal','Relational priority and emotional load.',{source:'Today signals',reliability:'moderate'})])}
-function judgementText(id,d,c){if(c.soreness==='significant'&&id==='recovery')return `A ${d}-minute recovery practice is the safest useful direction while significant soreness is present.`;return {strength:`A ${d}-minute strength practice offers the best current balance of adaptation and continuity.`,recovery:`A ${d}-minute recovery practice appears to offer the highest return today.`,focus:`A protected ${d}-minute focus practice is my best current judgement.`,walk:`A ${d}-minute walk appears to create useful energy without unnecessary cost.`,connection:`A deliberate ${d}-minute act of connection appears more valuable than another performance task today.`}[id]}
-function intention(id){return {strength:'Build strength deliberately.',recovery:'Recover without losing momentum.',focus:'Protect attention. Finish what matters.',walk:'Create energy, not fatigue.',connection:'Be fully present with someone who matters.'}[id]}
+function judgementText(id,d,c){if(c.soreness==='significant'&&id==='recovery')return `A ${d}-minute recovery practice is the safest useful direction while significant soreness is present.`;return {'sleep-plan':`Reserva ${d} minutos para preparar uma próxima oportunidade de descanso.`, 'meal-plan':`Reserva ${d} minutos para planear uma refeição viável.`,strength:`A ${d}-minute strength practice offers the best current balance of adaptation and continuity.`,recovery:`A ${d}-minute recovery practice appears to offer the highest return today.`,focus:`A protected ${d}-minute focus practice is my best current judgement.`,walk:`A ${d}-minute walk appears to create useful energy without unnecessary cost.`,connection:`A deliberate ${d}-minute act of connection appears more valuable than another performance task today.`}[id]}
+function intention(id){return {'sleep-plan':'Escolher uma pequena preparação para o descanso.','meal-plan':'Facilitar uma refeição com alimentos habituais e compatíveis contigo.',strength:'Build strength deliberately.',recovery:'Recover without losing momentum.',focus:'Protect attention. Finish what matters.',walk:'Create energy, not fatigue.',connection:'Be fully present with someone who matters.'}[id]}
 function scaleDelta(delta,factor){const out={};for(const [k,v] of Object.entries(delta))out[k]=+(v*Math.min(1.4,Math.max(.5,factor))).toFixed(2);out.overall=+Object.values(out).reduce((a,b)=>a+b,0).toFixed(2);return out}
 function confidenceLabel(value){return value>=82?'Relatively Strong':value>=66?'Moderate':'Limited'}
 function riskStrength(advisor){return (advisor.riskFlags||[]).reduce((max,r)=>Math.max(max,r.severity==='critical'?3:r.severity==='high'?2:r.severity==='moderate'?1:0),0)}

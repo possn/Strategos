@@ -16,7 +16,7 @@ test('five minutes excludes sessions whose supported minimum is fifteen',()=>{
  }
 });
 test('all declared check-in combinations produce a fitting, eligible plan',()=>{
- for(const sleep of [1,2,3,4])for(const energy of [1,2,3])for(const time of [5,15,30,60])for(const challenge of ['body','mind','focus','recovery','family','work'])for(const soreness of ['none','mild','significant'])for(const emotionalLoad of ['light','usual','heavy']){
+ for(const sleep of [1,2,3,4])for(const energy of [1,2,3])for(const time of [5,15,30,60])for(const challenge of ['body','mind','focus','recovery','family','work','sleep','nutrition'])for(const soreness of ['none','mild','significant'])for(const emotionalLoad of ['light','usual','heavy']){
   const context={sleep,energy,time,challenge,soreness,emotionalLoad};
   const d=conveneAgora(context,buildUnderstanding(context));
   assert.ok(d.duration<=time);

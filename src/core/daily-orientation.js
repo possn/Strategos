@@ -1,6 +1,6 @@
-import { normaliseDailySignals } from './daily-signals.js?v=healthspan2';
+import { normaliseDailySignals } from './daily-signals.js?v=pathways1';
 
-const CLAIM_LABELS={body:'physical capacity',mind:'mental clarity',focus:'protected attention',recovery:'recovery',family:'relationships',work:'meaningful work'};
+const CLAIM_LABELS={body:'physical capacity',mind:'mental clarity',focus:'protected attention',recovery:'recovery',family:'relationships',work:'meaningful work',sleep:'preparing for rest',nutrition:'meal planning'};
 
 export function buildDailyOrientation(signals={}, {profile=null, personalEvidence=null}={}){
   const s=normaliseDailySignals(signals);
