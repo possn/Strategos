@@ -9,7 +9,8 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   for(let attempt=0;attempt<50;attempt++){try{if((await fetch('http://127.0.0.1:8080')).ok)break;}catch{} await new Promise(r=>setTimeout(r,100));}
   browser=await playwright.webkit.launch({headless:true});
   const page=await browser.newPage({...playwright.devices['iPhone 13']});
-  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  page.on('console',msg=>{if(msg.type()==='error')console.error('Browser console:',msg.text())});
+   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto('http://127.0.0.1:8080');
   await page.locator('button[data-action="begin"]').click();
   for(let i=0;i<2;i++)await page.locator('button[data-action="onboarding-next"]').click();
@@ -158,3 +159,4 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   console.log('PASS: WebKit iPhone onboarding, partial check-in reload, judgement, practice execution/pause, five-minute alternative, optional context consent/cancel/reload/enforcement/deletion and sleep/nutrition planning execution.');
  } finally {if(browser)await browser.close();server.kill();}
 })().catch(error=>{console.error(error);process.exitCode=1;});
+
