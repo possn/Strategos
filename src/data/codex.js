@@ -101,10 +101,11 @@ export function practiceLibraryCatalog(items=CODEX){
   }));
 }
 export function validatePracticeLibrary(items=CODEX){
-  const results=items.map(practice=>({id:practice.id,valid:Boolean(practice.id&&practice.name&&practice.durationOptions?.length&&practice.phases?.length)}));
+  const results=items.map(practice=>({id:practice.id,practiceId:practice.id,missing:['id','name','durationOptions','phases'].filter(key=>!practice[key]||(Array.isArray(practice[key])&&!practice[key].length)),valid:Boolean(practice.id&&practice.name&&practice.durationOptions?.length&&practice.phases?.length)}));
   const valid=results.filter(item=>item.valid).length;
-  return {total:items.length,valid,invalid:items.length-valid,items:results,statement:'O catálogo preserva os dados disponíveis. Metadados ausentes continuam por classificar.'};
+  return {total:items.length,valid,invalid:items.length-valid,items:results,records:results,statement:'O catálogo preserva os dados disponíveis. Metadados ausentes continuam por classificar.'};
 }
 export function practiceLibrarySummary(items=CODEX){
   return {total:items.length,statement:`${items.length} práticas disponíveis, com o contexto e os limites apresentados em cada orientação.`};
 }
+
