@@ -6,7 +6,8 @@ export function buildLivingCompanion({name='',context={},contextEvidence=null,ju
   const stage=story?.stage||'opened';
   const completed=stage==='complete';
   const practiceComplete=['reflection','complete'].includes(stage);
-  const greeting=`${timeGreeting()}${name?`, ${name}`:''}.`;
+  const preferredName=name==='Friend'?'':name;
+  const greeting=`${timeGreeting()}${preferredName?`, ${preferredName}`:''}.`;
 
   if(completed)return {
     mode:'complete',greeting,judgement:'O dia está encerrado.',

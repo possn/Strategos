@@ -6,6 +6,7 @@ body #app *, body #app *::before, body #app *::after {
 }
 html { scroll-behavior: auto !important; }
 body { padding-bottom: 0 !important; }
+body #app { padding-bottom: 0 !important; }
 body #app button { transform: none !important; }
 body #app button:focus-visible, body #app a:focus-visible, body #app summary:focus-visible {
   outline: 2px solid #d6b77c;
@@ -37,13 +38,13 @@ body #app .splash .brand h1 { font-size: 28px; opacity: 1; }
 body #app .splash .brand p { font-size: 21px; opacity: 1; line-height: 1.5; }
 body #app .splash .tap { position: static; min-height: 48px; padding: 12px 26px; margin: 12px 0 0; color: #ead8b5; font-size: 13px; opacity: 1; border: 1px solid #645135; border-radius: 999px; }
 body #app main.route-today { padding: 0 26px calc(92px + env(safe-area-inset-bottom)) !important; overflow: visible; background: radial-gradient(ellipse at 50% 15%, #1c1810 0, #10100e 36%, #090909 80%); }
-body #app .today-header { height: auto; min-height: 62px; padding-top: env(safe-area-inset-top); gap: 12px; width: 100%; }
+body #app .today-header { display: flex !important; height: auto; min-height: 50px; padding-top: env(safe-area-inset-top); gap: 12px; width: 100%; }
 .today-header > div { display: flex; align-items: center; gap: 10px; }
 body #app .today-header .delta.small { width: 25px; height: 25px; }
 .today-header span { font-size: 10px; letter-spacing: .2em; color: #ded4c2; }
 .today-header > p { margin-left: auto; color: #a69e90; font-size: 10px; letter-spacing: 0; }
-body #app .current-moment { min-height: 0; display: flex; flex-direction: column; padding: 0 0 24px; gap: 0; }
-body #app .current-moment .organism-field { width: clamp(132px, 34vw, 180px); height: auto; aspect-ratio: 1; opacity: 1; transform: none; filter: none; }
+body #app .current-moment { min-height: 0; display: flex; flex-direction: column; padding: 0 0 16px; gap: 0; }
+body #app .current-moment .organism-field { width: clamp(100px, 26vw, 140px); height: auto; aspect-ratio: 1; opacity: 1; transform: none; filter: none; }
 .ambient-organism { width: 100%; aspect-ratio: 1; }
 .ambient-organism svg { width: 100%; height: 100%; display: block; overflow: visible; }
 .ambient-halo { fill: rgba(184,148,88,.1); filter: blur(12px); }
@@ -56,15 +57,15 @@ body #app .ambient-organism .ambient-core { animation: ambient-presence 8s ease-
 @keyframes ambient-presence { 0%,100% { opacity: .5; } 50% { opacity: .9; } }
 body #app .moment-language { width: 100%; max-width: 530px; margin: 0; gap: 10px; align-self: center; }
 body #app .moment-greeting { font-size: 11px; color: #b2a795; text-transform: none; letter-spacing: .03em; margin: 0; }
-body #app .moment-language h1 { font-size: clamp(29px, 7vw, 39px); line-height: 1.15; max-width: 510px; color: #f0eadd; }
+body #app .moment-language h1 { font-size: clamp(27px, 6vw, 36px); line-height: 1.15; max-width: 510px; color: #f0eadd; }
 .moment-support { margin: 0; color: #aaa292; font-size: 14px; line-height: 1.5; }
 body #app .moment-action { margin-top: 8px; min-height: 50px; width: min(100%, 360px); color: #17130c; background: #c6a368; border: 0; border-radius: 13px; font-size: 13px; text-transform: none; letter-spacing: 0; box-shadow: none; }
-.today-paths { padding: 23px 0 8px; border-top: 1px solid #302a20; }
+.today-paths { padding: 16px 0 8px; border-top: 1px solid #302a20; }
 .today-paths .eyebrow { margin: 0 0 8px; font-size: 10px; letter-spacing: .14em; }
 .today-paths h2 { margin: 0 0 8px; font: 400 25px/1.2 Georgia, serif; color: #eee5d5; }
 .today-paths-intro { margin: 0 0 16px; color: #aaa292; font-size: 14px; line-height: 1.5; max-width: 440px; }
 .today-path-list { display: grid; }
-.today-path { display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; padding: 15px 0; border: 0; border-top: 1px solid #24221c; background: transparent; color: #eae1d2; text-align: left; cursor: pointer; }
+.today-path { display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; padding: 11px 0; border: 0; border-top: 1px solid #24221c; background: transparent; color: #eae1d2; text-align: left; cursor: pointer; }
 .today-path > span:first-child { display: grid; gap: 4px; }
 .today-path strong { font-size: 16px; font-weight: 500; }
 .today-path small { font-size: 12px; line-height: 1.5; color: #a69e90; }
@@ -96,3 +97,5 @@ body #app .living-graph, body #app .graph-web, body #app .graph-node { transform
 @media (prefers-reduced-motion: reduce) {
   body #app .ambient-organism .ambient-core { animation: none !important; }
 }
+
+body #app .boot-screen { align-items: center; justify-content: center; gap: 12px; text-align: center; }
