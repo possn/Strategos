@@ -1,13 +1,36 @@
-# Strategos v0.7.0 — Understanding Me
+# Strategos — OneArete
 
-A complete functional release built on v0.6.1.
+A personal development application combining practical philosophy, deliberate action and evidence-informed health education. The frozen decision cycle remains: signals → understanding → independent advisors → Agora → judgement → explanation → human choice → practice → reflection → learning.
 
-## New
-- Living Understanding Model
-- Patterns vs hypotheses
-- Confirm or correct any interpretation
-- Persistent correction history
-- Confidence responds to human feedback
+## Current healthspan increment
 
-## Frozen baseline preserved
-The successful v0.6.1 voice selection and calibration remain unchanged.
+- Six educational domains: movement, nutrition, sleep, mental wellbeing, relationships and functional autonomy.
+- Primary institutional sources and explicit clinical boundaries.
+- Each existing practice has a separate philosophical rationale, purpose and limits, available on demand.
+- Unanswered daily questions remain unanswered when saved and reloaded. Presentation defaults never become newly reported evidence.
+- The single daily primary action remains central.
+
+This increment does not provide personalized supplement plans, prescriptions, diagnoses, biological age estimates or lifespan predictions. Previously stored records may already contain defaults from older versions; missing answers cannot be reconstructed retrospectively.
+
+## Run and validate
+
+Node 24 and Python 3 are used by the checks.
+
+```sh
+npm ci
+npm run dev
+npm test
+npm run test:invariants
+npx playwright install --with-deps webkit
+npm run test:browser
+```
+
+GitHub Actions runs three independent gates on every pull request: runtime syntax, architecture invariants, and WebKit with an iPhone viewport. The browser test covers onboarding, educational content, interruption and reload during check-in, deliberation, practice rationale and return continuity. It is browser emulation, not a physical-device test.
+
+## Next increments
+
+1. Audit the remaining practice and safety boundaries, including time budgets and explicit limitations.
+2. Extend the current person model with optional health context and consent, while preserving data export and correction.
+3. Add evidence-reviewed movement, sleep and nutrition pathways through the existing decision architecture.
+4. Add a supplement evidence catalogue with population, outcome, uncertainty and interaction requirements.
+5. Validate longitudinal usefulness and adverse effects before broadening recommendations.

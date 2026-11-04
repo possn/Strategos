@@ -1,11 +1,11 @@
-import { localDayKey, dailyCheckInForDay } from './daily-signals.js?v=0476p1';
+import { declaredDailySignals, localDayKey, dailyCheckInForDay } from './daily-signals.js?v=healthspan2';
 
 export const REQUIRED_DAILY_SIGNALS=['sleep','energy','time','challenge','soreness','emotionalLoad'];
 
 export function dailyContextEvidence(checkIns=[],now=new Date()){
   const day=localDayKey(now);
   const record=dailyCheckInForDay(checkIns,day);
-  const signals=record?.signals&&typeof record.signals==='object'?record.signals:{};
+  const signals=declaredDailySignals(record?.signals);
   const present=REQUIRED_DAILY_SIGNALS.filter(key=>signals[key]!==undefined&&signals[key]!==null&&signals[key]!=='');
   return {
     day,

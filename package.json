@@ -4,6 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "python3 -m http.server 8080",
-    "test": "node --check src/app.js && node --check src/core/agora.js && node --check src/core/understanding.js && node --check src/core/explain.js && node --check src/core/storage.js && node --check src/core/audio.js && node --check src/data/codex.js && node --check src/core/human-graph.js && node --check src/components/living-graph.js"
+    "test": "node scripts/check-syntax.cjs",
+    "test:healthspan": "node --test tests/healthspan.test.mjs",
+    "test:invariants": "node --test tests/*.test.mjs",
+    "test:browser": "node scripts/browser-smoke.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
   }
 }
