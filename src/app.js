@@ -1,10 +1,11 @@
-import { renderHealthspanFoundation } from './components/healthspan.js?v=healthspan1';
-import { todaySignals,upsertDailyCheckIn,localDayKey,dailyCheckInForDay,dailyCheckInSummary } from './core/daily-signals.js?v=0476p1';
+import { practiceFoundation } from './data/healthspan.js?v=healthspan2';
+import { renderPracticeFoundation, renderHealthspanFoundation } from './components/healthspan.js?v=healthspan2';
+import { todaySignals,upsertDailyCheckIn,localDayKey,dailyCheckInForDay,dailyCheckInSummary } from './core/daily-signals.js?v=healthspan2';
 import { buildDailyOrientation,recentCheckInTrajectory } from './core/daily-orientation.js?v=0476p1';
 import { upsertDailyStory,deriveDailyStory,dailyStorySummary,dailyStoryTimeline,dayNumber } from './core/daily-story.js?v=0476p1';
 import { buildMorningExperience } from './core/morning-experience.js?v=0476p1';
 import { buildLivingCompanion } from './core/living-companion.js?v=0476p1';
-import { evidenceGate } from './core/evidence-gate.js?v=0476p1';
+import { evidenceGate } from './core/evidence-gate.js?v=healthspan2';
 import { nextMissingSignal } from './core/current-moment.js?v=0476p1';
 import { buildPracticeExperience } from './core/practice-experience.js?v=0476p1';
 import { buildEveningExperience,closeDailyStory } from './core/evening-experience.js?v=0476p1';
@@ -342,6 +343,7 @@ function judgement(){
         ${decisive.length?`<div class="practice-voices">${decisive.map(item=>`<span><strong>${esc(item.advisor)}</strong> — ${esc(item.reason)}</span>`).join('')}</div>`:''}
         ${boundaries.runnerUp?`<p class="runner-up">Runner-up: <strong>${esc(boundaries.runnerUp.name)}</strong></p>`:''}
       </section>
+      ${renderPracticeFoundation(practiceFoundation(p.id))}
       ${practiceEligibility.status==='blocked'?`<section class="eligibility-warning"><strong>Canonical eligibility assessment</strong><p>Excluded by declared conditions: ${esc(practiceEligibility.reasons[0])}</p><small>Caution states do not alter ranking</small></section>`:''}
       ${currentSafetyEnvelope.status!=='clear'?`<section class="safety-notice ${currentSafetyGate.canStart?'acknowledged':'pending'}"><strong>${currentSafetyGate.canStart?'Safety noted':'Acknowledgement required'}</strong><p>${esc(currentSafetyAudit.statement)}</p>${currentSafetyRequirement.required&&!currentSafetyGate.canStart?`<button data-safety-action="acknowledge">I understand this safety boundary</button>`:''}</section>`:''}
       <section class="judgement-choice ${pendingChoice?'has-pending':''}">

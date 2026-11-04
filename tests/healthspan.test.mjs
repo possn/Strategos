@@ -20,3 +20,24 @@ test('education remains collapsed with no additional decision action or data col
   assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g)||[]).length,6);
   for(const boundary of HEALTHSPAN_BOUNDARIES) assert.ok(html.includes(boundary));
 });
+
+import { CODEX } from '../src/data/codex.js';
+import { practiceFoundation } from '../src/data/healthspan.js';
+import { renderPracticeFoundation } from '../src/components/healthspan.js';
+test('every selectable practice has a rationale without pretending to prescribe',()=>{
+  for(const practice of CODEX){
+    const record=practiceFoundation(practice.id);
+    assert.ok(record,practice.id);
+    assert.ok(record.principle && record.purpose && record.limit);
+    assert.match(renderPracticeFoundation(record),/Filosofia e fundamento/);
+  }
+  assert.equal(practiceFoundation('unknown'),null);
+  assert.equal(practiceFoundation('toString'),null);
+  assert.equal(renderPracticeFoundation(null),'');
+});
+test('rationale escapes text and rejects unsafe source protocols',()=>{
+  const record=practiceFoundation('walk');
+  assert.equal(renderPracticeFoundation({...record,source:'javascript:alert(1)'}),'');
+  const html=renderPracticeFoundation({...record,principle:'<img src=x onerror=alert(1)>'});
+  assert.doesNotMatch(html,/<img/);
+});

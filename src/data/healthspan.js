@@ -16,3 +16,19 @@ export const HEALTHSPAN_BOUNDARIES = Object.freeze([
   'Os relatos pessoais ajudam a adaptar a experiência; não demonstram causalidade clínica.',
   'Descansar, recusar uma prática e pedir ajuda são escolhas legítimas.'
 ]);
+
+// Rationale accompanies an existing deliberated practice; it never changes ranking.
+export const PRACTICE_FOUNDATIONS = Object.freeze({
+  strength: Object.freeze({domain:'movement',principle:'Coragem com prudência: progredir dentro da capacidade atual.',purpose:'Trabalhar a força, uma componente da capacidade física.',limit:'Uma sessão não permite prever ganhos de força, autonomia ou anos de vida.'}),
+  walk: Object.freeze({domain:'movement',principle:'Agir com simplicidade: um passo possível, sem forçar.',purpose:'Criar uma oportunidade de movimento adaptada ao dia.',limit:'Uma caminhada leve pode não atingir intensidade aeróbia moderada. Não equivale, por si só, às recomendações semanais.'}),
+  recovery: Object.freeze({domain:'sleep',principle:'Temperança e flexibilidade: recuperar também faz parte do caminho.',purpose:'Dar espaço à recuperação e observar como te sentes.',limit:'Esta prática não trata insónia, doença ou lesão. Não é necessário controlar a respiração se isso causar desconforto.'}),
+  focus: Object.freeze({domain:'mind',principle:'Sabedoria prática: distinguir o que depende de ti e escolher uma tarefa.',purpose:'Reservar atenção para uma ação com significado.',limit:'É uma prática de organização pessoal; não é um tratamento de saúde mental nem um exercício com benefício de longevidade demonstrado.'}),
+  connection: Object.freeze({domain:'connection',principle:'Justiça e presença: cuidar da relação através da atenção.',purpose:'Criar espaço para uma relação que a pessoa valoriza.',limit:'O valor das relações não permite garantir um efeito clínico de uma conversa ou atividade isolada.'})
+});
+
+export function practiceFoundation(practiceId){
+  if(!Object.hasOwn(PRACTICE_FOUNDATIONS,practiceId))return null;
+  const record=PRACTICE_FOUNDATIONS[practiceId];
+  const domain=HEALTHSPAN_DOMAINS.find(item=>item.id===record.domain);
+  return {...record,source:domain.source,reviewedAt:HEALTHSPAN_REVIEWED_AT};
+}

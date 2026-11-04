@@ -3489,3 +3489,8 @@ body #app .tabbar button{
 .healthspan-domain { border-top: 1px solid currentColor; padding: 14px 0; }
 .healthspan-domain summary { cursor: pointer; font-size: 16px; }
 .healthspan-domain a { color: inherit; text-underline-offset: 4px; }
+
+.healthspan-practice { border-top: 1px solid var(--line); padding: 16px 0; line-height: 1.6; text-align: left; }
+.healthspan-practice summary { cursor: pointer; font-size: 14px; }
+.healthspan-practice p { font-size: 14px; }
+.healthspan-practice a { color: inherit; text-underline-offset: 4px; }

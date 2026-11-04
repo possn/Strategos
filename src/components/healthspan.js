@@ -13,3 +13,11 @@ export function renderHealthspanFoundation(){
     </div>
   </details>`;
 }
+
+export function renderPracticeFoundation(record){
+  if(!record)return '';
+  const escape=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  const source=new URL(record.source);
+  if(source.protocol!=='https:')return '';
+  return `<details class="healthspan-practice" lang="pt-PT"><summary>Filosofia e fundamento desta prática</summary><p>${escape(record.principle)}</p><p>${escape(record.purpose)}</p><p class="muted">${escape(record.limit)}</p><a href="${escape(source.href)}" target="_blank" rel="noopener noreferrer">Consultar o enquadramento</a></details>`;
+}
