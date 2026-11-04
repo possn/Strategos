@@ -77,7 +77,7 @@ import { resolveStartupDestination,resolveContinuityDestination,buildContinuityN
 const app=document.querySelector('#app');window.__strategosStarted=true;
 const a11yStatus=document.querySelector('#a11y-status');
 const announceStatus=message=>{if(!a11yStatus)return;a11yStatus.textContent='';requestAnimationFrame(()=>{a11yStatus.textContent=message||''})};
-const focusCurrentScreen=()=>requestAnimationFrame(()=>{const target=app.querySelector('main.screen');if(target&&!target.matches(':focus'))target.focus({preventScroll:true})});
+const focusCurrentScreen=()=>requestAnimationFrame(()=>{const target=app.querySelector('main.screen');if(target&&!target.matches(':focus')&&!app.contains(document.activeElement))target.focus({preventScroll:true})});
 function reconcileLoadedState(input){
   let next=reconcileDailyContinuity(input);
   next.preferenceModel=expirePreferences(next.preferenceModel||[]);
