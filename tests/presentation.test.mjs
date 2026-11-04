@@ -25,3 +25,14 @@ test('the motion policy is loaded after legacy styles and explicitly supports re
  assert.match(css,/prefers-reduced-motion:\s*reduce/);
  assert.doesNotMatch(css,/@keyframes[^}]+transform:/);
 });
+
+import {CODEX,practiceLibraryCatalog,validatePracticeLibrary} from '../src/data/codex.js';
+test('the real practice catalogue renders without assuming unavailable metadata',()=>{
+ const catalogue=practiceLibraryCatalog(CODEX);
+ assert.equal(validatePracticeLibrary(CODEX).valid,CODEX.length);
+ for(const item of catalogue){
+  for(const field of ['goals','levels','equipment','durationOptions'])assert.equal(typeof item[field].join(' '),'string');
+  assert.equal(item.phaseCount,CODEX.find(p=>p.id===item.id).phases.length);
+ }
+ assert.equal(practiceLibraryCatalog([{id:'new',name:'Unknown practice'}])[0].evidenceStatus,'not-classified');
+});

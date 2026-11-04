@@ -1,7 +1,7 @@
 import { withHealthPathwayOpinion, boundPlanningConfidence } from './health-pathways.js?v=pathways1';
 import { supportedPracticeDuration } from './practice-capacity.js?v=pathways1';
 import { applyAdvisorMemory } from './advisor-memory.js?v=0476p1';
-import * as PracticeLibrary from '../data/codex.js?v=pathways1';
+import * as PracticeLibrary from '../data/codex.js?v=review1';
 const CODEX=PracticeLibrary.CODEX||[];
 const assessPracticeEligibility=PracticeLibrary.assessPracticeEligibility||((practice,context={})=>{const blocked=practice?.id==='strength'&&context.soreness==='significant';return {practiceId:practice?.id||'unknown',status:blocked?'blocked':'eligible',reasons:[blocked?'Significant soreness makes strength loading inappropriate until reassessment.':'No declared contextual conflict is visible.'],matchedContraindications:blocked?['significant-soreness']:[],selectionInfluence:0};});
 import { evidenceItem, assessEvidenceDiversity, detectContradictions } from './evidence-integrity.js?v=0476p1';

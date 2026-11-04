@@ -85,3 +85,26 @@ export const CODEX = [
 ];
 
 export { assessPracticeEligibility } from '../core/practice-capacity.js?v=pathways1';
+
+// Presentation catalogue: missing metadata remains unknown, never invented evidence.
+export function practiceLibraryCatalog(items=CODEX){
+  return items.map(practice=>({
+    ...practice,
+    domain:practice.domain||({strength:'body',recovery:'recovery',focus:'mind',walk:'body',connection:'relationships'}[practice.id])||'not-specified',
+    goals:Array.isArray(practice.goals)?[...practice.goals]:[],
+    levels:Array.isArray(practice.levels)?[...practice.levels]:[],
+    equipment:Array.isArray(practice.equipment)?[...practice.equipment]:[],
+    intensity:practice.intensity||'not-specified',
+    evidenceStatus:practice.evidenceStatus||'not-classified',
+    phaseCount:Array.isArray(practice.phases)?practice.phases.length:0,
+    durationOptions:Array.isArray(practice.durationOptions)?[...practice.durationOptions]:[]
+  }));
+}
+export function validatePracticeLibrary(items=CODEX){
+  const results=items.map(practice=>({id:practice.id,valid:Boolean(practice.id&&practice.name&&practice.durationOptions?.length&&practice.phases?.length)}));
+  const valid=results.filter(item=>item.valid).length;
+  return {total:items.length,valid,invalid:items.length-valid,items:results,statement:'O catálogo preserva os dados disponíveis. Metadados ausentes continuam por classificar.'};
+}
+export function practiceLibrarySummary(items=CODEX){
+  return {total:items.length,statement:`${items.length} práticas disponíveis, com o contexto e os limites apresentados em cada orientação.`};
+}

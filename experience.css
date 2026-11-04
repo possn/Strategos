@@ -99,3 +99,11 @@ body #app .living-graph, body #app .graph-web, body #app .graph-node { transform
 }
 
 body #app .boot-screen { align-items: center; justify-content: center; gap: 12px; text-align: center; }
+
+.journey-entry { padding: 22px 0; }
+.journey-entry h1 { font: 400 32px/1.2 Georgia,serif; margin: 8px 0 14px; }
+.journey-entry > p:not(.eyebrow) { color: #aaa292; font-size: 15px; line-height: 1.6; }
+.journey-entry .action { margin-top: 14px; }
+.journey-details { padding: 18px 0; border-top: 1px solid #302a20; }
+.journey-details > summary { cursor: pointer; color: #c3b59e; font-size: 14px; }
+.journey-details > section { margin-top: 24px; }

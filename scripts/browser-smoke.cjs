@@ -33,6 +33,14 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.setViewportSize({width:1280,height:900});
   await page.screenshot({path:'artifacts/today-desktop.png',fullPage:false});
   await page.setViewportSize({width:390,height:844});
+  await page.locator('.tabbar button[data-action="understanding"]').click();
+  await page.locator('.route-understanding').waitFor();
+  assert.equal(await page.locator('.understanding-recovery').count(),0);
+  await page.locator('.tabbar button[data-action="journey"]').click();
+  await page.locator('.route-journey').waitFor();
+  assert.equal(await page.locator('.journey-details').getAttribute('open'),null);
+  await page.screenshot({path:'artifacts/journey-iphone.png',fullPage:false});
+  await page.locator('.tabbar button[data-action="today"]').click();
   await page.locator('.healthspan-foundation > summary').click();
   await page.getByText('Corpo capaz',{exact:true}).click();
   assert.equal(await page.locator('.healthspan-domain a').count(),6);
