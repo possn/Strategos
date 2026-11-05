@@ -197,6 +197,16 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   assert.match(await languagePage.locator('.tabbar [data-action="today"]').innerText(),/Today/);
   await languagePage.locator('.tabbar [data-action="settings"]').click();
   const localeState=await languagePage.evaluate(()=>localStorage.getItem('onearete.strategos.v090'));
+  await languagePage.locator('[data-action="open-supplements"]').click();
+  assert.equal(await languagePage.locator('.supplement-guide').getAttribute('lang'),'en');
+  await languagePage.locator('[data-supplement-id="nmn"] summary').click();
+  assert.match(await languagePage.locator('[data-supplement-id="nmn"] .supplement-detail').innerText(),/biomarker is not a longevity outcome/);
+  assert.equal(await languagePage.locator('.supplement-entry').count(),9);
+  assert.equal(await languagePage.locator('.supplement-detail a').count(),12);
+  await languagePage.screenshot({path:'artifacts/nmn-english-iphone.png',fullPage:true});
+  await languagePage.locator('[data-action="close-supplements"]').click();
+  assert.equal(await languagePage.evaluate(()=>localStorage.getItem('onearete.strategos.v090')),localeState);
+
   await languagePage.locator('.language-settings [data-entry-language="pt"]').click();
   assert.equal(await languagePage.evaluate(()=>localStorage.getItem('onearete.strategos.v090')),localeState);
   assert.equal(await languagePage.locator('#settings-profile-name').inputValue(),'Idioma');

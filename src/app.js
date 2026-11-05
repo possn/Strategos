@@ -1,7 +1,7 @@
 import {interfaceText} from './core/interface-language.js?v=language1';
 import {philosophyPrompt} from './core/philosophy-prompts.js?v=purpose1';
 import { renderTodayPaths } from './components/today-paths.js?v=language1';
-import { renderSupplementsGuide } from './components/supplements.js?v=supplements2';
+import { renderSupplementsGuide } from './components/supplements.js?v=language2';
 import { boundPlanningConfidence } from './core/health-pathways.js?v=pathways1';
 import { MOVEMENT_PREFERENCES, createHealthContext, withHealthContext, healthContextSummary, canEditHealthContext } from './core/health-context.js?v=healthcontext1';
 import { supportedPracticeDuration, buildTimedPracticePlan } from './core/practice-capacity.js?v=pathways1';
@@ -1017,7 +1017,7 @@ function emotionalJournal(){
     ${nav('journey')}`)
 }
 function supplements(){
-  shell(`<div class="supplement-guide-header">${header('STRATEGOS','<button class="icon-btn" aria-label="Fechar guia de suplementos" data-action="close-supplements">×</button>')}</div>${renderSupplementsGuide()}`);
+  shell(`<div class="supplement-guide-header">${header('STRATEGOS','<button class="icon-btn" aria-label="Fechar guia de suplementos" data-action="close-supplements">×</button>')}</div>${renderSupplementsGuide(entryLanguage())}`);
 }
 function healthProfile(){
   const editable=canEditHealthContext(state);
