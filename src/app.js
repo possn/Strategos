@@ -1,5 +1,5 @@
-import {practiceText} from './core/practice-language.js?v=language3';
-import {interfaceText} from './core/interface-language.js?v=language3';
+import {practiceText} from './core/practice-language.js?v=forms1';
+import {interfaceText} from './core/interface-language.js?v=forms1';
 import {philosophyPrompt} from './core/philosophy-prompts.js?v=purpose1';
 import { renderTodayPaths } from './components/today-paths.js?v=language1';
 import { renderSupplementsGuide } from './components/supplements.js?v=language2';
@@ -461,7 +461,7 @@ function resumePrompt(){
   const d=state.current?.decision,execution=state.current?.execution;
   if(!d||!isResumable(execution))return route('today');
   const snapshot=buildPracticeSessionSnapshot({phases:state.current.adjusted,execution});
-  shell(`${header('PRACTICE PAUSED')}<section class="stack center resume-practice"><p class="eyebrow">AN INTERRUPTED PRACTICE</p><h2>${esc(d.practice.name)}</h2><p class="muted">${esc(describePracticeResume(snapshot))}</p><div class="resume-session-summary"><strong>${esc(practiceSessionSummary(snapshot))}</strong><span>${Math.round(snapshot.progressRatio*100)}% complete</span></div>${state.current?.practiceContract?`<small class="resume-contract">${esc(practiceContractSummary(state.current.practiceContract))}</small>`:''}${snapshot.next?`<div class="resume-next"><span>Next</span><strong>${esc(snapshot.next.name)}</strong></div>`:''}${button('RESUME PRACTICE','resume-practice')}${button('END AND RECORD','end-interrupted',true)}<button class="text-btn" data-action="discard-interrupted">Discard this session</button></section>`);
+  shell(`${header(uiText('PRACTICE PAUSED'))}<section class="stack center resume-practice"><p class="eyebrow">${uiText("AN INTERRUPTED PRACTICE")}</p><h2>${esc(uiText(d.practice.name))}</h2><p class="muted">${esc(entryLanguage()==='pt'?(snapshot.current?`Estavas na fase ${uiText(snapshot.current.name)}. Falta ${formatTime(snapshot.current.remainingSeconds)} nesta fase.`:'Podes retomar a prática.'):describePracticeResume(snapshot))}</p><div class="resume-session-summary"><strong>${esc(entryLanguage()==='pt'?`${snapshot.phaseIndex+1} de ${snapshot.phaseCount} fases · falta ${formatTime(snapshot.remainingPracticeSeconds)}`:practiceSessionSummary(snapshot))}</strong><span>${entryLanguage()==='pt'?`${Math.round(snapshot.progressRatio*100)}% concluído`:`${Math.round(snapshot.progressRatio*100)}% complete`}</span></div>${state.current?.practiceContract?`<small class="resume-contract">${esc(uiText(state.current.practiceContract.practiceName))} · ${state.current.practiceContract.durationMinutes} min</small>`:''}${snapshot.next?`<div class="resume-next"><span>${uiText("Next")}</span><strong>${esc(uiText(snapshot.next.name))}</strong></div>`:''}${button('RESUME PRACTICE','resume-practice')}${button('END AND RECORD','end-interrupted',true)}<button class="text-btn" data-action="discard-interrupted">${uiText("Discard this session")}</button></section>`);
 }
 function practiceExit(){
   const d=state.current?.decision,execution=state.current?.execution;
@@ -473,15 +473,15 @@ function practiceExit(){
   }
 
   const model=buildPracticeExitModel({phases:state.current.adjusted,execution:state.current.execution});
-  shell(`${header('PRACTICE')}<section class="stack practice-exit-screen">
-    <div><p class="eyebrow">YOUR CONTROL</p><h2>${esc(model.title)}</h2><p class="muted">${esc(model.statement)}</p></div>
-    <div class="practice-exit-progress"><strong>${model.percent}% complete</strong><span>${esc(practiceSessionSummary(model.snapshot))}</span></div>
+  shell(`${header(uiText('PRACTICE'))}<section class="stack practice-exit-screen">
+    <div><p class="eyebrow">${uiText("YOUR CONTROL")}</p><h2>${esc(uiText(model.title))}</h2><p class="muted">${esc(entryLanguage()==='pt'&&model.snapshot.current?`Estás na fase ${uiText(model.snapshot.current.name)}. Falta ${formatTime(model.snapshot.current.remainingSeconds)} nesta fase.`:uiText(model.statement))}</p></div>
+    <div class="practice-exit-progress"><strong>${entryLanguage()==='pt'?`${model.percent}% concluído`:`${model.percent}% complete`}</strong><span>${esc(entryLanguage()==='pt'?`${model.snapshot.phaseIndex+1} de ${model.snapshot.phaseCount} fases · falta ${formatTime(model.snapshot.remainingPracticeSeconds)}`:practiceSessionSummary(model.snapshot))}</span></div>
     <div class="practice-exit-actions">
-      <button class="action primary" data-action="continue-practice">Continue Practice</button>
-      <button class="action secondary" data-action="record-practice-exit">End and record</button>
-      <p>${esc(model.recordStatement)}</p>
-      <button class="danger-btn subtle" data-action="discard-practice-session">Discard session</button>
-      <p>${esc(model.discardStatement)}</p>
+      <button class="action primary" data-action="continue-practice">${uiText("Continue Practice")}</button>
+      <button class="action secondary" data-action="record-practice-exit">${uiText("End and record")}</button>
+      <p>${esc(uiText(model.recordStatement))}</p>
+      <button class="danger-btn subtle" data-action="discard-practice-session">${uiText("Discard session")}</button>
+      <p>${esc(uiText(model.discardStatement))}</p>
     </div>
   </section>`);
 }
@@ -590,7 +590,7 @@ function abandonPractice(reason='person-ended'){
   const entry={...state.current,outcomeRecord:outcomeIndex>=0?state.outcomeRecords[outcomeIndex]:null,completed:false,abandoned:true,abandonedAt,closureReason:reason,completionRatio};
   state.history.unshift(entry);state.history=state.history.slice(0,100);
   updateJudgementStatus('abandoned',{closureReason:reason});
-  state.dailyStories=upsertDailyStory(state.dailyStories,{stage:'reflection',practice:{name:entry.decision?.practice?.name||null,reflection:value,completedAt:reflectedAt}});state=clearReflectionDraft(state);state.current=null;decision=null;releaseWakeLock();persist();route('today');
+  state.dailyStories=upsertDailyStory(state.dailyStories,{stage:'reflection',practice:{name:entry.decision?.practice?.name||null,reflection:null,completedAt:abandonedAt}});state=clearReflectionDraft(state);state.current=null;decision=null;releaseWakeLock();persist();route('today');
 }
 function finishPractice(){
   if(state.current?.execution)state.current.execution=closeExecution(state.current.execution,EXECUTION_STATUS.COMPLETED);
@@ -609,46 +609,46 @@ function reflect(){
   const friction=state.frictionPlans.find(item=>item.id===state.current?.frictionPlanId&&item.status==='active');
   const adaptationPrompt=adaptationReflectionPrompt(state.current,state.current?.adjusted||[]);
   const practiceContract=state.current?.practiceContract||null;
-  shell(`${header('REFLECTION')}<section class="stack reflection-screen"><div><p class="eyebrow">LOOKING BACK</p><h2>What actually happened?</h2><p class="muted">Three answers are enough. Add detail only when it helps.</p></div>${practiceContract?`<section class="reflection-contract"><p class="eyebrow">PRE-ACTION CONTRACT</p><strong>${esc(practiceContract.review)}</strong><small>${esc(practiceContract.expectedEffect)}</small></section>`:''}
+  shell(`${header(uiText('REFLECTION'))}<section class="stack reflection-screen"><div><p class="eyebrow">${uiText("LOOKING BACK")}</p><h2>${uiText("What actually happened?")}</h2><p class="muted">${uiText("Three answers are enough. Add detail only when it helps.")}</p></div>${practiceContract?`<section class="reflection-contract"><p class="eyebrow">${uiText("PRE-ACTION CONTRACT")}</p><strong>${esc(uiText(practiceContract.review))}</strong><small>${esc(uiText(practiceContract.expectedEffect))}</small></section>`:''}
     <div class="reflection-essential">
-      <label>Effect<select id="reflection-effect" data-reflection-draft="effect"><option value="better" ${values.effect==='better'?'selected':''}>Better than expected</option><option value="right" ${values.effect==='right'?'selected':''}>About right</option><option value="worse" ${values.effect==='worse'?'selected':''}>Worse than expected</option></select></label>
-      <label>Goal fit<select id="reflection-goal" data-reflection-draft="goalFit"><option value="strong" ${values.goalFit==='strong'?'selected':''}>Strong</option><option value="partial" ${values.goalFit==='partial'?'selected':''}>Partial</option><option value="poor" ${values.goalFit==='poor'?'selected':''}>Poor</option><option value="unknown" ${values.goalFit==='unknown'?'selected':''}>Unknown</option></select></label>
-      <label>Burden<select id="reflection-burden" data-reflection-draft="burden"><option value="low" ${values.burden==='low'?'selected':''}>Low</option><option value="moderate" ${values.burden==='moderate'?'selected':''}>Moderate</option><option value="high" ${values.burden==='high'?'selected':''}>High</option><option value="unknown" ${values.burden==='unknown'?'selected':''}>Unknown</option></select></label>
-      ${friction?`<label>Did the anticipated friction appear?<select id="reflection-friction" data-reflection-draft="frictionOutcome"><option value="managed" ${values.frictionOutcome==='managed'?'selected':''}>Yes, and I managed it</option><option value="partly-managed" ${values.frictionOutcome==='partly-managed'?'selected':''}>Yes, partly managed</option><option value="blocked" ${values.frictionOutcome==='blocked'?'selected':''}>Yes, it blocked me</option><option value="not-relevant" ${values.frictionOutcome==='not-relevant'?'selected':''}>It did not appear</option></select></label>`:''}
-      ${adaptationPrompt?`<label>${esc(adaptationPrompt.title)}<select id="reflection-adaptation-fit" data-reflection-draft="adaptationFit"><option value="right" ${values.adaptationFit==='right'?'selected':''}>About right</option><option value="better" ${values.adaptationFit==='better'?'selected':''}>Better than suggested</option><option value="worse" ${values.adaptationFit==='worse'?'selected':''}>Worse than suggested</option><option value="unknown" ${values.adaptationFit==='unknown'?'selected':''}>Not sure</option></select><small class="field-note">${esc(adaptationPrompt.description)}</small></label>`:''}
+      <label>${uiText("Effect")}<select id="reflection-effect" data-reflection-draft="effect"><option value="better" ${values.effect==='better'?'selected':''}>${uiText("Better than expected")}</option><option value="right" ${values.effect==='right'?'selected':''}>${uiText("About right")}</option><option value="worse" ${values.effect==='worse'?'selected':''}>${uiText("Worse than expected")}</option></select></label>
+      <label>${uiText("Goal fit")}<select id="reflection-goal" data-reflection-draft="goalFit"><option value="strong" ${values.goalFit==='strong'?'selected':''}>${uiText("Strong")}</option><option value="partial" ${values.goalFit==='partial'?'selected':''}>${uiText("Partial")}</option><option value="poor" ${values.goalFit==='poor'?'selected':''}>${uiText("Poor")}</option><option value="unknown" ${values.goalFit==='unknown'?'selected':''}>${uiText("Unknown")}</option></select></label>
+      <label>${uiText("Burden")}<select id="reflection-burden" data-reflection-draft="burden"><option value="low" ${values.burden==='low'?'selected':''}>${uiText("Low")}</option><option value="moderate" ${values.burden==='moderate'?'selected':''}>${uiText("Moderate")}</option><option value="high" ${values.burden==='high'?'selected':''}>${uiText("High")}</option><option value="unknown" ${values.burden==='unknown'?'selected':''}>${uiText("Unknown")}</option></select></label>
+      ${friction?`<label>${uiText("Did the anticipated friction appear?")}<select id="reflection-friction" data-reflection-draft="frictionOutcome"><option value="managed" ${values.frictionOutcome==='managed'?'selected':''}>${uiText("Yes, and I managed it")}</option><option value="partly-managed" ${values.frictionOutcome==='partly-managed'?'selected':''}>${uiText("Yes, partly managed")}</option><option value="blocked" ${values.frictionOutcome==='blocked'?'selected':''}>${uiText("Yes, it blocked me")}</option><option value="not-relevant" ${values.frictionOutcome==='not-relevant'?'selected':''}>${uiText("It did not appear")}</option></select></label>`:''}
+      ${adaptationPrompt?`<label>${esc(uiText(adaptationPrompt.title))}<select id="reflection-adaptation-fit" data-reflection-draft="adaptationFit"><option value="right" ${values.adaptationFit==='right'?'selected':''}>${uiText("About right")}</option><option value="better" ${values.adaptationFit==='better'?'selected':''}>${uiText("Better than suggested")}</option><option value="worse" ${values.adaptationFit==='worse'?'selected':''}>${uiText("Worse than suggested")}</option><option value="unknown" ${values.adaptationFit==='unknown'?'selected':''}>${uiText("Not sure")}</option></select><small class="field-note">${esc(uiText(adaptationPrompt.description))}</small></label>`:''}
     </div>
-    <details class="reflection-detail"><summary><span>Add more context</span><small>Optional. Use this only when it helps explain why the result happened.</small></summary><div class="structured-reflection">
+    <details class="reflection-detail"><summary><span>${uiText("Add more context")}</span><small>${uiText("Optional. Use this only when it helps explain why the result happened.")}</small></summary><div class="structured-reflection">
       <div class="reflection-detail-intro">
-        <strong>Help Strategos separate the effect of the Practice from coincidence or outside events.</strong>
-        <p>There are no correct answers. Choose the closest option, or leave this section closed.</p>
+        <strong>${uiText("Help Strategos separate the effect of the Practice from coincidence or outside events.")}</strong>
+        <p>${uiText("There are no correct answers. Choose the closest option, or leave this section closed.")}</p>
       </div>
-      <label>Was the result surprising?
-        <small class="field-note">Compare what happened with what you expected before starting.</small>
-        <select id="reflection-surprise" data-reflection-draft="surprise"><option value="none" ${values.surprise==='none'?'selected':''}>No — it was expected</option><option value="some" ${values.surprise==='some'?'selected':''}>Somewhat surprising</option><option value="material" ${values.surprise==='material'?'selected':''}>Very different from expected</option></select>
+      <label>${uiText("Was the result surprising?")}
+        <small class="field-note">${uiText("Compare what happened with what you expected before starting.")}</small>
+        <select id="reflection-surprise" data-reflection-draft="surprise"><option value="none" ${values.surprise==='none'?'selected':''}>${uiText("No \u2014 it was expected")}</option><option value="some" ${values.surprise==='some'?'selected':''}>${uiText("Somewhat surprising")}</option><option value="material" ${values.surprise==='material'?'selected':''}>${uiText("Very different from expected")}</option></select>
       </label>
-      <label>How confident are you in this assessment?
-        <small class="field-note">This is confidence in your overall feedback, not confidence in Strategos.</small>
-        <select id="reflection-confidence" data-reflection-draft="confidence"><option value="low" ${values.confidence==='low'?'selected':''}>Low — mostly a guess</option><option value="medium" ${values.confidence==='medium'?'selected':''}>Medium — reasonably sure</option><option value="high" ${values.confidence==='high'?'selected':''}>High — quite certain</option></select>
+      <label>${uiText("How confident are you in this assessment?")}
+        <small class="field-note">${uiText("This is confidence in your overall feedback, not confidence in Strategos.")}</small>
+        <select id="reflection-confidence" data-reflection-draft="confidence"><option value="low" ${values.confidence==='low'?'selected':''}>${uiText("Low \u2014 mostly a guess")}</option><option value="medium" ${values.confidence==='medium'?'selected':''}>${uiText("Medium \u2014 reasonably sure")}</option><option value="high" ${values.confidence==='high'?'selected':''}>${uiText("High \u2014 quite certain")}</option></select>
       </label>
-      <label>What most likely caused the outcome?
-        <small class="field-note">Choose what contributed most to feeling better, the same or worse.</small>
-        <select id="attribution-source" data-reflection-draft="attributionSource"><option value="practice" ${values.attributionSource==='practice'?'selected':''}>Mostly the Practice</option><option value="mixed" ${values.attributionSource==='mixed'?'selected':''}>The Practice and other factors</option><option value="time" ${values.attributionSource==='time'?'selected':''}>Mostly the passage of time</option><option value="external" ${values.attributionSource==='external'?'selected':''}>Mostly external factors</option><option value="unclear" ${values.attributionSource==='unclear'?'selected':''}>I cannot tell</option></select>
+      <label>${uiText("What most likely caused the outcome?")}
+        <small class="field-note">${uiText("Choose what contributed most to feeling better, the same or worse.")}</small>
+        <select id="attribution-source" data-reflection-draft="attributionSource"><option value="practice" ${values.attributionSource==='practice'?'selected':''}>${uiText("Mostly the Practice")}</option><option value="mixed" ${values.attributionSource==='mixed'?'selected':''}>${uiText("The Practice and other factors")}</option><option value="time" ${values.attributionSource==='time'?'selected':''}>${uiText("Mostly the passage of time")}</option><option value="external" ${values.attributionSource==='external'?'selected':''}>${uiText("Mostly external factors")}</option><option value="unclear" ${values.attributionSource==='unclear'?'selected':''}>${uiText("I cannot tell")}</option></select>
       </label>
-      <label>How certain are you about that cause?
-        <small class="field-note">Low is appropriate when several explanations are possible.</small>
-        <select id="attribution-confidence" data-reflection-draft="attributionConfidence"><option value="low" ${values.attributionConfidence==='low'?'selected':''}>Low — uncertain</option><option value="medium" ${values.attributionConfidence==='medium'?'selected':''}>Medium — plausible</option><option value="high" ${values.attributionConfidence==='high'?'selected':''}>High — clear connection</option></select>
+      <label>${uiText("How certain are you about that cause?")}
+        <small class="field-note">${uiText("Low is appropriate when several explanations are possible.")}</small>
+        <select id="attribution-confidence" data-reflection-draft="attributionConfidence"><option value="low" ${values.attributionConfidence==='low'?'selected':''}>${uiText("Low \u2014 uncertain")}</option><option value="medium" ${values.attributionConfidence==='medium'?'selected':''}>${uiText("Medium \u2014 plausible")}</option><option value="high" ${values.attributionConfidence==='high'?'selected':''}>${uiText("High \u2014 clear connection")}</option></select>
       </label>
-      <label>Were there important external factors?
-        <small class="field-note">Examples: medication, food, conversation, work interruption, pain changing naturally or another activity.</small>
-        <textarea id="attribution-factors" rows="3" data-reflection-draft="externalFactors" placeholder="Optional — describe only what may have affected the result">${esc(values.externalFactors)}</textarea>
+      <label>${uiText("Were there important external factors?")}
+        <small class="field-note">${uiText("Examples: medication, food, conversation, work interruption, pain changing naturally or another activity.")}</small>
+        <textarea id="attribution-factors" rows="3" data-reflection-draft="externalFactors" placeholder="${uiText("Optional \u2014 describe only what may have affected the result")}">${esc(values.externalFactors)}</textarea>
       </label>
-      <label>Anything else Strategos should remember?
-        <small class="field-note">Use this for context that the options above do not capture.</small>
-        <textarea id="reflection-note" rows="3" data-reflection-draft="note" placeholder="Optional note">${esc(values.note)}</textarea>
+      <label>${uiText("Anything else Strategos should remember?")}
+        <small class="field-note">${uiText("Use this for context that the options above do not capture.")}</small>
+        <textarea id="reflection-note" rows="3" data-reflection-draft="note" placeholder="${uiText("Optional note")}">${esc(values.note)}</textarea>
       </label>
     </div></details>
-    <button class="action primary" data-structured-reflection="save">SAVE REFLECTION</button>
-    <p class="reflection-save-note">Your answers are saved automatically on this device.</p>
+    <button class="action primary" data-structured-reflection="save">${uiText("SAVE REFLECTION")}</button>
+    <p class="reflection-save-note">${uiText("Your answers are saved automatically on this device.")}</p>
   </section>`)
 }
 function saveReflection(value){
@@ -983,15 +983,15 @@ function eveningReflection(){
   const story=deriveDailyStory({stories:state.dailyStories,checkIns:state.dailyCheckIns,judgements:state.judgements,history:state.history,journalEntries:state.emotionalJournalEntries});
   const evening=buildEveningExperience({story,journalEntry:selected});
   if(!evening.ready&&!evening.complete)return route('today');
-  shell(`${header('EVENING','<button class="icon-btn" aria-label="Close and return to Today" data-action="today">×</button>')}
+  shell(`${header(uiText('EVENING'),'<button class="icon-btn" aria-label="Close and return to Today" data-action="today">×</button>')}
     <section class="stack evening-reflection-screen">
-      <div class="evening-reflection-heading"><p class="eyebrow">ONE MINUTE</p><h1>What mattered today?</h1><p class="muted">One honest sentence is enough. Writing is optional.</p></div>
-      <label><span>Private reflection</span><textarea id="evening-reflection-text" rows="6" maxlength="1200" placeholder="What is worth remembering?">${esc(selected?.text||'')}</textarea></label>
+      <div class="evening-reflection-heading"><p class="eyebrow">${uiText("ONE MINUTE")}</p><h1>${uiText("What mattered today?")}</h1><p class="muted">${uiText("One honest sentence is enough. Writing is optional.")}</p></div>
+      <label><span>${uiText("Private reflection")}</span><textarea id="evening-reflection-text" rows="6" maxlength="1200" placeholder="${uiText("What is worth remembering?")}">${esc(selected?.text||'')}</textarea></label>
       <div class="evening-reflection-actions">
-        <button class="action primary" data-action="save-evening-reflection">${selected?'Save and close the day':'Save and close the day'}</button>
-        <button class="text-btn" data-action="skip-evening-reflection">Close without writing</button>
+        <button class="action primary" data-action="save-evening-reflection">${uiText('Save and close the day')}</button>
+        <button class="text-btn" data-action="skip-evening-reflection">${uiText("Close without writing")}</button>
       </div>
-      <small>No score. No analysis of your words. Influence on judgement: 0.</small>
+      <small>${uiText("No score. No analysis of your words. Influence on judgement: 0.")}</small>
     </section>${nav('today')}`)
 }
 

@@ -1,4 +1,4 @@
-import {interfaceText} from '../core/interface-language.js?v=language3';
+import {interfaceText} from '../core/interface-language.js?v=forms1';
 export function renderTodayPaths({busy=false,language='pt'}={}){
   const t=text=>interfaceText(text,language);
   return `<section class="today-paths" lang="${language==='pt'?'pt-PT':'en'}" aria-labelledby="today-paths-title">
