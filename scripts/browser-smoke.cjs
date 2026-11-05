@@ -117,6 +117,23 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.getByRole('button',{name:'Retomar prática',exact:true}).waitFor();
   assert.equal(await page.locator('.practice-focus h2').innerText(),'Preparar');
   assert.match(await page.locator('.practice-primary-cue').innerText(),/pés por baixo das ancas/);
+  await page.locator('[data-action="abandon"]').click();
+  assert.match(await page.locator('.practice-exit-screen h2').innerText(),/Pausar ou terminar/);
+  await page.locator('[data-action="continue-practice"]').click();
+  for(let i=0;i<plan.adjusted.length-1;i++)await page.locator('[data-action="next-phase"]').click();
+  const finalPhaseTime=await page.evaluate(()=>Date.now());
+  await page.clock.setFixedTime(new Date(finalPhaseTime+plan.adjusted.at(-1)[1]*1000+1000));
+  await page.locator('.reflection-screen').waitFor();
+  assert.match(await page.locator('.reflection-screen h2').innerText(),/O que aconteceu/);
+  assert.match(await page.locator('#reflection-effect').innerText(),/Melhor do que esperava/);
+  await page.locator('#reflection-effect').selectOption('right');
+  await page.locator('.reflection-detail > summary').click();
+  await page.locator('#reflection-note').fill('Texto pessoal: About right / bem.');
+  const reflectionDraft=await page.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).reflectionDraft);
+  assert.equal(reflectionDraft.values.note,'Texto pessoal: About right / bem.');
+  await page.screenshot({path:'artifacts/reflection-form-portuguese.png',fullPage:false});
+  await page.locator('[data-structured-reflection="save"]').click();
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).current),null);
   await page.close();
   const shortPage=await browser.newPage({...playwright.devices['iPhone 13']});
   shortPage.on('pageerror',error=>errors.push(error.message));
@@ -181,6 +198,15 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
    const execution=await healthPage.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).current);
    assert.equal(execution.adjusted.reduce((sum,phase)=>sum+phase[1],0),300);
    assert.equal(await healthPage.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+   if(priority==='sleep'){
+    await healthPage.locator('[data-action="abandon"]').click();
+    assert.match(await healthPage.locator('.practice-exit-screen h2').innerText(),/Pause or end/);
+    await healthPage.locator('[data-action="record-practice-exit"]').click();
+    const closed=await healthPage.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')));
+    assert.equal(closed.current,null);
+    assert.equal(closed.history[0].abandoned,true);
+    assert.equal(closed.history[0].completed,false);
+   }
    await healthPage.close();
   }
   await shortPage.locator('button[data-action="open-supplements"]').click();

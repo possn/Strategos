@@ -49,6 +49,7 @@ export function practiceText(text,language){
  const value=String(text??''),map=language==='pt'?toPt:toEn;
  if(map.has(value))return map.get(value);
  const englishToPt=[
+ [/^Ending and recording will keep (\d+)% completion in Journey\.$/,m=>`Terminar e registar mantém ${m[1]}% de realização no Percurso.`],
  [/^A (\d+)-minute strength practice offers the best current balance of adaptation and continuity\.$/,m=>`Uma prática de força de ${m[1]} minutos é a proposta de hoje para equilibrar adaptação e continuidade.`],
  [/^A (\d+)-minute recovery practice appears to offer the highest return today\.$/,m=>`Uma prática de recuperação de ${m[1]} minutos parece ser a opção mais útil hoje.`],
  [/^A protected (\d+)-minute focus practice is my best current judgement\.$/,m=>`A proposta de hoje é reservar ${m[1]} minutos para uma tarefa com foco.`],
