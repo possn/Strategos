@@ -1,3 +1,4 @@
+import {philosophyPrompt} from './core/philosophy-prompts.js?v=purpose1';
 import { renderTodayPaths } from './components/today-paths.js?v=review1';
 import { renderSupplementsGuide } from './components/supplements.js?v=supplements1';
 import { boundPlanningConfidence } from './core/health-pathways.js?v=pathways1';
@@ -987,21 +988,23 @@ function eveningReflection(){
 }
 
 function emotionalJournal(){
-  const todayKey=new Date().toISOString().slice(0,10);
+  const todayKey=localDayKey();
+  const pt=entryLanguage()==='pt';
   const selectedId=state.currentEmotionalJournalEntryId||null;
   const selected=selectedId
     ?state.emotionalJournalEntries.find(entry=>entry.id===selectedId)
     :emotionalJournalToday(state.emotionalJournalEntries,todayKey);
-  shell(`${header('EMOTIONAL JOURNAL','<button class="icon-btn" aria-label="Close and return to Journey" data-action="journey">×</button>')}
+  const prompt=philosophyPrompt(selected?.entryDate||todayKey,entryLanguage());
+  shell(`${header(pt?'REFLEXÃO':'REFLECTION','<button class="icon-btn" aria-label="Close / Voltar ao Percurso" data-action="journey">×</button>')}
     <section class="stack emotional-journal-editor">
-      <div><p class="eyebrow">END-OF-DAY REFLECTION</p><h2>Write what is true for you.</h2><p class="muted">What went well, what went badly, or anything else. Skip it whenever you prefer.</p></div>
-      <label><span>Private reflection</span><textarea id="emotional-journal-text" rows="12" placeholder="Write freely…">${esc(selected?.text||'')}</textarea></label>
-      ${selected?`<section class="emotional-theme-picker"><p class="eyebrow">OPTIONAL THEMES</p><p class="muted">Choose only what feels true. Strategos will not infer themes from your writing.</p><div>${EMOTIONAL_JOURNAL_THEMES.map(theme=>`<button class="pill ${(selected.themes||[]).includes(theme)?'selected':''}" data-emotional-journal-action="theme" data-emotional-journal-id="${esc(selected.id)}" data-emotional-journal-theme="${esc(theme)}" aria-pressed="${(selected.themes||[]).includes(theme)?'true':'false'}">${esc(emotionalJournalThemeLabel(theme))}</button>`).join('')}</div></section><section class="emotional-follow-up-editor"><p class="eyebrow">HOW HAS THIS EVOLVED?</p><p class="muted">Review this only when it feels useful: Still present, Changed, Resolved, or Uncertain. Your answer does not change the Human Model.</p>${selected.followUp?`<div class="emotional-follow-up-current"><strong>${esc(emotionalJournalFollowUpLabel(selected.followUp.outcome))}</strong><p>${esc(selected.followUp.note||selected.followUp.statement)}</p><button data-emotional-journal-action="follow-up-reopen" data-emotional-journal-id="${esc(selected.id)}">Review again</button></div>`:`<label><span>Optional note</span><textarea id="emotional-follow-up-note" rows="3" placeholder="What changed, remained or resolved?"></textarea></label><div>${EMOTIONAL_JOURNAL_FOLLOW_UPS.map(outcome=>`<button class="pill" data-emotional-journal-action="follow-up" data-emotional-journal-id="${esc(selected.id)}" data-emotional-journal-outcome="${esc(outcome)}">${esc(emotionalJournalFollowUpLabel(outcome))}</button>`).join('')}</div>`}</section>`:''}
-      <small>No score. No diagnosis. No automatic Human Model update. Influence on judgement: 0.</small>
+      <div class="philosophy-prompt"><p class="eyebrow">${esc(prompt.label)}</p><h2>${esc(prompt.question)}</h2><p class="muted">${esc(prompt.action)}</p><details><summary>${pt?'Sobre esta pergunta':'About this prompt'}</summary><p>${esc(prompt.boundary)}</p></details></div>
+      <label><span>${pt?'Uma frase é suficiente. Podes escrever sobre outra coisa.':'One sentence is enough. You can write about something else.'}</span><textarea id="emotional-journal-text" rows="5" placeholder="${pt?'Escreve livremente…':'Write freely…'}">${esc(selected?.text||'')}</textarea></label>
+      ${selected?`<details class="reflection-extras"><summary>${pt?'Temas e acompanhamento opcionais':'Optional themes and follow-up'}</summary><section class="emotional-theme-picker"><p class="eyebrow">OPTIONAL THEMES</p><p class="muted">Choose only what feels true. Strategos will not infer themes from your writing.</p><div>${EMOTIONAL_JOURNAL_THEMES.map(theme=>`<button class="pill ${(selected.themes||[]).includes(theme)?'selected':''}" data-emotional-journal-action="theme" data-emotional-journal-id="${esc(selected.id)}" data-emotional-journal-theme="${esc(theme)}" aria-pressed="${(selected.themes||[]).includes(theme)?'true':'false'}">${esc(emotionalJournalThemeLabel(theme))}</button>`).join('')}</div></section><section class="emotional-follow-up-editor"><p class="eyebrow">HOW HAS THIS EVOLVED?</p><p class="muted">Review this only when it feels useful: Still present, Changed, Resolved, or Uncertain. Your answer does not change the Human Model.</p>${selected.followUp?`<div class="emotional-follow-up-current"><strong>${esc(emotionalJournalFollowUpLabel(selected.followUp.outcome))}</strong><p>${esc(selected.followUp.note||selected.followUp.statement)}</p><button data-emotional-journal-action="follow-up-reopen" data-emotional-journal-id="${esc(selected.id)}">Review again</button></div>`:`<label><span>Optional note</span><textarea id="emotional-follow-up-note" rows="3" placeholder="What changed, remained or resolved?"></textarea></label><div>${EMOTIONAL_JOURNAL_FOLLOW_UPS.map(outcome=>`<button class="pill" data-emotional-journal-action="follow-up" data-emotional-journal-id="${esc(selected.id)}" data-emotional-journal-outcome="${esc(outcome)}">${esc(emotionalJournalFollowUpLabel(outcome))}</button>`).join('')}</div>`}</section></details>`:''}
+      <small>${pt?'A escrita fica neste navegador. Não é analisada para inferir o teu estado de saúde.':'Your writing stays in this browser. It is not analysed to infer your health.'}</small>
       <div class="emotional-journal-actions">
-        <button class="action primary" data-emotional-journal-action="save" data-emotional-journal-id="${esc(selected?.id||'')}">${selected?'Save changes':'Save reflection'}</button>
+        <button class="action primary" data-emotional-journal-action="save" data-emotional-journal-id="${esc(selected?.id||'')}">${pt?(selected?'Guardar alterações':'Guardar reflexão'):(selected?'Save changes':'Save reflection')}</button>
         ${selected?`<button class="action secondary" data-emotional-journal-action="delete" data-emotional-journal-id="${esc(selected.id)}">Delete entry</button>`:''}
-        <button class="text-btn" data-action="journey">Skip for now</button>
+        <button class="text-btn" data-action="journey">${pt?'Agora não':'Skip for now'}</button>
       </div>
     </section>
     ${nav('journey')}`)
