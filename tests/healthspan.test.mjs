@@ -41,3 +41,18 @@ test('rationale escapes text and rejects unsafe source protocols',()=>{
   const html=renderPracticeFoundation({...record,principle:'<img src=x onerror=alert(1)>'});
   assert.doesNotMatch(html,/<img/);
 });
+
+import {healthspanDomains,healthspanBoundaries} from '../src/data/healthspan-en.js';
+test('English health education retains source identity and every clinical boundary',()=>{
+ assert.deepEqual(healthspanDomains('en').map(d=>[d.id,d.source]),HEALTHSPAN_DOMAINS.map(d=>[d.id,d.source]));
+ assert.equal(healthspanBoundaries('en').length,HEALTHSPAN_BOUNDARIES.length);
+ const html=renderHealthspanFoundation('en');
+ assert.match(html,/lang="en"/);assert.match(html,/does not prove a longer life/);
+ for(const practice of CODEX){
+  const record=practiceFoundation(practice.id),rendered=renderPracticeFoundation(record,'en');
+  assert.ok(rendered.includes(record.source));
+  assert.doesNotMatch(rendered,/Filosofia e fundamento/);
+ }
+ const record=practiceFoundation('walk');
+ assert.doesNotMatch(renderPracticeFoundation({...record,principle:'<img src=x>'},'en'),/<img/);
+});

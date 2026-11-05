@@ -7,7 +7,7 @@ import { boundPlanningConfidence } from './core/health-pathways.js?v=pathways1';
 import { MOVEMENT_PREFERENCES, createHealthContext, withHealthContext, healthContextSummary, canEditHealthContext } from './core/health-context.js?v=healthcontext1';
 import { supportedPracticeDuration, buildTimedPracticePlan } from './core/practice-capacity.js?v=pathways1';
 import { practiceFoundation } from './data/healthspan.js?v=pathways1';
-import { renderPracticeFoundation, renderHealthspanFoundation } from './components/healthspan.js?v=supplements1';
+import { renderPracticeFoundation, renderHealthspanFoundation } from './components/healthspan.js?v=language4';
 import { todaySignals,upsertDailyCheckIn,localDayKey,dailyCheckInForDay,dailyCheckInSummary } from './core/daily-signals.js?v=pathways1';
 import { buildDailyOrientation,recentCheckInTrajectory } from './core/daily-orientation.js?v=pathways1';
 import { upsertDailyStory,deriveDailyStory,dailyStorySummary,dailyStoryTimeline,dailyStoryStageLabel,dailyStorySignalSummary,dayNumber } from './core/daily-story.js?v=journey2';
@@ -211,7 +211,7 @@ function onboarding(){
 }
 
 function today(){
-  shell(`${renderTodayPaths({busy:!canEditHealthContext(state),language:entryLanguage()})}${renderHealthspanFoundation()}${nav('today')}`);
+  shell(`${renderTodayPaths({busy:!canEditHealthContext(state),language:entryLanguage()})}${renderHealthspanFoundation(entryLanguage())}${nav('today')}`);
   const startButton=app.querySelector('.moment-action[data-action="focus-signals"],.moment-action[data-action="checkin"]');
   if(startButton){
     const openCheckIn=event=>{
@@ -375,7 +375,7 @@ function judgement(){
         <p class="contract-label">Reflection question</p><p class="contract-review">${esc(uiText(practiceContract.review||'What did you notice?'))}</p></details>
         ${state.current?.commitmentId?(()=>{const c=state.commitments.find(item=>item.id===state.current.commitmentId),f=state.frictionPlans.find(item=>item.id===state.current?.frictionPlanId);if(!c)return '';return `<p class="commitment-status">${esc(uiText(commitmentSummary(c)))}</p>${f?`<div class="friction-summary"><strong>Obstacle noted:</strong> ${esc(frictionSummary(f))}</div>${state.current?.fallbackPlanId?(()=>{const fp=state.fallbackPlans.find(item=>item.id===state.current.fallbackPlanId);return fp?`<div class="fallback-card"><p>${esc(fallbackSummary(fp))}</p><small>${esc(fp.scope)} · ${Math.round(fp.reductionRatio*100)}% scale</small><div class="fallback-actions">${fp.status==='proposed'?`<button data-fallback-action="accept">Use fallback</button><button data-fallback-action="decline">Keep original</button>`:''}</div></div>`:''})():`<button class="text-btn" data-fallback-action="create">Add a fallback plan</button>`}`:`<details class="friction-minimal"><summary>${pt?'Planear um obstáculo (opcional)':'Plan for an obstacle (optional)'}</summary><div class="friction-actions">${['time','environment','energy','emotion','social','uncertainty','other'].map(type=>`<button data-friction-type="${type}">${type}</button>`).join('')}</div></details>`}<div class="commitment-actions" id="commitment-start">${commitmentAvailability(c).canStart&&canBeginWithFriction(c,f).canBegin&&currentSafetyGate.canStart?button(pt?'Começar prática':'Begin practice','commit'):''}${commitmentAvailability(c).canStart&&canBeginWithFriction(c,f).canBegin&&!currentSafetyGate.canStart?`<p class="safety-start-gate">${esc(currentSafetyGate.reason)}</p>`:''}<button data-commitment-action="cancel">${uiText('Cancel commitment')}</button></div>`;})():`<div class="commitment-actions" id="commitment-options"><button data-commitment-action="now">Begin within 30 minutes</button><button data-commitment-action="later">Schedule for later</button></div>`}
       </section>`:''}
-      ${renderPracticeFoundation(practiceFoundation(p.id))}
+      ${renderPracticeFoundation(practiceFoundation(p.id),entryLanguage())}
       ${practiceEligibility.status==='blocked'||(d.context?.movementPreference||'not-shared')!==livePracticeContext.movementPreference?button('Reavaliar com as preferências atuais','consult',true):''}
       ${practiceEligibility.status==='blocked'?`<section class="eligibility-warning"><strong>Canonical eligibility assessment</strong><p>Excluded by declared conditions: ${esc(practiceEligibility.reasons[0])}</p><small>Caution states do not alter ranking</small></section>`:''}
       ${currentSafetyEnvelope.status!=='clear'?`<section class="safety-notice ${currentSafetyGate.canStart?'acknowledged':'pending'}"><strong>${currentSafetyGate.blocked?'Practice unavailable':currentSafetyGate.canStart?'Safety noted':'Acknowledgement required'}</strong><p>${esc(currentSafetyAudit.statement)}</p>${currentSafetyRequirement.required&&!currentSafetyGate.canStart?`<button data-safety-action="acknowledge">I understand this safety boundary</button>`:''}</section>`:''}
