@@ -1,6 +1,6 @@
 import {philosophyPrompt} from './core/philosophy-prompts.js?v=purpose1';
 import { renderTodayPaths } from './components/today-paths.js?v=review1';
-import { renderSupplementsGuide } from './components/supplements.js?v=supplements1';
+import { renderSupplementsGuide } from './components/supplements.js?v=supplements2';
 import { boundPlanningConfidence } from './core/health-pathways.js?v=pathways1';
 import { MOVEMENT_PREFERENCES, createHealthContext, withHealthContext, healthContextSummary, canEditHealthContext } from './core/health-context.js?v=healthcontext1';
 import { supportedPracticeDuration, buildTimedPracticePlan } from './core/practice-capacity.js?v=pathways1';
@@ -1039,7 +1039,7 @@ function settings(){
     <div class="setting-block"><h3>Strategos voice</h3><p>Strategos uses the best available English system voice automatically.</p><button class="action secondary voice-preview" data-action="preview-voice">Preview voice</button></div>
     ${settingToggle('Haptics',hapticsAvailable?'Subtle physical feedback. Tap to test.':'Physical vibration is not available in this iPhone browser.','haptics',state.settings.haptics,{disabled:!hapticsAvailable,status:hapticsAvailable?'Available on this device':'Unavailable in this browser'})}
     ${settingToggle('Keep screen awake',wakeAvailable?'Prevents screen sleep during an active Practice.':'Screen Wake Lock is not available in this browser.','keepAwake',state.settings.keepAwake,{disabled:!wakeAvailable,status:wakeAvailable?(wakeLockStatus==='active'?'Active during the current Practice':'Activates when a Practice begins'):'Unavailable in this browser'})}
-    </details><div class="setting-block" lang="pt-PT"><p class="eyebrow">EVIDÊNCIA · CONSULTA</p><h3>Suplementos, com contexto</h3><p>Objetivos, resultados, incerteza e riscos em cinco fichas com fontes NIH.</p><button class="action secondary" data-action="open-supplements">Consultar o guia</button></div>
+    </details><div class="setting-block" lang="pt-PT"><p class="eyebrow">EVIDÊNCIA · CONSULTA</p><h3>Suplementos, com contexto</h3><p>Objetivos, resultados, incerteza e riscos em fichas com fontes institucionais e ensaios humanos.</p><button class="action secondary" data-action="open-supplements">Consultar o guia</button></div>
     <div class="setting-block guide-entry"><p class="eyebrow">GUIDANCE</p><h3>How to use Strategos</h3><p>A simple guide to the daily cycle, judgements, Practices, reflection and learning.</p><button class="action secondary" data-guide-section="overview">Open guide</button></div>
     ${settingsNotice?`<div class="data-notice" role="status"><strong>Data status</strong><p>${esc(settingsNotice)}</p></div>`:''}
     <div class="setting-block"><h3>Your data</h3><p>Stored locally in this browser. Export before switching devices or clearing browser storage.</p><div class="data-actions">${button('EXPORT STATE','export-state',true)}${button('IMPORT STATE','import-state',true)}</div><input id="state-import-file" type="file" accept="application/json,.json" hidden/></div>
