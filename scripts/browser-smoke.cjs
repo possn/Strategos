@@ -54,6 +54,16 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   assert.match(await page.locator('.daily-story-timeline').innerText(),/Pronto para começar/);
   assert.doesNotMatch(await page.locator('.daily-story-timeline').innerText(),/Ready to begin|OPENED|undefined/);
   await page.screenshot({path:'artifacts/journey-iphone.png',fullPage:false});
+  await page.locator('button[data-action="emotionalJournal"]').first().click();
+  await page.locator('.philosophy-prompt').waitFor();
+  assert.match(await page.locator('.philosophy-prompt .eyebrow').innerText(),/Inspiração (estoica|taoísta)/);
+  await page.locator('#emotional-journal-text').fill('Posso escolher ouvir com atenção.');
+  await page.locator('[data-emotional-journal-action="save"]').click();
+  await page.locator('button[data-action="emotionalJournal"]').first().click();
+  assert.equal(await page.locator('#emotional-journal-text').inputValue(),'Posso escolher ouvir com atenção.');
+  assert.equal(await page.locator('.reflection-extras').getAttribute('open'),null);
+  await page.screenshot({path:'artifacts/reflection-iphone.png',fullPage:false});
+  await page.locator('.emotional-journal-actions button[data-action="journey"]').click();
   await page.locator('.tabbar button[data-action="today"]').click();
   await page.locator('.healthspan-foundation > summary').click();
   await page.getByText('Corpo capaz',{exact:true}).click();
