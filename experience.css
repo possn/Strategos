@@ -120,7 +120,7 @@ body #app .splash .tap { animation: pulse 2s 2s infinite !important; }
 .entry-languages button { padding:10px 14px; border:1px solid #403729; border-radius:999px; background:transparent; color:#aaa292; font-size:13px; }
 .entry-languages button[aria-pressed="true"] { color:#ead8b5; border-color:#b89458; }
 @media (prefers-reduced-motion: reduce) {
-  body #app .splash *,body #app .splash *::before,body #app .splash *::after { animation:none !important; }
+  body #app .splash .delta.large,body #app .splash .glyph,body #app .splash .ring,body #app .splash .brand,body #app .splash .tap { animation:none !important; }
   body #app .splash .glyph { stroke-dasharray:none !important; stroke-dashoffset:0 !important; }
   body #app .splash .ring { stroke-dasharray:302 50 !important; }
 }
