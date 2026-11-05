@@ -1,3 +1,4 @@
+import {selectVoice} from './voice-language.js?v=language4';
 let audioContext = null;
 let activeUtterance = null;
 let cachedVoices = [];
@@ -49,24 +50,14 @@ function loadVoices() {
   return cachedVoices;
 }
 
-function preferredVoice() {
-  const voices = loadVoices();
-  if (!voices.length) return null;
-
-  // Restores the voice-selection behaviour that sounded natural in v0.5.
-  // Prefer familiar high-quality English system voices without forcing a locale.
-  return voices.find(v => /Daniel|Samantha/i.test(v.name || ''))
-    || voices.find(v => /en-GB|en_US/i.test(`${v.lang || ''} ${v.name || ''}`))
-    || voices.find(v => /^en[-_]/i.test(v.lang || ''))
-    || voices[0]
-    || null;
-}
+function preferredVoice(language='en') { return selectVoice(loadVoices(),language); }
 
 export function getEnglishVoices() {
   return loadVoices().filter(v => /^en[-_]/i.test(v.lang || ''));
 }
 
-export function prepareSpokenText(text = '') {
+export function prepareSpokenText(text = '',language='en') {
+  if(language==='pt'||language==='pt-PT')return String(text).replace(/\+/g,' mais ').replace(/%/g,' por cento').replace(/\s+/g,' ').replace(/\s+([,.!?])/g,'$1').trim();
   return String(text)
     .replace(/\bAgora\b/g, 'council')
     .replace(/\bHR\b/g, 'human return')
@@ -80,21 +71,21 @@ export function prepareSpokenText(text = '') {
 export function speak(text, mode = 'minimal', enabled = true, options = {}) {
   if (!enabled || mode === 'off' || !('speechSynthesis' in window) || !text) return;
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(prepareSpokenText(options.spokenText || text));
+  const utterance = new SpeechSynthesisUtterance(prepareSpokenText(options.spokenText || text,options.language));
 
   // Exact vocal calibration restored from the well-received v0.5 release.
   utterance.rate = mode === 'guided' ? .88 : .94;
   utterance.pitch = .88;
   utterance.volume = .72;
-  utterance.voice = preferredVoice();
-  if (utterance.voice?.lang) utterance.lang = utterance.voice.lang;
+  utterance.voice = preferredVoice(options.language);
+  utterance.lang = utterance.voice?.lang || (options.language==='pt'?'pt-PT':'en-GB');
 
   activeUtterance = utterance;
   window.speechSynthesis.speak(utterance);
 }
 
-export function previewVoice() {
-  speak("Good morning. I've been thinking about today. Here's what I think.", 'guided', true);
+export function previewVoice(language='en') {
+  speak(language==='pt'?'Bom dia. Um passo de cada vez. Vamos cuidar do teu dia.':"Good morning. One step at a time. Let’s care for your day.", 'guided', true,{language});
 }
 
 export function stopVoice() {

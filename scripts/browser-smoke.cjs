@@ -197,6 +197,12 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   assert.match(await languagePage.locator('.question h3').innerText(),/How did you sleep/);
   await languagePage.locator('.quiet-close').click();
   assert.match(await languagePage.locator('.moment-language h1').innerText(),/How are you arriving today/);
+  assert.equal(await languagePage.locator('.healthspan-foundation').getAttribute('lang'),'en');
+  await languagePage.locator('.healthspan-foundation > summary').click();
+  await languagePage.getByText('A capable body',{exact:true}).click();
+  assert.match(await languagePage.locator('.healthspan-content').innerText(),/Stoicism helps/);
+  assert.equal(await languagePage.locator('.healthspan-domain a').count(),6);
+
   assert.match(await languagePage.locator('.tabbar [data-action="today"]').innerText(),/Today/);
   await languagePage.locator('.tabbar [data-action="settings"]').click();
   const localeState=await languagePage.evaluate(()=>localStorage.getItem('onearete.strategos.v090'));
