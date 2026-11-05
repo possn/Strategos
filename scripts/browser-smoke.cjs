@@ -101,7 +101,11 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   assert.equal(await page.locator('.moment-action').count(),1);
   await page.locator('.moment-action').click();
   await page.locator('button[data-choice-action="accept"]').click();
-  await page.locator('button[data-commitment-action="now"]').click();
+  assert.equal(await page.locator('.choice-buttons').isVisible(),false);
+  assert.equal(await page.locator('.choice-review').getAttribute('open'),null);
+  assert.equal(await page.locator('.practice-contract-details').getAttribute('open'),null);
+  assert.equal(await page.locator('button[data-action="commit"]').isVisible(),true);
+  await page.screenshot({path:'artifacts/ready-to-practise-iphone.png',fullPage:false});
   await page.locator('button[data-action="commit"]').click();
   await page.locator('.route-execute').waitFor();
   const plan=await page.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).current);
@@ -167,7 +171,7 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
    await healthPage.locator('.healthspan-practice summary').click();
    assert.ok((await healthPage.locator('.healthspan-practice a').getAttribute('href')).includes(source));
    await healthPage.locator('button[data-choice-action="accept"]').click();
-   await healthPage.locator('button[data-commitment-action="now"]').click();
+
    await healthPage.locator('button[data-action="commit"]').click();
    await healthPage.locator('.route-execute').waitFor();
    const execution=await healthPage.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).current);

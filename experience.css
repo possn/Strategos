@@ -133,3 +133,15 @@ body #app .splash .tap { animation: pulse 2s 2s infinite !important; }
 .understanding-details > div:first-of-type { margin-top:24px; }
 body #app .journey-entry { padding:24px 0 28px; }
 body #app .daily-story-timeline { margin-top:12px; }
+
+/* Keep the next action ahead of optional reasoning. */
+body #app .judgement-hero { padding:18px 0; margin:0; }
+body #app .judgement-sentence { font-size:clamp(24px,6vw,30px); line-height:1.25; margin:10px 0; }
+body #app .practice-card { padding:18px; margin:0 0 16px; }
+body #app .practice-card h2 { font-size:23px; }
+body #app .commitment-panel { display:flex; flex-direction:column; gap:14px; padding:18px; margin:0 0 20px; }
+body #app .commitment-panel #commitment-start { order:-1; margin:0; }
+body #app .commitment-panel [data-action="commit"] { background:#c6a368; color:#17130c; border-color:#c6a368; min-height:50px; font-size:14px; letter-spacing:0; }
+body #app .commitment-panel [data-commitment-action="cancel"] { background:transparent; border:0; font-size:12px; padding:8px; color:#aaa292; }
+body #app .commitment-panel .commitment-status { font-size:12px; font-weight:400; color:#aaa292; }
+body #app .practice-reasons,body #app .choice-review { margin:12px 0; }

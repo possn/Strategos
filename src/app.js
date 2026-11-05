@@ -316,6 +316,11 @@ function completePersonChoice({action,selectedPracticeId=null,reason=''}={}){
   state.current={...(state.current||{}),decision:updated};
   decision=updated;
   pendingChoice=null;
+  if(['accept','choose-alternative'].includes(action)&&!state.current.commitmentId){
+    const commitment=createCommitment({judgement:updated,choice,startMode:'now',startAfterMinutes:0,reason:''});
+    state.commitments=[commitment,...(state.commitments||[])].slice(0,200);
+    state.current.commitmentId=commitment.id;
+  }
   persist();
   if(['accept','choose-alternative'].includes(action))return rerenderJudgementAt('#commitment-panel');
   return route('today');
@@ -326,7 +331,7 @@ function judgement(){
   const acceptedDoseRevision=effectivePracticeDoseRevisionWithHealth(state.practiceDoseRevisionDecisions,state.history,decision?.practice?.id);
   decision=applyPracticeDoseRevisionToJudgement(decision,acceptedDoseRevision,decision?.context||state.current?.context||context);
   state.current.decision=decision;
-  const d=decision;const p=d.practice;
+  const d=decision;const p=d.practice;const pt=entryLanguage()==='pt';
   const acceptedContractRevision=effectivePracticeContractRevision(state.practiceContractRevisionDecisions,d.practice?.id);
   const practiceContract=buildPracticeContract({judgement:d,context:d.context||context,phases:d.practice?.phases||[],revision:acceptedContractRevision});
   const ex=d.explain||buildExplanation(d,context);
@@ -346,7 +351,7 @@ function judgement(){
   shell(`${header('STRATEGOS','<button class="icon-btn" aria-label="Voltar a Hoje" data-action="today">\xd7</button>')}
     <section class="judgement-screen">
       <div class="judgement-hero">
-        <p class="eyebrow">TODAY\'S JUDGEMENT</p>
+        <p class="eyebrow">${pt?'UM PRÓXIMO PASSO':'ONE NEXT STEP'}</p>
         <h1 class="judgement-sentence">${esc(d.judgement)}</h1>
       </div>
       <section class="practice-card">
@@ -357,16 +362,23 @@ function judgement(){
           </div>
           <span class="practice-duration">${d.duration} min</span>
         </div>
-        ${decisive.length?`<div class="practice-voices">${decisive.map(item=>`<span><strong>${esc(item.advisor)}</strong> — ${esc(item.reason)}</span>`).join('')}</div>`:''}
-        ${boundaries.runnerUp?`<p class="runner-up">Runner-up: <strong>${esc(boundaries.runnerUp.name)}</strong></p>`:''}
+        ${decisive.length?`<details class="practice-reasons"><summary>${pt?'Porque faz sentido hoje':'Why this fits today'}</summary><div class="practice-voices">${decisive.map(item=>`<span><strong>${esc(item.advisor)}</strong> — ${esc(item.reason)}</span>`).join('')}</div></details>`:''}
       </section>
+      ${(d.status==='accepted'||d.status==='overridden')?`<section class="commitment-panel" id="commitment-panel">
+        <p class="eyebrow">${pt?'AO TEU RITMO':'AT YOUR PACE'}</p>
+        <details class="practice-contract-details"><summary>${pt?'Intenção e reflexão':'Intention and reflection'}</summary>
+        <p class="contract-intention">${esc(practiceContract.intention)}</p>
+        <p class="contract-label">Enough for today</p><p class="contract-enough">${esc(practiceContract.enough)}</p>
+        <p class="contract-label">Reflection question</p><p class="contract-review">${esc(practiceContract.review||'What did you notice?')}</p></details>
+        ${state.current?.commitmentId?(()=>{const c=state.commitments.find(item=>item.id===state.current.commitmentId),f=state.frictionPlans.find(item=>item.id===state.current?.frictionPlanId);if(!c)return '';return `<p class="commitment-status">${esc(commitmentSummary(c))}</p>${f?`<div class="friction-summary"><strong>Obstacle noted:</strong> ${esc(frictionSummary(f))}</div>${state.current?.fallbackPlanId?(()=>{const fp=state.fallbackPlans.find(item=>item.id===state.current.fallbackPlanId);return fp?`<div class="fallback-card"><p>${esc(fallbackSummary(fp))}</p><small>${esc(fp.scope)} · ${Math.round(fp.reductionRatio*100)}% scale</small><div class="fallback-actions">${fp.status==='proposed'?`<button data-fallback-action="accept">Use fallback</button><button data-fallback-action="decline">Keep original</button>`:''}</div></div>`:''})():`<button class="text-btn" data-fallback-action="create">Add a fallback plan</button>`}`:`<details class="friction-minimal"><summary>${pt?'Planear um obstáculo (opcional)':'Plan for an obstacle (optional)'}</summary><div class="friction-actions">${['time','environment','energy','emotion','social','uncertainty','other'].map(type=>`<button data-friction-type="${type}">${type}</button>`).join('')}</div></details>`}<div class="commitment-actions" id="commitment-start">${commitmentAvailability(c).canStart&&canBeginWithFriction(c,f).canBegin&&currentSafetyGate.canStart?button(pt?'Começar prática':'Begin practice','commit'):''}${commitmentAvailability(c).canStart&&canBeginWithFriction(c,f).canBegin&&!currentSafetyGate.canStart?`<p class="safety-start-gate">${esc(currentSafetyGate.reason)}</p>`:''}<button data-commitment-action="cancel">Cancel commitment</button></div>`;})():`<div class="commitment-actions" id="commitment-options"><button data-commitment-action="now">Begin within 30 minutes</button><button data-commitment-action="later">Schedule for later</button></div>`}
+      </section>`:''}
       ${renderPracticeFoundation(practiceFoundation(p.id))}
       ${practiceEligibility.status==='blocked'||(d.context?.movementPreference||'not-shared')!==livePracticeContext.movementPreference?button('Reavaliar com as preferências atuais','consult',true):''}
       ${practiceEligibility.status==='blocked'?`<section class="eligibility-warning"><strong>Canonical eligibility assessment</strong><p>Excluded by declared conditions: ${esc(practiceEligibility.reasons[0])}</p><small>Caution states do not alter ranking</small></section>`:''}
       ${currentSafetyEnvelope.status!=='clear'?`<section class="safety-notice ${currentSafetyGate.canStart?'acknowledged':'pending'}"><strong>${currentSafetyGate.blocked?'Practice unavailable':currentSafetyGate.canStart?'Safety noted':'Acknowledgement required'}</strong><p>${esc(currentSafetyAudit.statement)}</p>${currentSafetyRequirement.required&&!currentSafetyGate.canStart?`<button data-safety-action="acknowledge">I understand this safety boundary</button>`:''}</section>`:''}
-      <section class="judgement-choice ${pendingChoice?'has-pending':''}">
+      ${['accepted','overridden'].includes(d.status)?`<details class="choice-review" ${pendingChoice?'open':''}><summary>${pt?'Rever a minha escolha':'Review my choice'}</summary>`:''}<section class="judgement-choice ${pendingChoice?'has-pending':''}">
         <div class="choice-buttons">
-          <button class="choice-accept" data-choice-action="accept">Accept</button>
+          <button class="choice-accept" data-choice-action="accept">${pt?'Escolher esta prática':'Choose this practice'}</button>
           ${boundaries.runnerUp?`<button class="choice-alt" data-choice-action="choose-alternative" data-choice-practice="${esc(boundaries.runnerUp.id)}">Choose ${esc(boundaries.runnerUp.name)}</button>`:''}
           <div class="choice-minor-row">
             <button class="choice-minor" data-choice-action="defer">Decide later</button>
@@ -375,14 +387,7 @@ function judgement(){
         </div>
         ${pendingChoice?`<div class="choice-reason-panel" id="choice-reason-panel"><label><span>What is behind this choice?</span><small>Optional — helps Strategos understand your decision.</small><textarea id="choice-reason" rows="3" placeholder="Optional reason"></textarea></label><div><button class="action primary" data-choice-reason-action="continue">Continue</button><button class="action secondary" data-choice-reason-action="cancel">Cancel</button></div></div>`:''}
         ${d.personChoice?`<p class="choice-record">${esc(summarizeChoice(d.personChoice))}</p>`:''}
-      </section>
-      ${(d.status==='accepted'||d.status==='overridden')?`<section class="commitment-panel" id="commitment-panel">
-        <p class="eyebrow">WHEN WILL YOU BEGIN?</p>
-        <p class="contract-intention">${esc(practiceContract.intention)}</p>
-        <p class="contract-label">Enough for today</p><p class="contract-enough">${esc(practiceContract.enough)}</p>
-        <p class="contract-label">Reflection question</p><p class="contract-review">${esc(practiceContract.review||'What did you notice?')}</p>
-        ${state.current?.commitmentId?(()=>{const c=state.commitments.find(item=>item.id===state.current.commitmentId),f=state.frictionPlans.find(item=>item.id===state.current?.frictionPlanId);if(!c)return '';return `<p class="commitment-status">${esc(commitmentSummary(c))}</p>${f?`<div class="friction-summary"><strong>Obstacle noted:</strong> ${esc(frictionSummary(f))}</div>${state.current?.fallbackPlanId?(()=>{const fp=state.fallbackPlans.find(item=>item.id===state.current.fallbackPlanId);return fp?`<div class="fallback-card"><p>${esc(fallbackSummary(fp))}</p><small>${esc(fp.scope)} · ${Math.round(fp.reductionRatio*100)}% scale</small><div class="fallback-actions">${fp.status==='proposed'?`<button data-fallback-action="accept">Use fallback</button><button data-fallback-action="decline">Keep original</button>`:''}</div></div>`:''})():`<button class="text-btn" data-fallback-action="create">Add a fallback plan</button>`}`:`<div class="friction-minimal"><p class="muted">What could get in the way?</p><div class="friction-actions">${['time','environment','energy','emotion','social','uncertainty','other'].map(type=>`<button data-friction-type="${type}">${type}</button>`).join('')}</div></div>`}<div class="commitment-actions" id="commitment-start">${commitmentAvailability(c).canStart&&canBeginWithFriction(c,f).canBegin&&currentSafetyGate.canStart?button('BEGIN PRACTICE','commit'):''}${commitmentAvailability(c).canStart&&canBeginWithFriction(c,f).canBegin&&!currentSafetyGate.canStart?`<p class="safety-start-gate">${esc(currentSafetyGate.reason)}</p>`:''}<button data-commitment-action="cancel">Cancel commitment</button></div>`;})():`<div class="commitment-actions" id="commitment-options"><button data-commitment-action="now">Begin within 30 minutes</button><button data-commitment-action="later">Schedule for later</button></div>`}
-      </section>`:''}
+      </section>${['accepted','overridden'].includes(d.status)?'</details>':''}
       <details class="deliberation-detail">
         <summary>How this judgement was formed</summary>
         <div class="deliberation-detail-body">
