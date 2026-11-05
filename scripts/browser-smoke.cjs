@@ -120,7 +120,9 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('[data-action="abandon"]').click();
   assert.match(await page.locator('.practice-exit-screen h2').innerText(),/Pausar ou terminar/);
   await page.locator('[data-action="continue-practice"]').click();
-  for(let i=0;i<plan.adjusted.length;i++)await page.locator('[data-action="next-phase"]').click();
+  for(let i=0;i<plan.adjusted.length-1;i++)await page.locator('[data-action="next-phase"]').click();
+  const finalPhaseTime=await page.evaluate(()=>Date.now());
+  await page.clock.setFixedTime(new Date(finalPhaseTime+plan.adjusted.at(-1)[1]*1000+1000));
   await page.locator('.reflection-screen').waitFor();
   assert.match(await page.locator('.reflection-screen h2').innerText(),/O que aconteceu/);
   assert.match(await page.locator('#reflection-effect').innerText(),/Melhor do que esperava/);
