@@ -12,6 +12,15 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   page.on('console',msg=>{if(msg.type()==='error')console.error('Browser console:',msg.text())});
    const errors=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto('http://127.0.0.1:8080');
+  assert.match(await page.locator('.splash .brand').innerText(),/Know yourself/);
+  assert.equal(await page.locator('.splash .glyph').evaluate(el=>getComputedStyle(el).animationName),'splash-draw');
+  await page.locator('[data-entry-language="pt"]').click();
+  assert.match(await page.locator('.splash .brand').innerText(),/Compreende-te/);
+  await page.reload();
+  assert.equal(await page.locator('[data-entry-language="pt"]').getAttribute('aria-pressed'),'true');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  assert.equal(await page.locator('.splash .glyph').evaluate(el=>getComputedStyle(el).animationName),'none');
+  await page.emulateMedia({reducedMotion:'no-preference'});
   await page.locator('button[data-action="begin"]').click();
   for(let i=0;i<2;i++)await page.locator('button[data-action="onboarding-next"]').click();
   await page.locator('#onboarding-name').fill('Teste');
@@ -37,6 +46,8 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('.tabbar button[data-action="understanding"]').click();
   await page.locator('.route-understanding').waitFor();
   assert.equal(await page.locator('.understanding-recovery').count(),0);
+  assert.equal(await page.locator('.understanding-details').getAttribute('open'),null);
+  assert.equal(await page.locator('.understanding-entry button[data-action="today"]').isVisible(),true);
   await page.locator('.tabbar button[data-action="journey"]').click();
   await page.locator('.route-journey').waitFor();
   assert.equal(await page.locator('.journey-details').getAttribute('open'),null);

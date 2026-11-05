@@ -12,8 +12,8 @@ body #app button:focus-visible, body #app a:focus-visible, body #app summary:foc
   outline: 2px solid #d6b77c;
   outline-offset: 4px;
 }
-body #app .glyph { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
-body #app .ring { stroke-dasharray: 302 50 !important; stroke-dashoffset: 0 !important; }
+body #app main:not(.splash) .glyph { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
+body #app main:not(.splash) .ring { stroke-dasharray: 302 50 !important; stroke-dashoffset: 0 !important; }
 body #app main.screen { max-width: 680px; width: 100%; border: 0; min-height: 100svh; }
 body #app .tabbar {
   inset: auto auto 0 50% !important;
@@ -107,3 +107,29 @@ body #app .boot-screen { align-items: center; justify-content: center; gap: 12px
 .journey-details { padding: 18px 0; border-top: 1px solid #302a20; }
 .journey-details > summary { cursor: pointer; color: #c3b59e; font-size: 14px; }
 .journey-details > section { margin-top: 24px; }
+
+/* The original entry animation is intentionally scoped to the splash. */
+body #app .splash .delta.large { animation: float 5s ease-in-out infinite !important; }
+body #app .splash .glyph { stroke-dasharray: 260; stroke-dashoffset: 260; animation: splash-draw 1.8s ease forwards !important; }
+body #app .splash .ring { stroke-dasharray: 0 400; animation: splash-ring 1.8s .35s ease forwards !important; }
+body #app .splash .brand { animation: fadeUp .9s .65s both !important; }
+body #app .splash .tap { animation: pulse 2s 2s infinite !important; }
+@keyframes splash-draw { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+@keyframes splash-ring { from { stroke-dasharray: 0 400; } to { stroke-dasharray: 302 50; } }
+.entry-languages { display:flex; gap:12px; margin-top:12px; }
+.entry-languages button { padding:10px 14px; border:1px solid #403729; border-radius:999px; background:transparent; color:#aaa292; font-size:13px; }
+.entry-languages button[aria-pressed="true"] { color:#ead8b5; border-color:#b89458; }
+@media (prefers-reduced-motion: reduce) {
+  body #app .splash *,body #app .splash *::before,body #app .splash *::after { animation:none !important; }
+  body #app .splash .glyph { stroke-dasharray:none !important; stroke-dashoffset:0 !important; }
+  body #app .splash .ring { stroke-dasharray:302 50 !important; }
+}
+
+.understanding-entry { padding:20px 0; }
+.understanding-entry h1 { font:400 34px/1.2 Georgia,serif; margin:12px 0 20px; }
+.understanding-entry .action { margin-top:24px; }
+.understanding-details, .settings-experience { border-top:1px solid #302a20; padding:20px 0; }
+.understanding-details > summary, .settings-experience > summary { color:#c3b59e; font-size:14px; cursor:pointer; }
+.understanding-details > div:first-of-type { margin-top:24px; }
+body #app .journey-entry { padding:24px 0 28px; }
+body #app .daily-story-timeline { margin-top:12px; }
