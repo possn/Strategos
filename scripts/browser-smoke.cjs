@@ -101,6 +101,7 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('.route-today').waitFor();
   assert.equal(await page.locator('.moment-action').count(),1);
   await page.locator('.moment-action').click();
+  assert.doesNotMatch(await page.locator('.judgement-hero').innerText(),/minute strength practice/);
   await page.locator('button[data-choice-action="accept"]').click();
   assert.equal(await page.locator('.choice-buttons').isVisible(),false);
   assert.equal(await page.locator('.choice-review').getAttribute('open'),null);
@@ -113,7 +114,9 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   assert.equal(plan.adjusted.reduce((sum,phase)=>sum+phase[1],0),plan.decision.duration*60);
   assert.ok(plan.decision.duration<=plan.context.time);
   await page.locator('button[data-action="pause"]').click();
-  await page.getByRole('button',{name:'Resume practice',exact:true}).waitFor();
+  await page.getByRole('button',{name:'Retomar prática',exact:true}).waitFor();
+  assert.equal(await page.locator('.practice-focus h2').innerText(),'Preparar');
+  assert.match(await page.locator('.practice-primary-cue').innerText(),/pés por baixo das ancas/);
   await page.close();
   const shortPage=await browser.newPage({...playwright.devices['iPhone 13']});
   shortPage.on('pageerror',error=>errors.push(error.message));

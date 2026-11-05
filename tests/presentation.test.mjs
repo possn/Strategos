@@ -36,3 +36,21 @@ test('the real practice catalogue renders without assuming unavailable metadata'
  }
  assert.equal(practiceLibraryCatalog([{id:'new',name:'Unknown practice'}])[0].evidenceStatus,'not-classified');
 });
+
+import {practiceText} from '../src/core/practice-language.js';
+test('canonical practice instructions can be displayed in both languages without changing phases',()=>{
+ const original=JSON.stringify(CODEX);
+ for(const record of CODEX){
+  const language=record.planningOnly?'en':'pt';
+  assert.ok(practiceText(record.name,language));
+  for(const phase of record.phases){
+   for(const text of [phase[0],phase[2],...phase[3]]){
+    const translated=practiceText(text,language);
+    assert.equal(typeof translated,'string');assert.ok(translated.length>0);
+   }
+  }
+ }
+ assert.equal(JSON.stringify(CODEX),original);
+ assert.match(practiceText('A 15-minute strength practice offers the best current balance of adaptation and continuity.','pt'),/15 minutos/);
+ assert.match(practiceText('Reserva 5 minutos para planear uma refeição viável.','en'),/5 minutes/);
+});
