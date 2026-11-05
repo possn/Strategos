@@ -71,9 +71,10 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   const beforeGuide=await page.evaluate(()=>localStorage.getItem('onearete.strategos.v090'));
   await page.locator('a[data-supplements-link]').click();
   await page.locator('.route-supplements').waitFor();
-  assert.equal(await page.locator('.supplement-entry').count(),5);
+  assert.equal(await page.locator('.supplement-entry').count(),9);
+  for(const id of ['resveratrol','nmn','nr','psyllium'])assert.equal(await page.locator(`[data-supplement-id="${id}"]`).count(),1);
   await page.locator('.supplement-entry[data-supplement-id="creatine"] > summary').click();
-  assert.equal(await page.locator('.supplement-detail a').count(),5);
+  assert.equal(await page.locator('.supplement-detail a').count(),12);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   await page.screenshot({path:'artifacts/supplement-guide-iphone.png',fullPage:true});
   await page.getByRole('button',{name:'Fechar guia de suplementos',exact:true}).click();

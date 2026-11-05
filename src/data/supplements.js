@@ -1,5 +1,5 @@
 // Editorial evidence summaries. This catalogue is not an input to the decision engine.
-export const SUPPLEMENTS_REVIEWED_AT='2026-11-04';
+export const SUPPLEMENTS_REVIEWED_AT='2026-11-05';
 export const SUPPLEMENT_GUIDE=Object.freeze([
   {
     id:'creatine',name:'Creatina',verdict:'Desempenho: benefício em contextos específicos',
@@ -50,5 +50,45 @@ export const SUPPLEMENT_GUIDE=Object.freeze([
     risks:'Combinar um multivitamínico com suplementos isolados pode duplicar nutrientes e ultrapassar limites de ingestão.',
     discuss:'Que nutrientes faltam, que produtos já são usados e será mais adequado corrigir uma necessidade específica?',
     source:'https://ods.od.nih.gov/factsheets/MVMS-HealthProfessional/'
+  }  ,{
+    id:'resveratrol',name:'Resveratrol',verdict:'Resultados humanos específicos; longevidade por demonstrar',
+    question:'Que benefício humano foi realmente medido?',
+    population:'Ensaios em populações distintas, incluindo pessoas mais velhas com artrose do joelho e homens mais velhos em treino.',
+    finding:'Um ensaio de 16 semanas em 123 pessoas com artrose encontrou melhorias em fragilidade, dor e força de preensão, mas não na velocidade da marcha. Não permite generalizar a adultos saudáveis.',
+    uncertainty:'Não demonstra prolongamento da vida. Noutro ensaio, com 27 homens durante oito semanas de treino, atenuou algumas adaptações cardiovasculares ao exercício.',
+    risks:'O resultado desfavorável com exercício contraria a ideia de que acrescentar um antioxidante é sempre benéfico. Estes ensaios não estabelecem segurança a longo prazo nem avaliam todas as interações.',
+    discuss:'Existe um objetivo clínico concreto ou apenas uma promessa de antienvelhecimento?',
+    source:'https://pubmed.ncbi.nlm.nih.gov/40990472/',
+    additionalSources:[{label:'Ensaio sobre resveratrol e exercício',url:'https://pubmed.ncbi.nlm.nih.gov/23878368/'}]
+  },{
+    id:'nmn',name:'NMN',verdict:'NAD+ aumenta; benefício clínico geral permanece incerto',
+    question:'Aumentar NAD+ traduz-se em viver melhor ou mais tempo?',
+    population:'Ensaios pequenos em adultos mais velhos e em mulheres pós-menopáusicas com pré-diabetes; não representam toda a população.',
+    finding:'Um ensaio de 2026, de 24 semanas, encontrou aumento sustentado de metabolitos relacionados com NAD+, com evidência limitada de benefícios fisiológicos mais amplos. Um ensaio anterior em 25 mulheres encontrou melhoria da sensibilidade muscular à insulina, sem redução significativa da glicemia em jejum.',
+    uncertainty:'Um biomarcador não é um desfecho de longevidade. Estes resultados não demonstram prevenção de diabetes, incapacidade ou mortalidade.',
+    risks:'A duração e dimensão dos ensaios limitam a avaliação de efeitos raros e da utilização durante anos. Não permitem presumir segurança universal ou equivalência entre produtos.',
+    discuss:'Qual é o desfecho procurado, e que incerteza sobre benefício e segurança se está a aceitar?',
+    source:'https://www.nature.com/articles/s41514-026-00482-7',
+    additionalSources:[{label:'Ensaio em mulheres com pré-diabetes',url:'https://pubmed.ncbi.nlm.nih.gov/33888596/'}]
+  },{
+    id:'nr',name:'NR — ribósido de nicotinamida',verdict:'Precursor de NAD+ com sinais clínicos ainda exploratórios',
+    question:'Há benefício funcional além do biomarcador?',
+    population:'O ensaio NICE estudou 90 pessoas com doença arterial periférica durante seis meses.',
+    finding:'A diferença no teste de marcha de seis minutos favoreceu NR em cerca de 18 metros. O estudo usou um limiar estatístico pré-definido de 0,10; o resultado teve p=0,08. Resveratrol não acrescentou benefício ao NR.',
+    uncertainty:'É um resultado exploratório numa doença específica, que exige confirmação. Não prova benefício equivalente em pessoas saudáveis nem prolongamento da vida.',
+    risks:'A segurança numa amostra pequena durante seis meses não estabelece segurança ao longo de anos. NR e NMN são moléculas distintas; resultados de uma não se transferem automaticamente para a outra.',
+    discuss:'O benefício alegado corresponde à população e ao desfecho realmente estudados?',
+    source:'https://www.nature.com/articles/s41467-024-49092-5'
+  },{
+    id:'psyllium',name:'Psyllium — fibra solúvel',verdict:'Benefício demonstrado no LDL; não é uma prova de longevidade',
+    question:'Pode complementar a alimentação na redução do LDL?',
+    population:'Adultos com hipercolesterolemia, como complemento de uma intervenção alimentar.',
+    finding:'Num ensaio aleatorizado de 26 semanas, o LDL foi cerca de 7% inferior ao placebo no final do estudo. O efeito foi sobre um fator de risco, não sobre eventos cardiovasculares ou duração da vida.',
+    uncertainty:'Não substitui a avaliação do risco cardiovascular nem tratamentos indicados. O efeito depende do contexto alimentar e da utilização.',
+    risks:'Precisa de líquido adequado. Dificuldade em engolir ou obstrução intestinal exigem avaliação antes da utilização. Pode interferir com medicamentos; o intervalo necessário depende do fármaco.',
+    discuss:'O objetivo é trânsito intestinal ou LDL, e existe medicação cuja absorção possa ser afetada?',
+    source:'https://pubmed.ncbi.nlm.nih.gov/10837282/',
+    additionalSources:[{label:'Precauções e interações — MedlinePlus',url:'https://medlineplus.gov/druginfo/meds/a601104.html'}]
   }
+
 ].map(record=>Object.freeze({...record,reviewedAt:SUPPLEMENTS_REVIEWED_AT})));
