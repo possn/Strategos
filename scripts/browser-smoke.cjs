@@ -40,6 +40,8 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('.tabbar button[data-action="journey"]').click();
   await page.locator('.route-journey').waitFor();
   assert.equal(await page.locator('.journey-details').getAttribute('open'),null);
+  assert.match(await page.locator('.daily-story-timeline').innerText(),/Pronto para começar/);
+  assert.doesNotMatch(await page.locator('.daily-story-timeline').innerText(),/Ready to begin|OPENED|undefined/);
   await page.screenshot({path:'artifacts/journey-iphone.png',fullPage:false});
   await page.locator('.tabbar button[data-action="today"]').click();
   await page.locator('.healthspan-foundation > summary').click();

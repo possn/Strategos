@@ -35,12 +35,23 @@ export function deriveDailyStory({stories=[],checkIns=[],judgements=[],history=[
 }
 
 export function dailyStorySummary(story){
-  if(!story)return 'Today is ready to begin.';
-  const labels={opened:'Ready to begin', 'check-in':'Context recorded', judgement:'Judgement formed', practice:'Practice in progress', reflection:'Practice reflected', complete:'Day complete'};
+  if(!story)return 'O dia pode começar.';
+  const labels={opened:'Pronto para começar', 'check-in':'Contexto registado', judgement:'Orientação preparada', practice:'Prática em curso', reflection:'Prática revista', complete:'Dia encerrado'};
   return labels[story.stage]||labels.opened;
 }
 
 export function dailyStoryTimeline(state={},limit=14){
   const days=new Set([...(state.dailyStories||[]).map(x=>x?.day),...(state.dailyCheckIns||[]).map(x=>x?.day),...(state.history||[]).map(x=>String(x?.completedAt||x?.createdAt||'').slice(0,10)),...(state.emotionalJournalEntries||[]).map(x=>x?.entryDate)].filter(Boolean));
   return [...days].sort((a,b)=>b.localeCompare(a)).slice(0,limit).map(day=>deriveDailyStory({stories:state.dailyStories,checkIns:state.dailyCheckIns,judgements:state.judgements,history:state.history,journalEntries:state.emotionalJournalEntries},new Date(`${day}T12:00:00`)));
+}
+
+export function dailyStoryStageLabel(stage){
+  return {opened:'Início','check-in':'Check-in',judgement:'Orientação',practice:'Prática',reflection:'Reflexão',complete:'Encerrado'}[stage]||'Por conhecer';
+}
+export function dailyStorySignalSummary(signals){
+  if(!signals)return 'Ainda sem contexto';
+  const parts=[];
+  if(Number.isFinite(signals.sleep))parts.push(`Sono ${signals.sleep}/4`);
+  if(Number.isFinite(signals.energy))parts.push(`Energia ${signals.energy}/3`);
+  return parts.join(' · ')||'Contexto parcial';
 }
