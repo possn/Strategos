@@ -183,6 +183,27 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await shortPage.locator('button[data-action="open-supplements"]').click();
   await shortPage.getByRole('button',{name:'Fechar guia de suplementos',exact:true}).click();
   await shortPage.locator('.route-settings').waitFor();
+  const languagePage=await browser.newPage({...playwright.devices['iPhone 13']});
+  languagePage.on('pageerror',error=>errors.push(error.message));
+  await languagePage.goto('http://127.0.0.1:8080');
+  await languagePage.locator('[data-action="begin"]').click();
+  assert.match(await languagePage.locator('.onboarding h2').innerText(),/What needs care today/);
+  for(let i=0;i<2;i++)await languagePage.locator('[data-action="onboarding-next"]').click();
+  await languagePage.locator('#onboarding-name').fill('Idioma');
+  await languagePage.locator('[data-action="onboarding-complete"]').click();
+  assert.match(await languagePage.locator('.question h3').innerText(),/How did you sleep/);
+  await languagePage.locator('.quiet-close').click();
+  assert.match(await languagePage.locator('.moment-language h1').innerText(),/How are you arriving today/);
+  assert.match(await languagePage.locator('.tabbar [data-action="today"]').innerText(),/Today/);
+  await languagePage.locator('.tabbar [data-action="settings"]').click();
+  const localeState=await languagePage.evaluate(()=>localStorage.getItem('onearete.strategos.v090'));
+  await languagePage.locator('.language-settings [data-entry-language="pt"]').click();
+  assert.equal(await languagePage.evaluate(()=>localStorage.getItem('onearete.strategos.v090')),localeState);
+  assert.equal(await languagePage.locator('#settings-profile-name').inputValue(),'Idioma');
+  await languagePage.locator('.tabbar [data-action="today"]').click();
+  assert.match(await languagePage.locator('.moment-language h1').innerText(),/Como chegas/);
+  await languagePage.screenshot({path:'artifacts/language-portuguese-iphone.png',fullPage:false});
+  await languagePage.close();
   assert.deepEqual(errors,[]);
   console.log('PASS: WebKit iPhone onboarding, partial check-in reload, judgement, practice execution/pause, five-minute alternative, optional context consent/cancel/reload/enforcement/deletion and sleep/nutrition planning execution.');
  } finally {if(browser)await browser.close();server.kill();}
