@@ -285,7 +285,7 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await languagePage.goto('http://127.0.0.1:8080');
   await languagePage.locator('[data-action="begin"]').click();
   assert.match(await languagePage.locator('.onboarding h1').innerText(),/A small step/);
-  assert.match(await languagePage.locator('.onboarding-purpose').innerText(),/Stoicism and Taoism/);
+  assert.match(await languagePage.locator('.onboarding-purpose').innerText(),/Stoicism, Taoism/);
   for(let i=0;i<2;i++)await languagePage.locator('[data-action="onboarding-next"]').click();
   await languagePage.locator('#onboarding-name').fill('Idioma');
   await languagePage.locator('[data-action="onboarding-complete"]').click();
