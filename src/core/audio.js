@@ -1,4 +1,4 @@
-import {selectVoice} from './voice-language.js?v=language4';
+import {selectVoice} from './voice-language.js?v=language5';
 let audioContext = null;
 let activeUtterance = null;
 let cachedVoices = [];
@@ -73,10 +73,11 @@ export function speak(text, mode = 'minimal', enabled = true, options = {}) {
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(prepareSpokenText(options.spokenText || text,options.language));
 
-  // Exact vocal calibration restored from the well-received v0.5 release.
-  utterance.rate = mode === 'guided' ? .88 : .94;
-  utterance.pitch = .88;
-  utterance.volume = .72;
+  // Neutral prosody avoids an artificially lowered, slowed voice.
+  // The actual timbre still depends on the installed system voice.
+  utterance.rate = mode === 'guided' ? .97 : 1.0;
+  utterance.pitch = 1.0;
+  utterance.volume = .85;
   utterance.voice = preferredVoice(options.language);
   utterance.lang = utterance.voice?.lang || (options.language==='pt'?'pt-PT':'en-GB');
 
