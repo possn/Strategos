@@ -177,3 +177,7 @@ body #app .mindfulness-count { font-variant-numeric:tabular-nums; letter-spacing
 body #app .mindfulness details { border-top:1px solid #393126; padding:14px 0; }
 body #app .mindfulness details > summary { cursor:pointer; font-size:13px; color:#beb09a; }
 body #app .mindfulness details p { margin-top:12px; }
+
+/* Mindfulness stays discoverable even when the context-driven third path changes. */
+body #app .today-mindfulness-link { display:inline-flex; align-items:center; justify-content:flex-start; margin:0; padding:2px 0; min-height:22px; color:#c6a368; text-align:left; font-size:12px; letter-spacing:.01em; }
+body #app .today-path-list .today-path { padding:10px 0; }
