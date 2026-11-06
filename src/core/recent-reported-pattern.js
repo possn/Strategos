@@ -28,3 +28,10 @@ export function longitudinalReason(pattern,language='pt'){
  const labels=pt?{sleep:'sono insuficiente',energy:'energia baixa',emotionalLoad:'stress elevado',challenge:'desafios mentais ou relacionais'}:{sleep:'short sleep',energy:'low energy',emotionalLoad:'high stress',challenge:'mental or relational challenges'};
  return pt?`Nos últimos 7 dias referiste ${labels[pattern.signal]} em ${pattern.count} dias. É apenas um padrão de respostas.`:`You reported ${labels[pattern.signal]} on ${pattern.count} days in the past week. This is only a self-report pattern.`;
 }
+
+export function shortPatternDescription(pattern,language='pt'){
+ if(!pattern)return '';
+ const pt=language==='pt',n=pattern.count;
+ const labels=pt?{sleep:'Sono curto',energy:'Energia baixa',emotionalLoad:'Stress elevado',challenge:'Desafios mentais'}:{sleep:'Short sleep',energy:'Low energy',emotionalLoad:'High stress',challenge:'Mental challenges'};
+ return pt?`${labels[pattern.signal]} em ${n} dias · um passo tranquilo.`:`${labels[pattern.signal]} on ${n} days · a gentle next step.`;
+}
