@@ -16,8 +16,11 @@ export function recordMindfulFeedback(history,outcome,{now=new Date()}={}){
  if(!outcomes.has(outcome)||!Number.isFinite(now.getTime()))return normaliseMindfulFeedback(history);
  return normaliseMindfulFeedback([{practice:'mindfulness-90',outcome,at:now.toISOString()},...normaliseMindfulFeedback(history)]);
 }
-export function mindfulFeedbackPreference(input){
- const records=normaliseMindfulFeedback(input).slice(0,3);
+export function mindfulFeedbackPreference(input,{now=null}={}){
+ // Historical preferences expire for recommendations; users can always start
+ // another mindfulness session, and prior feedback remains visible/deletable.
+ const cutoff=now instanceof Date&&Number.isFinite(now.getTime())?now.getTime()-30*86400000:null;
+ const records=normaliseMindfulFeedback(input).filter(item=>cutoff===null||(Date.parse(item.at)>=cutoff&&Date.parse(item.at)<=now.getTime())).slice(0,3);
  // Two explicit negative reactions in the latest three sessions are enough to
  // offer an alternative, not to diagnose or permanently exclude mindfulness.
  const negative=records.filter(item=>item.outcome==='not-helpful').length;
