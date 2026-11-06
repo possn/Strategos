@@ -161,7 +161,7 @@ function recoverUnderstanding(error){
   console.error('Understanding render failed.',error);
   const active=state.current?.decision||state.judgements?.[0]||null;
   const record=normaliseExplainRecordForDisplay(active?.explainRecord||null);
-  shell(`${header('COMPREENDER','<button class="icon-btn" aria-label="${entryLanguage()==='pt'?'Fechar e voltar a Hoje':'Close and return to Today'}" data-action="today">×</button>')}
+  shell(`${header('COMPREENDER',`<button class="icon-btn" aria-label="${entryLanguage()==='pt'?'Fechar e voltar a Hoje':'Close and return to Today'}" data-action="today">×</button>`)}
     <section class="stack understanding-recovery">
       <p class="eyebrow">UNDERSTANDING</p>
       <h2>Your reasoning remains available.</h2>
