@@ -1,5 +1,5 @@
 import {recentReportedPattern,shortPatternDescription,longitudinalReason} from './recent-reported-pattern.js?v=longpattern1';
-import {mindfulFeedbackPreference} from './mindful-feedback.js?v=feedback1';
+import {mindfulFeedbackPreference} from './mindful-feedback.js?v=longpattern1';
 import {todaySignals} from './daily-signals.js?v=pathways1';
 // A small editorial decision, derived only from today's explicitly reported context.
 // Never use defaults, inferred health scores or historical symptoms as current evidence.
