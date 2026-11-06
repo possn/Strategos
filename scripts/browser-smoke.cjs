@@ -78,7 +78,7 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   page.once('dialog', dialog=>dialog.accept());
   await page.locator('[data-metric-action="delete"]').click();
   assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).quantifiedContext),null);
-  await page.locator('.performance-check button[data-action="today"]').click();
+  await page.locator('.quantified-context button[data-action="today"]').click();
   assert.equal(await page.locator('.route-today').count(),1);
   await page.locator('.tabbar button[data-action="understanding"]').click();
   await page.locator('.route-understanding').waitFor();
