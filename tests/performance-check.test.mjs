@@ -7,7 +7,7 @@ test('five progressive bilingual questions and a single next step',()=>{
   for(let step=0;step<5;step++){
    const html=renderPerformanceCheck({language:lang,step,answers:[]});
    assert.match(html,new RegExp('data-performance-choice'));
-   assert.doesNotMatch(html,/data-performance-choice="3"/);
+   assert.equal((html.match(/data-performance-choice=/g)||[]).length,performanceCopy(lang).questions[step][1].length);
   }
   assert.ok(performanceGuidance([0,1,0,0,0],lang).message.length>30);
   assert.equal(performanceGuidance([0,0,0,0,1],lang).safety,true);
