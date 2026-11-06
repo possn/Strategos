@@ -54,7 +54,21 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.setViewportSize({width:1280,height:900});
   await page.screenshot({path:'artifacts/today-desktop.png',fullPage:false});
   await page.setViewportSize({width:390,height:844});
-  // Performance is an optional, non-diagnostic one-question-at-a-time check.
+  // Mindfulness is the third Today path, preserves the premium layout and is explicitly started.
+  await page.locator('.today-path[data-action="open-mindfulness"]').click();
+  await page.locator('.route-mindfulness').waitFor();
+  assert.equal(await page.locator('.mindfulness-count').innerText(),'1:30');
+  assert.match(await page.locator('.mindfulness').innerText(),/respiração|presença/);
+  await page.locator('[data-mindful-action="start"]').click();
+  assert.equal(await page.locator('[data-mindful-action="pause"]').count(),1);
+  await page.locator('[data-mindful-action="pause"]').click();
+  assert.equal(await page.locator('[data-mindful-action="resume"]').count(),1);
+  await page.screenshot({path:'artifacts/mindfulness-iphone.png',fullPage:false});
+  await page.locator('[data-mindful-action="resume"]').click();
+  assert.equal(await page.locator('[data-mindful-action="pause"]').count(),1);
+  await page.locator('[data-mindful-action="reset"]').click();
+  assert.equal(await page.locator('.mindfulness-count').innerText(),'1:30');
+  // Performance remains available without adding a fourth Home card.
   await page.locator('button[data-action="open-performance"]').click();
   await page.locator('.route-performance').waitFor();
   for(const choice of [1,1,2,1,0])await page.locator('[data-performance-choice="'+choice+'"]').click();
