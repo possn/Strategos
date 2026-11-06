@@ -985,7 +985,7 @@ function eveningReflection(){
   const story=deriveDailyStory({stories:state.dailyStories,checkIns:state.dailyCheckIns,judgements:state.judgements,history:state.history,journalEntries:state.emotionalJournalEntries});
   const evening=buildEveningExperience({story,journalEntry:selected});
   if(!evening.ready&&!evening.complete)return route('today');
-  shell(`${header(uiText('EVENING'),'<button class="icon-btn" aria-label="${entryLanguage()==='pt'?'Fechar e voltar a Hoje':'Close and return to Today'}" data-action="today">×</button>')}
+  shell(`${header(uiText('EVENING'),`<button class="icon-btn" aria-label="${entryLanguage()==='pt'?'Fechar e voltar a Hoje':'Close and return to Today'}" data-action="today">×</button>`)}
     <section class="stack evening-reflection-screen">
       <div class="evening-reflection-heading"><p class="eyebrow">${uiText("ONE MINUTE")}</p><h1>${uiText("What mattered today?")}</h1><p class="muted">${uiText("One honest sentence is enough. Writing is optional.")}</p></div>
       <label><span>${uiText("Private reflection")}</span><textarea id="evening-reflection-text" rows="6" maxlength="1200" placeholder="${uiText("What is worth remembering?")}">${esc(selected?.text||'')}</textarea></label>
