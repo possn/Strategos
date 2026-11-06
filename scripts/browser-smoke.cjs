@@ -60,6 +60,10 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   for(const choice of [1,1,2,1,0])await page.locator('[data-performance-choice="'+choice+'"]').click();
   assert.match(await page.locator('.performance-check').innerText(),/O próximo passo/);
   assert.equal(await page.locator('.performance-check [data-performance-choice]').count(),0);
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).performanceHistory.length),0);
+  await page.locator('[data-performance-action="save"]').click();
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).performanceHistory.length),1);
+  assert.equal(await page.locator('[data-performance-action="save"]').count(),0);
   await page.locator('.performance-check button[data-action="today"]').click();
   assert.equal(await page.locator('.route-today').count(),1);
   await page.locator('.tabbar button[data-action="understanding"]').click();
