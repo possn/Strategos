@@ -1,6 +1,7 @@
+import {normalisePerformanceHistory} from './performance-history.js?v=longitudinal1';
 import { normaliseHealthContext } from './health-context.js?v=healthcontext1';
-export const STATE_SCHEMA_VERSION = 47;
-export const PRODUCT_VERSION = '0.45.1';
+export const STATE_SCHEMA_VERSION = 48;
+export const PRODUCT_VERSION = '0.46.0';
 
 export function createInitialState(){
   return {
@@ -8,6 +9,7 @@ export function createInitialState(){
     productVersion: PRODUCT_VERSION,
     profile:null,
     healthContext:null,
+    performanceHistory:[],
     humanModel:null,
     history:[],
     judgements:[],
@@ -109,6 +111,7 @@ export function migrateState(input={}){
     schemaVersion:STATE_SCHEMA_VERSION,
     productVersion:PRODUCT_VERSION,
     healthContext:normaliseHealthContext(state.healthContext),
+    performanceHistory:normalisePerformanceHistory(state.performanceHistory),
     history:[...(state.history||[])],
     judgements:[...(state.judgements||[])],
     emotionalJournalEntries:[...(state.emotionalJournalEntries||[])],
