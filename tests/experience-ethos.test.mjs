@@ -31,7 +31,7 @@ test('mindfulness remains visible regardless of the selected contextual practice
   for(const nextStep of [{kind:'alternative',title:'Reflection',action:'journey',description:'Think'},{kind:'recovery',title:'Recovery',action:'open-mindfulness',description:'Rest'}]){
    const html=renderTodayPaths({language,nextStep});
    assert.equal((html.match(/class="today-path"/g)||[]).length,3);
-   assert.equal((html.match(/class="today-mindfulness-link"/g)||[]).length,1);
+   assert.equal((html.match(/class="text-btn today-mindfulness-link"/g)||[]).length,1);
    assert.match(html,/today-mindfulness-link" data-action="open-mindfulness"/);
   }
   assert.match(renderOnboarding({language}),/espartan|Spartan/i);
