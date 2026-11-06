@@ -1015,7 +1015,7 @@ function emotionalJournal(){
     ${nav('journey')}`)
 }
 function supplements(){
-  shell(`<div class="supplement-guide-header">${header('STRATEGOS','<button class="icon-btn" aria-label="${entryLanguage()==='pt'?'Fechar guia de suplementos':'Close supplement guide'}" data-action="close-supplements">×</button>')}</div>${renderSupplementsGuide(entryLanguage())}`);
+  shell(`<div class="supplement-guide-header">${header('STRATEGOS',`<button class="icon-btn" aria-label="${entryLanguage()==='pt'?'Fechar guia de suplementos':'Close supplement guide'}" data-action="close-supplements">×</button>`)}</div>${renderSupplementsGuide(entryLanguage())}`);
 }
 function healthProfile(){
   const editable=canEditHealthContext(state);
