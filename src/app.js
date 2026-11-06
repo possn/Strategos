@@ -3,7 +3,7 @@ import {renderQuantifiedContext,quantifiedCopy} from './components/quantified-co
 import {recordPerformanceCheck,normalisePerformanceHistory,performanceHistorySummary} from './core/performance-history.js?v=longitudinal1';
 import {performanceCopy} from './components/performance-check.js?v=longitudinal1';
 import {returnMoment} from './core/return-moment.js?v=continuity1';
-import {contextualNextStep} from './core/contextual-next-step.js?v=nextstep1';
+import {contextualNextStep} from './core/contextual-next-step.js?v=longpattern1';
 import {recordMindfulFeedback} from './core/mindful-feedback.js?v=feedback1';
 import {renderMindfulness,MINDFUL_SECONDS,mindfulPrompt} from './components/mindfulness.js?v=mindfulness1';
 import {renderPerformanceCheck} from './components/performance-check.js?v=performance1';

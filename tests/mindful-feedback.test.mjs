@@ -25,7 +25,7 @@ test('feedback changes only the optional suggested action and never overrides ex
  const negative=[feedback('not-helpful',at(2)),feedback('not-helpful',at(1))];
  for(const language of ['pt','en']){
    assert.equal(contextualNextStep({mindfulFeedback:negative},language,date).kind,'alternative');
-   assert.equal(contextualNextStep({mindfulFeedback:negative,dailyCheckIns:[{day:'2026-11-06',signals:{emotionalLoad:'heavy'}}]},language,date).action,'journey');
+   assert.equal(contextualNextStep({mindfulFeedback:negative,dailyCheckIns:[{day:'2026-11-06',signals:{emotionalLoad:'heavy'}}]},language,date).kind,'stress');
    assert.equal(contextualNextStep({mindfulFeedback:negative,dailyCheckIns:[{day:'2026-11-06',signals:{challenge:'work'}}]},language,date).kind,'reflection');
    assert.equal(contextualNextStep({mindfulFeedback:[feedback('helpful',at(2))]},language,date).kind,'mindful');
    const running=renderMindfulness({language,started:true,secondsLeft:23});
