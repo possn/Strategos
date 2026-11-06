@@ -64,6 +64,20 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('[data-performance-action="save"]').click();
   assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).performanceHistory.length),1);
   assert.equal(await page.locator('[data-performance-action="save"]').count(),0);
+  await page.locator('.quantified-preview > summary').click();
+  await page.locator('[data-action="open-metrics"]').click();
+  await page.locator('.route-metrics').waitFor();
+  assert.equal(await page.locator('#quantified-metric').count(),1);
+  for(const value of ['7.5','150','2']){
+    await page.locator('#quantified-metric').fill(value);
+    await page.locator('[data-metric-action="next"]').click();
+  }
+  assert.equal(await page.locator('.quantified-context [data-metric-action="delete"]').count(),1);
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).quantifiedContext.sleepHours),7.5);
+  await page.screenshot({path:'artifacts/quantified-context-iphone.png',fullPage:false});
+  await page.locator('[data-metric-action="delete"]').click();
+  page.once('dialog', dialog=>dialog.accept());
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('onearete.strategos.v090')).quantifiedContext),null);
   await page.locator('.performance-check button[data-action="today"]').click();
   assert.equal(await page.locator('.route-today').count(),1);
   await page.locator('.tabbar button[data-action="understanding"]').click();
