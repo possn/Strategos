@@ -20,7 +20,7 @@ test('five progressive bilingual questions and a single next step',()=>{
 test('health self-check does not write or ask for identifiable details',()=>{
  const html=renderPerformanceCheck({language:'pt',step:0,answers:[]});
  assert.doesNotMatch(html,/localStorage|name="|fetch\(/);
- assert.match(html,/não são guardadas/);
+ assert.match(html,/Só ficam guardadas neste dispositivo se escolheres guardar/);
 });
 
 import {normalisePerformanceHistory,recordPerformanceCheck,performanceHistoryComparison} from '../src/core/performance-history.js';
