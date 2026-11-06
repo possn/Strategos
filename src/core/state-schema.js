@@ -1,8 +1,9 @@
+import {normaliseMindfulFeedback} from './mindful-feedback.js?v=feedback1';
 import {normaliseQuantifiedContext} from './quantified-context.js?v=metrics1';
 import {normalisePerformanceHistory} from './performance-history.js?v=longitudinal1';
 import { normaliseHealthContext } from './health-context.js?v=healthcontext1';
-export const STATE_SCHEMA_VERSION = 49;
-export const PRODUCT_VERSION = '0.47.0';
+export const STATE_SCHEMA_VERSION = 50;
+export const PRODUCT_VERSION = '0.48.0';
 
 export function createInitialState(){
   return {
@@ -11,6 +12,7 @@ export function createInitialState(){
     profile:null,
     healthContext:null,
     performanceHistory:[],
+    mindfulFeedback:[],
     quantifiedContext:null,
     humanModel:null,
     history:[],
@@ -114,6 +116,7 @@ export function migrateState(input={}){
     productVersion:PRODUCT_VERSION,
     healthContext:normaliseHealthContext(state.healthContext),
     performanceHistory:normalisePerformanceHistory(state.performanceHistory),
+    mindfulFeedback:normaliseMindfulFeedback(state.mindfulFeedback),
     quantifiedContext:normaliseQuantifiedContext(state.quantifiedContext),
     history:[...(state.history||[])],
     judgements:[...(state.judgements||[])],
