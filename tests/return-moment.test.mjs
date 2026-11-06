@@ -7,7 +7,7 @@ test('return moment counts only recorded events in last seven local dates and de
  const state={dailyStories:[{day:'2026-11-06',stage:'opened'}],dailyCheckIns:[{day:'2026-11-06'},{day:'2026-11-05'},{day:'2026-10-01'}],history:[{completedAt:'2026-11-05T10:00:00'},{completedAt:'2026-11-04T11:00:00'}],emotionalJournalEntries:[{entryDate:'2026-11-04'}]};
  assert.equal(recentActivityDays(state,now),3);
  assert.equal(recentActivityDays({dailyStories:[{day:'2026-11-06'}]},now),0);
- assert.equal(recentActivityDays({dailyCheckIns:[{day:'2026-10-31'}]},now),0);
+ assert.equal(recentActivityDays({dailyCheckIns:[{day:'2026-10-30'}]},now),0);
  for(const language of ['pt','en']){
   const moment=returnMoment(state,language,now);
   assert.equal(moment.days,3);
