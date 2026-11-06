@@ -54,6 +54,23 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.setViewportSize({width:1280,height:900});
   await page.screenshot({path:'artifacts/today-desktop.png',fullPage:false});
   await page.setViewportSize({width:390,height:844});
+  // Localized guidance and an always-visible mindfulness entry survive language changes.
+  assert.equal(await page.locator('.today-mindfulness-link').count(),1);
+  assert.match(await page.locator('.today-mindfulness-link').innerText(),/90 segundos/);
+  assert.equal(await page.locator('.today-mindfulness-link').evaluate(el=>el.getBoundingClientRect().bottom<=document.querySelector('.tabbar').getBoundingClientRect().top),true);
+  await page.locator('.tabbar button[data-action="settings"]').click();
+  await page.locator('[data-guide-section="overview"]').click();
+  assert.match(await page.locator('.usage-guide h1').innerText(),/Mente sã em corpo são/);
+  assert.equal(await page.locator('.usage-guide [data-guide-id="mindfulness"]').count(),1);
+  await page.locator('.usage-guide button[data-action="settings"]').click();
+  await page.locator('[data-entry-language="en"]').click();
+  await page.locator('[data-guide-section="overview"]').click();
+  assert.match(await page.locator('.usage-guide h1').innerText(),/A sound mind in a sound body/);
+  assert.doesNotMatch(await page.locator('.usage-guide').innerText(),/O teu percurso|Voltar às Definições/);
+  await page.locator('.usage-guide button[data-action="settings"]').click();
+  await page.locator('[data-entry-language="pt"]').click();
+  await page.locator('.tabbar button[data-action="today"]').click();
+  assert.equal(await page.locator('.today-mindfulness-link').count(),1);
   // Mindfulness is the third Today path, preserves the premium layout and is explicitly started.
   await page.locator('.today-path[data-action="open-mindfulness"]').click();
   await page.locator('.route-mindfulness').waitFor();
