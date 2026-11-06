@@ -166,3 +166,14 @@ body #app .onboarding { padding:18px 0 16px; gap:16px; }
 .onboarding-secondary { display:flex; justify-content:center; min-height:44px; }
 .onboarding-name-label { font-size:14px; color:#d2c8b6; }
 body #app .today-help { background:transparent; border:1px solid #645135; border-radius:50%; width:30px; height:30px; padding:0; flex:none; color:#c6a368; font-size:15px; }
+
+/* Mindfulness: quiet focus with no additional animated chrome or motion dependency. */
+body #app .mindfulness { gap:14px; padding-bottom:96px; }
+body #app .mindfulness h1 { font:400 clamp(30px,7vw,40px)/1.14 Georgia,serif; margin:0; }
+body #app .mindfulness-focus { min-height:230px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:16px; padding:28px 18px; margin:8px 0; border:1px solid #4c4030; border-radius:24px; background:radial-gradient(circle at 50% 44%,#242019 0%,#151411 72%); text-align:center; }
+body #app .mindfulness-ring { display:block; width:46px; height:46px; border:1px solid #c6a368; border-radius:50%; box-shadow:0 0 0 9px #c6a3680c; }
+body #app .mindfulness-prompt { font:400 20px/1.42 Georgia,serif; color:#eee4d0; max-width:270px; margin:0; }
+body #app .mindfulness-count { font-variant-numeric:tabular-nums; letter-spacing:2px; color:#c6a368; font-size:17px; margin:0; }
+body #app .mindfulness details { border-top:1px solid #393126; padding:14px 0; }
+body #app .mindfulness details > summary { cursor:pointer; font-size:13px; color:#beb09a; }
+body #app .mindfulness details p { margin-top:12px; }

@@ -17,7 +17,7 @@ test('health paths are visible secondary routes and respect an active practice',
  assert.equal((html.match(/data-daily-priority=/g)||[]).length,2);
  assert.equal((html.match(/disabled/g)||[]).length,2);
  assert.doesNotMatch(html,/moment-action/);
- assert.match(html,/open-performance/);
+ assert.match(html,/open-mindfulness/);
 });
 test('the motion policy is loaded after legacy styles and explicitly supports reduced motion',()=>{
  const html=readFileSync('index.html','utf8'),css=readFileSync('experience.css','utf8');
