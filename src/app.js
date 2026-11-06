@@ -211,7 +211,7 @@ function onboarding(){
 }
 
 function metrics(){shell(`${header('STRATEGOS')}${renderQuantifiedContext({language:entryLanguage(),step:metricStep,values:metricValues,saved:state.quantifiedContext,notice:metricNotice})}${nav('today')}`)}
-function performance(){shell(`${header('STRATEGOS')}${renderPerformanceCheck({language:entryLanguage(),step:performanceStep,answers:performanceAnswers,history:state.performanceHistory||[],saved:performanceSaved})}${nav('today')}`)}
+function performance(){shell(`${header('STRATEGOS')}${renderPerformanceCheck({language:entryLanguage(),step:performanceStep,answers:performanceAnswers,history:state.performanceHistory||[],saved:performanceSaved,metrics:state.quantifiedContext})}${nav('today')}`)}
 function today(){
   shell(`${renderTodayPaths({busy:!canEditHealthContext(state),language:entryLanguage()})}${renderHealthspanFoundation(entryLanguage())}${nav('today')}`);
   const startButton=app.querySelector('.moment-action[data-action="focus-signals"],.moment-action[data-action="checkin"]');
