@@ -54,6 +54,14 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.setViewportSize({width:1280,height:900});
   await page.screenshot({path:'artifacts/today-desktop.png',fullPage:false});
   await page.setViewportSize({width:390,height:844});
+  // Performance is an optional, non-diagnostic one-question-at-a-time check.
+  await page.locator('button[data-action="open-performance"]').click();
+  await page.locator('.route-performance').waitFor();
+  for(const choice of [1,1,2,1,0])await page.locator('[data-performance-choice="'+choice+'"]').click();
+  assert.match(await page.locator('.performance-check').innerText(),/O próximo passo/);
+  assert.equal(await page.locator('.performance-check [data-performance-choice]').count(),0);
+  await page.locator('.performance-check button[data-action="today"]').click();
+  assert.equal(await page.locator('.route-today').count(),1);
   await page.locator('.tabbar button[data-action="understanding"]').click();
   await page.locator('.route-understanding').waitFor();
   assert.equal(await page.locator('.understanding-recovery').count(),0);
@@ -221,7 +229,7 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
    await healthPage.close();
   }
   await shortPage.locator('button[data-action="open-supplements"]').click();
-  await shortPage.getByRole('button',{name:'Fechar guia de suplementos',exact:true}).click();
+  await shortPage.getByRole('button',{name:'Close supplement guide',exact:true}).click();
   await shortPage.locator('.route-settings').waitFor();
   const languagePage=await browser.newPage({...playwright.devices['iPhone 13']});
   languagePage.on('pageerror',error=>errors.push(error.message));
