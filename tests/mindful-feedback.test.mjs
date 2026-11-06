@@ -47,3 +47,12 @@ test('existing histories and exported backup survive feedback changes and cleari
  assert.equal(restored.state.mindfulFeedback.length,1);
  assert.equal(migrateState({...withFeedback,mindfulFeedback:[]}).history[0].id,'practice');
 });
+
+test('skipping is explicitly acknowledged without implying persistence',()=>{
+ const pt=renderMindfulness({language:'pt',started:true,secondsLeft:0,feedback:'skipped'});
+ const en=renderMindfulness({language:'en',started:true,secondsLeft:0,feedback:'skipped'});
+ assert.match(pt,/Sem registo/);
+ assert.match(en,/Nothing saved/);
+ assert.doesNotMatch(pt,/data-mindful-feedback=/);
+ assert.doesNotMatch(en,/data-mindful-feedback=/);
+});
