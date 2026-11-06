@@ -22,3 +22,27 @@ test('health self-check does not write or ask for identifiable details',()=>{
  assert.doesNotMatch(html,/localStorage|name="|fetch\(/);
  assert.match(html,/não são guardadas/);
 });
+
+import {normalisePerformanceHistory,recordPerformanceCheck,performanceHistoryComparison} from '../src/core/performance-history.js';
+import {migrateState} from '../src/core/state-schema.js';
+test('self-report history is opt-in, bounded, same-day idempotent, and rejects symptoms',()=>{
+ const d=new Date('2026-11-06T12:00:00Z'),answers=[1,1,2,1,0];
+ assert.deepEqual(normalisePerformanceHistory(undefined),[]);
+ assert.equal(recordPerformanceCheck([],answers,{date:d}).length,1);
+ const again=recordPerformanceCheck(recordPerformanceCheck([],answers,{date:d}),answers,{date:d});
+ assert.equal(again.length,1);
+ assert.deepEqual(recordPerformanceCheck(again,[1,1,2,1,1],{date:d}),again);
+ assert.match(performanceHistoryComparison(again,[1,0,2,1,0],'pt'),/Sono/);
+ const bad=normalisePerformanceHistory([{date:'2026-11-06',answers:[1,0,2,1,1]}]);
+ assert.equal(bad.length,0);
+ assert.deepEqual(migrateState({schemaVersion:47}).performanceHistory,[]);
+});
+test('users must explicitly save and can inspect privacy language',()=>{
+ for(const language of ['pt','en']){
+  const html=renderPerformanceCheck({language,step:5,answers:[1,0,2,1,0],history:[],saved:false});
+  assert.match(html,/data-performance-action="save"/);
+  assert.doesNotMatch(renderPerformanceCheck({language,step:5,answers:[1,0,2,1,1]}),/data-performance-action="save"/);
+  assert.doesNotMatch(renderPerformanceCheck({language,step:5,answers:[1,0,2,1,2]}),/data-performance-action="save"/);
+  assert.doesNotMatch(renderPerformanceCheck({language,step:5,answers:[1,0,2,1,0],saved:true}),/data-performance-action="save"/);
+ }
+});
