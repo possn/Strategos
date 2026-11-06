@@ -6,7 +6,6 @@ import {mindfulFeedbackPreference} from '../src/core/mindful-feedback.js';
 import {renderTodayPaths} from '../src/components/today-paths.js';
 
 const now=new Date(2026,10,6,12);
-const day=(offset,signals)=>({day:new Date(2026,10,6-offset,12).toLocaleDateString('sv-SE'),signals});
 // Use local date serialization independently of locale support.
 const check=(offset,signals)=>{
  const d=new Date(2026,10,6-offset,12);
@@ -31,7 +30,7 @@ test('a pattern requires three distinct recent recorded days and two matching ob
 });
 
 test('one premium card reflects confirmed pattern with clear self-report provenance in both languages',()=>{
- const state=history({energy:2},{energy:1},{energy:1});
+ const state=history({challenge:'body'},{energy:1},{energy:1});
  for(const lang of ['pt','en']){
   const pattern=recentReportedPattern(state.dailyCheckIns,now);
   assert.equal(pattern.signal,'energy');
