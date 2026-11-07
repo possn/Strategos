@@ -193,3 +193,12 @@ body #app .today-path[data-practice-busy="true"] { opacity:1; cursor:pointer; }
 body #app .today-path[data-practice-busy="true"] strong { color:#eae1d2; }
 body #app .today-path[data-practice-busy="true"] small { color:#b1a897; }
 body #app .today-path[data-practice-busy="true"]:focus-visible { outline:2px solid #c6a368; outline-offset:2px; }
+
+/* Discover the philosophy and wellbeing paths within the existing collapsed guide. */
+body #app .healthspan-ethos { color:#dfd2bc; line-height:1.55; font-size:14px; }
+body #app .healthspan-pillars { display:grid; gap:0; margin:18px 0 6px; border-top:1px solid #403629; }
+body #app .healthspan-pillar { display:flex; flex-direction:column; align-items:flex-start; gap:5px; width:100%; padding:14px 2px; border:0; border-bottom:1px solid #403629; background:transparent; color:#efe6d5; text-align:left; cursor:pointer; }
+body #app .healthspan-pillar strong { font-size:15px; font-weight:500; }
+body #app .healthspan-pillar small { color:#b9a994; font-size:12px; line-height:1.45; }
+body #app .healthspan-pillar:focus-visible { outline:2px solid #c6a368; outline-offset:2px; }
+body #app .healthspan-pillar-note { font-size:12px; margin:8px 0 16px; }
