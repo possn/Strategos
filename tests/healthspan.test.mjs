@@ -12,11 +12,15 @@ test('each health domain has a unique id and a primary institutional source',()=
     assert.ok(domain.practice && domain.evidence);
   }
 });
-test('education remains collapsed with no additional decision action or data collection',()=>{
+test('education remains collapsed; pillar navigation adds no data input or automatic decision',()=>{
   const html=renderHealthspanFoundation();
   assert.match(html,/^<details /);
   assert.doesNotMatch(html,/<details[^>]*\bopen\b/);
-  assert.doesNotMatch(html,/<(button|input|script)\b|data-action=/);
+  assert.doesNotMatch(html,/<(input|script)\b/);
+  assert.equal((html.match(/class="healthspan-pillar"/g)||[]).length,3);
+  assert.match(html,/data-action="open-mindfulness"/);
+  assert.match(html,/data-action="checkin"/);
+  assert.match(html,/data-guide-section="philosophy"/);
   assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g)||[]).length,6);
   for(const boundary of HEALTHSPAN_BOUNDARIES) assert.ok(html.includes(boundary));
 });
