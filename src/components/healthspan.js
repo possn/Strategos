@@ -4,9 +4,16 @@ const escape=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<'
 export function renderHealthspanFoundation(language='pt'){
  const pt=language!=='en',t=(p,e)=>pt?p:e;
  return `<details class="healthspan-foundation" lang="${pt?'pt-PT':'en'}">
- <summary>${t('Viver melhor, ao longo da vida','Live better, throughout life')}</summary>
+ <summary>${t('Mente sã em corpo são · Explorar os pilares','A sound mind in a sound body · Explore the pillars')}</summary>
  <div class="healthspan-content">
  <p class="eyebrow">${t('STRATEGOS · SAÚDE E DISCERNIMENTO','STRATEGOS · HEALTH AND DISCERNMENT')}</p>
+ <p class="healthspan-ethos">${t('Disciplina espartana para agir; clareza estoica para escolher; equilíbrio taoista para adaptar. Mente e corpo, sem extremos.','Spartan discipline to act; Stoic clarity to choose; Taoist balance to adapt. Mind and body, without extremes.')}</p>
+ <div class="healthspan-pillars" role="group" aria-label="${t('Explorar os caminhos do Strategos','Explore Strategos paths')}">
+  <button class="healthspan-pillar" data-action="open-mindfulness"><strong>${t('Mindfulness','Mindfulness')}</strong><small>${t('Presença · 90 segundos','Presence · 90 seconds')}</small></button>
+  <button class="healthspan-pillar" data-action="checkin"><strong>${t('Corpo capaz','Capable body')}</strong><small>${t('Força, movimento e recuperação','Strength, movement and recovery')}</small></button>
+  <button class="healthspan-pillar" data-guide-section="philosophy"><strong>${t('Filosofia prática','Practical philosophy')}</strong><small>${t('Estoicismo · Taoismo · Espírito espartano','Stoicism · Taoism · Spartan spirit')}</small></button>
+ </div>
+ <p class="muted healthspan-pillar-note">${t('São pontos de entrada, não prescrições. As escolhas continuam a ser tuas.','These are starting points, not prescriptions. The choices remain yours.')}</p>
  <h2>${t('Cuidar de hoje. Preservar o amanhã.','Care for today. Preserve tomorrow.')}</h2>
  <p>${t('O estoicismo ajuda a escolher o que depende de ti. O taoísmo lembra que agir bem também implica flexibilidade e descanso. A evidência científica orienta os conteúdos de saúde.','Stoicism helps you choose what is within your control. Taoism reminds us that acting well also involves flexibility and rest. Scientific evidence informs the health content.')}</p>
  <p>${t('Estes são os fundamentos desta evolução. O acompanhamento personalizado de saúde será construído por etapas.','These are the foundations of this development. Personalised health support will be built in stages.')}</p>
