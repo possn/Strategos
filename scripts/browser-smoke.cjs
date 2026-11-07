@@ -77,14 +77,24 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('.route-mindfulness').waitFor();
   assert.equal(await page.locator('.mindfulness-count').innerText(),'1:30');
   assert.match(await page.locator('.mindfulness').innerText(),/respiração|presença/);
+  // Intercept the native speech output: verify the iPhone flow actually sends Portuguese cues.
+  await page.evaluate(()=>{
+    window.__spokenMindful=[];
+    if(window.speechSynthesis){
+      window.speechSynthesis.speak=utterance=>window.__spokenMindful.push({text:utterance.text,lang:utterance.lang});
+      window.speechSynthesis.cancel=()=>{};
+    }
+  });
   assert.match(await page.locator('.mindfulness-voice-controls').innerText(),/Voz ligada/);
   await page.locator('[data-mindful-action="start"]').click();
   assert.equal(await page.locator('[data-mindful-voice="replay"]').count(),1);
+  assert.ok(await page.evaluate(()=>window.__spokenMindful?.some(item=>item.text.includes('Repara no contacto')&&item.lang.startsWith('pt'))));
   await page.locator('[data-mindful-voice="toggle"]').click();
   assert.match(await page.locator('.mindfulness-voice-controls').innerText(),/Voz desligada/);
   await page.locator('[data-mindful-voice="toggle"]').click();
   assert.match(await page.locator('.mindfulness-voice-controls').innerText(),/Voz ligada/);
   await page.locator('[data-mindful-voice="replay"]').click();
+  assert.ok(await page.evaluate(()=>window.__spokenMindful?.length>=3));
   assert.equal(await page.locator('[data-mindful-action="pause"]').count(),1);
   await page.locator('[data-mindful-action="pause"]').click();
   assert.equal(await page.locator('[data-mindful-action="resume"]').count(),1);
