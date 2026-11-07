@@ -141,7 +141,15 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('.route-understanding').waitFor();
   assert.equal(await page.locator('.understanding-recovery').count(),0);
   assert.equal(await page.locator('.understanding-details').getAttribute('open'),null);
+  assert.equal(await page.locator('.human-model-promotions').isVisible(),false);
+  assert.equal(await page.locator('.learning-review').isVisible(),false);
   assert.equal(await page.locator('.understanding-entry button[data-action="today"]').isVisible(),true);
+  await page.locator('.understanding-details > summary').click();
+  assert.match(await page.locator('.human-model-promotions h3').innerText(),/Nenhuma observação passa/);
+  assert.match(await page.locator('.human-model-promotions .eyebrow').innerText(),/INFORMAÇÕES A CONFIRMAR/);
+  assert.doesNotMatch(await page.locator('.human-model-promotions').innerText(),/HUMAN MODEL FACT CANDIDATES|Repeated observations never become/);
+  await page.locator('.understanding-details > summary').click();
+  assert.equal(await page.locator('.human-model-promotions').isVisible(),false);
   await page.locator('.tabbar button[data-action="journey"]').click();
   await page.locator('.route-journey').waitFor();
   assert.equal(await page.locator('.journey-details').getAttribute('open'),null);
@@ -345,6 +353,13 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   assert.match(await languagePage.locator('.healthspan-pillars').innerText(),/Stoicism/);
 
   assert.match(await languagePage.locator('.tabbar [data-action="today"]').innerText(),/Today/);
+  await languagePage.locator('.tabbar [data-action="understanding"]').click();
+  await languagePage.locator('.route-understanding').waitFor();
+  assert.match(await languagePage.locator('.understanding-entry h1').innerText(),/Getting to know you takes time/);
+  assert.equal(await languagePage.locator('.human-model-promotions').isVisible(),false);
+  await languagePage.locator('.understanding-details > summary').click();
+  assert.match(await languagePage.locator('.human-model-promotions h3').innerText(),/Repeated observations never become/);
+  await languagePage.locator('.tabbar [data-action="today"]').click();
   await languagePage.locator('.tabbar [data-action="settings"]').click();
   const localeState=await languagePage.evaluate(()=>localStorage.getItem('onearete.strategos.v090'));
   await languagePage.locator('[data-action="open-supplements"]').click();

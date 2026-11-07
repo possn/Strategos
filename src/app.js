@@ -8,6 +8,7 @@ import {recordMindfulFeedback} from './core/mindful-feedback.js?v=feedback1';
 import {renderMindfulness,MINDFUL_SECONDS,mindfulPrompt,mindfulCopy} from './components/mindfulness.js?v=voicefeedback1';
 import {renderPerformanceCheck} from './components/performance-check.js?v=performance1';
 import {renderUsageGuide} from './components/usage-guide.js?v=philosophy2';
+import {presentUnderstandingScreen} from './core/understanding-ui.js?v=understand1';
 import {renderPhilosophyPractice,philosophyPracticeForDay} from './components/philosophy-practice.js?v=philosophy1';
 import {renderOnboarding} from './components/onboarding.js?v=ethos1';
 import {practiceText} from './core/practice-language.js?v=forms1';
@@ -827,7 +828,7 @@ function understanding(){
   const latestRuntimeSafetyEvents=state.current?.safetyEvents||state.history.find(item=>item?.safetyEvents?.length)?.safetyEvents||[];
   const latestRuntimeSafetyAudit=safetyInterruptionAudit(latestRuntimeSafetyEvents);
   state.councilReports=upsertMonthlyCouncilReport(state.councilReports,state);const council=state.councilReports[0]||buildMonthlyCouncil(state.advisorMemories,state.history);
-  shell(`${header('COMPREENDER')}<section class="stack understanding-screen"><section class="understanding-entry"><p class="eyebrow">O QUE VAIS DESCOBRINDO</p><h1>Conhecer-te leva tempo.</h1><p class="muted">${state.history.length?`Tens ${state.history.length} práticas registadas. Podes rever abaixo o que ficou dessas experiências.`:'Ainda não há práticas concluídas. Começa pelo teu dia; o percurso constrói-se com o que fazes e registas.'}</p>${button('Voltar ao meu dia','today')}</section><details class="understanding-details"><summary>Rever aprendizagens e explicações</summary><div><p class="eyebrow">CURRENT UNDERSTANDING</p><h2>A council that accumulates experience.</h2><p class="muted">Each Advisor learns only from reflections in its own domain. Their uncertainty remains visible and correctable.</p><button class="context-help inline" data-guide-section="understanding">How should I read Understanding?</button></div>
+  shell(`${header(entryLanguage()==='pt'?'COMPREENDER':'UNDERSTANDING')}<section class="stack understanding-screen"><section class="understanding-entry"><p class="eyebrow">O QUE VAIS DESCOBRINDO</p><h1>Conhecer-te leva tempo.</h1><p class="muted">${state.history.length?`Tens ${state.history.length} práticas registadas. Podes rever abaixo o que ficou dessas experiências.`:'Ainda não há práticas concluídas. Começa pelo teu dia; o percurso constrói-se com o que fazes e registas.'}</p>${button('Voltar ao meu dia','today')}</section><details class="understanding-details"><summary>Rever aprendizagens e explicações</summary><div><p class="eyebrow">CURRENT UNDERSTANDING</p><h2>A council that accumulates experience.</h2><p class="muted">Each Advisor learns only from reflections in its own domain. Their uncertainty remains visible and correctable.</p><button class="context-help inline" data-guide-section="understanding">How should I read Understanding?</button></div>
     <div class="understanding-summary"><span>${discoveries.filter(x=>x.level==='pattern').length} patterns</span><span>${discoveries.filter(x=>x.level==='hypothesis').length} hypotheses</span><span>${latest.unknowns.length} open questions</span></div>
     <details class="monthly-council" open><summary>Monthly Council · ${esc(council.month)}</summary><p class="council-summary">${esc(council.summary)}</p>${council.voices.map(v=>`<article><div><strong>${v.advisor}</strong><span>${v.coverage}% coverage</span></div><p>${esc(v.statement)}</p></article>`).join('')}</details>
     <section class="human-model-foundation understanding-group" data-understanding-group="overview">
@@ -974,6 +975,7 @@ function understanding(){
     <section class="unknowns understanding-group" data-understanding-group="overview"><p class="eyebrow">STILL LEARNING</p><ul>${latest.unknowns.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>
     ${changes.length?`<section class="understanding-changes understanding-group is-hidden" data-understanding-group="audit"><p class="eyebrow">HOW MY UNDERSTANDING CHANGED</p>${changes.map(c=>`<article><time>${new Date(c.at).toLocaleDateString(undefined,{day:'numeric',month:'short'})}</time><div><strong>${esc(c.title)}</strong><p>${esc(c.note)}</p></div></article>`).join('')}</section>`:''}
   </details></section>${nav('understanding')}`)
+  presentUnderstandingScreen(app.querySelector('.understanding-screen'),entryLanguage());
 }
 function deriveDiscoveries(){
   const h=state.history.slice(0,12), feedback=state.understandingModel?.feedback||{};
