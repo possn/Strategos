@@ -876,6 +876,14 @@ const entries=[
 ];
 const ptMap=new Map(entries.map(([en,pt])=>[en,pt]));
 const enMap=new Map(entries.map(([en,pt])=>[pt,en]));
+// The entry point was originally Portuguese-only.
+for(const [pt,en] of [
+ ['O QUE VAIS DESCOBRINDO','WHAT YOU ARE LEARNING'],
+ ['Conhecer-te leva tempo.','Getting to know you takes time.'],
+ ['Rever aprendizagens e explicações','Review learning and explanations'],
+ ['Voltar ao meu dia','Back to Today'],
+ ['Ainda não há práticas concluídas. Começa pelo teu dia; o percurso constrói-se com o que fazes e registas.','No practices completed yet. Begin with Today; your journey grows from what you do and choose to record.']
+])enMap.set(pt,en);
 export function translateUnderstandingLabel(value,language='pt'){
  const str=String(value??'');
  const trimmed=str.trim();
@@ -884,6 +892,11 @@ export function translateUnderstandingLabel(value,language='pt'){
  const exact=map.get(trimmed);
  if(exact!==undefined)return str.replace(trimmed,exact);
  if(language==='pt'){
+  const statusSentence={
+   'No stable-fact candidate has enough confirmed evidence yet.':'Ainda não há observações suficientes para propor informações permanentes.',
+   'Repeated confirmed observations may propose a stable fact. Only the person may promote it, and promotion remains non-influential in Phase 4.':'Observações repetidas podem sugerir informação a confirmar. Só tu podes aceitá-la; isso não altera automaticamente as sugestões.'
+  };
+  if(statusSentence[trimmed])return str.replace(trimmed,statusSentence[trimmed]);
   const count=trimmed.match(/^(\d+) observations$/i);
   if(count)return str.replace(trimmed,`${count[1]} observações`);
   const patterns=[[/^(\d+) patterns$/,m=>`${m[1]} padrões`],[/^(\d+) hypotheses$/,m=>`${m[1]} hipóteses`],[/^(\d+) open questions$/,m=>`${m[1]} questões em aberto`],[/^(\d+) (confirmed|candidate|rejected)$/,m=>`${m[1]} ${ptMap.get(m[2])||m[2]}`],[/^(\d+) current observations$/,m=>`${m[1]} observações atuais`]];
