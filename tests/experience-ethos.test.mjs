@@ -15,6 +15,8 @@ test('guide is self-contained in the selected locale and exposes mindfulness dir
  assert.match(pt,/Longevidade/);
  assert.match(pt,/data-action="open-mindfulness"/);
  assert.match(pt,/90 segundos/);
+ assert.match(pt,/data-action="open-philosophy-practice"/);
+ assert.match(en,/data-action="open-philosophy-practice"/);
  assert.doesNotMatch(pt,/How Today works|Back to Settings|What is Strategos|One person|Your Journey/);
  assert.match(en,/A sound mind in a sound body/);
  assert.match(en,/Stoicism/);
