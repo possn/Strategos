@@ -919,6 +919,20 @@ export function presentUnderstandingScreen(screen,language='pt'){
   for(const child of [...screen.children]){
    if(child!==details&&!child.classList.contains('understanding-entry'))details.appendChild(child);
   }
+  // A legacy unmatched closing section in the large Understanding template can
+  // also leave advanced sections as siblings of .understanding-screen.
+  const main=screen.closest('.route-understanding');
+  if(main){
+   const siblings=[...main.children];
+   const at=siblings.indexOf(screen);
+   if(at>=0)for(const child of siblings.slice(at+1)){
+    if(child.matches('nav.tabbar'))continue;
+    details.appendChild(child);
+   }
+   for(const orphan of main.querySelectorAll('.understanding-group, .understanding-switcher, article.insight')){
+    if(!details.contains(orphan))details.appendChild(orphan);
+   }
+  }
  }
  const walker=document.createTreeWalker(screen,NodeFilter.SHOW_TEXT);
  const nodes=[];
