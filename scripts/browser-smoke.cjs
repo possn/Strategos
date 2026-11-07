@@ -55,9 +55,10 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.screenshot({path:'artifacts/today-desktop.png',fullPage:false});
   await page.setViewportSize({width:390,height:844});
   // Localized guidance and an always-visible mindfulness entry survive language changes.
-  assert.equal(await page.locator('.today-mindfulness-link').count(),1);
-  assert.match(await page.locator('.today-mindfulness-link').innerText(),/90 segundos/);
-  assert.equal(await page.locator('.today-mindfulness-link').evaluate(el=>el.getBoundingClientRect().bottom<=document.querySelector('.tabbar').getBoundingClientRect().top),true);
+  assert.equal(await page.locator('.today-mindfulness-link').count(),0);
+  assert.equal(await page.locator('.today-path[data-action="open-mindfulness"]').count(),1);
+  assert.equal(await page.locator('.today-header span').first().evaluate(el=>getComputedStyle(el).color),'rgb(241, 228, 206)');
+  assert.equal(await page.locator('.today-header').evaluate(el=>el.getBoundingClientRect().top>=0),true);
   await page.locator('.tabbar button[data-action="settings"]').click();
   await page.locator('[data-guide-section="overview"]').click();
   assert.match(await page.locator('.usage-guide h1').innerText(),/Mente sã em corpo são/);
@@ -70,7 +71,7 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('.usage-guide button[data-action="settings"]').click();
   await page.locator('[data-entry-language="pt"]').click();
   await page.locator('.tabbar button[data-action="today"]').click();
-  assert.equal(await page.locator('.today-mindfulness-link').count(),1);
+  assert.equal(await page.locator('.today-path[data-action="open-mindfulness"]').count(),1);
   // Mindfulness is the third Today path, preserves the premium layout and is explicitly started.
   await page.locator('.today-path[data-action="open-mindfulness"]').click();
   await page.locator('.route-mindfulness').waitFor();

@@ -15,7 +15,9 @@ test('ambient presence is neutral and no graph emits independent SVG animations'
 test('health paths are visible secondary routes and respect an active practice',()=>{
  const html=renderTodayPaths({busy:true});
  assert.equal((html.match(/data-daily-priority=/g)||[]).length,2);
- assert.equal((html.match(/disabled/g)||[]).length,2);
+ assert.equal((html.match(/data-practice-busy=/g)||[]).length,2);
+ assert.doesNotMatch(html,/\sdisabled(?:\s|>|=)/);
+ assert.match(html,/retoma ou encerra/);
  assert.doesNotMatch(html,/moment-action/);
  assert.match(html,/open-mindfulness/);
 });
