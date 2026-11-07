@@ -20,7 +20,7 @@ test('education remains collapsed; pillar navigation adds no data input or autom
   assert.equal((html.match(/class="healthspan-pillar"/g)||[]).length,3);
   assert.match(html,/data-action="open-mindfulness"/);
   assert.match(html,/data-action="checkin"/);
-  assert.match(html,/data-guide-section="philosophy"/);
+  assert.match(html,/data-action="open-philosophy-practice"/);
   assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g)||[]).length,6);
   for(const boundary of HEALTHSPAN_BOUNDARIES) assert.ok(html.includes(boundary));
 });
