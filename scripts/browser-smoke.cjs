@@ -137,6 +137,15 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('.healthspan-foundation > summary').click();
   await page.getByText('Corpo capaz',{exact:true}).click();
   assert.equal(await page.locator('.healthspan-domain a').count(),6);
+  assert.equal(await page.locator('.healthspan-pillars .healthspan-pillar').count(),3);
+  await page.locator('.healthspan-pillars [data-guide-section="philosophy"]').click();
+  await page.locator('.route-guide').waitFor();
+  assert.equal(await page.locator('.guide-section[data-guide-id="philosophy"]').getAttribute('open'),'');
+  assert.match(await page.locator('.usage-guide').innerText(),/Espírito espartano/);
+  await page.locator('.usage-guide [data-action="settings"]').click();
+  await page.locator('.tabbar [data-action="today"]').click();
+  await page.locator('.healthspan-foundation > summary').click();
+  assert.equal(await page.locator('.healthspan-pillars [data-action="open-mindfulness"]').count(),1);
   const beforeGuide=await page.evaluate(()=>localStorage.getItem('onearete.strategos.v090'));
   await page.locator('a[data-supplements-link]').click();
   await page.locator('.route-supplements').waitFor();
@@ -298,6 +307,8 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await languagePage.getByText('A capable body',{exact:true}).click();
   assert.match(await languagePage.locator('.healthspan-content').innerText(),/Stoicism helps/);
   assert.equal(await languagePage.locator('.healthspan-domain a').count(),6);
+  assert.equal(await languagePage.locator('.healthspan-pillars .healthspan-pillar').count(),3);
+  assert.match(await languagePage.locator('.healthspan-pillars').innerText(),/Stoicism/);
 
   assert.match(await languagePage.locator('.tabbar [data-action="today"]').innerText(),/Today/);
   await languagePage.locator('.tabbar [data-action="settings"]').click();
