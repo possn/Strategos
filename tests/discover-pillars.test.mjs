@@ -11,7 +11,7 @@ test('existing collapsible healthspan area reveals actionable three-pillar route
   assert.equal((html.match(/class="healthspan-pillar"/g)||[]).length,3);
   assert.equal((html.match(/data-action="open-mindfulness"/g)||[]).length,1);
   assert.equal((html.match(/data-action="checkin"/g)||[]).length,1);
-  assert.equal((html.match(/data-guide-section="philosophy"/g)||[]).length,1);
+  assert.equal((html.match(/data-action="open-philosophy-practice"/g)||[]).length,1);
   assert.equal((html.match(/class="healthspan-domain"/g)||[]).length,7); // 6 evidence domains + limits
   const today=renderTodayPaths({language,busy:false});
   assert.equal((today.match(/class="today-path"/g)||[]).length,3);

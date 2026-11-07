@@ -11,7 +11,7 @@ export function renderHealthspanFoundation(language='pt'){
  <div class="healthspan-pillars" role="group" aria-label="${t('Explorar os caminhos do Strategos','Explore Strategos paths')}">
   <button class="healthspan-pillar" data-action="open-mindfulness"><strong>${t('Mindfulness','Mindfulness')}</strong><small>${t('Presença · 90 segundos','Presence · 90 seconds')}</small></button>
   <button class="healthspan-pillar" data-action="checkin"><strong>${t('Corpo capaz','Capable body')}</strong><small>${t('Força, movimento e recuperação','Strength, movement and recovery')}</small></button>
-  <button class="healthspan-pillar" data-guide-section="philosophy"><strong>${t('Filosofia prática','Practical philosophy')}</strong><small>${t('Estoicismo · Taoismo · Espírito espartano','Stoicism · Taoism · Spartan spirit')}</small></button>
+  <button class="healthspan-pillar" data-action="open-philosophy-practice"><strong>${t('Filosofia prática','Practical philosophy')}</strong><small>${t('Estoicismo · Taoismo · Espírito espartano','Stoicism · Taoism · Spartan spirit')}</small></button>
  </div>
  <p class="muted healthspan-pillar-note">${t('São pontos de entrada, não prescrições. As escolhas continuam a ser tuas.','These are starting points, not prescriptions. The choices remain yours.')}</p>
  <h2>${t('Cuidar de hoje. Preservar o amanhã.','Care for today. Preserve tomorrow.')}</h2>

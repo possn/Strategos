@@ -202,3 +202,18 @@ body #app .healthspan-pillar strong { font-size:15px; font-weight:500; }
 body #app .healthspan-pillar small { color:#b9a994; font-size:12px; line-height:1.45; }
 body #app .healthspan-pillar:focus-visible { outline:2px solid #c6a368; outline-offset:2px; }
 body #app .healthspan-pillar-note { font-size:12px; margin:8px 0 16px; }
+
+/* Practical philosophy: one focused action with no scores or gamification. */
+body #app .philosophy-practice { gap:18px; padding-bottom:92px; }
+body #app .philosophy-practice h1 { margin:0 0 10px; font:400 clamp(31px,7vw,40px)/1.14 Georgia,serif; }
+body #app .philosophy-choices { display:flex; flex-wrap:wrap; gap:8px; }
+body #app .philosophy-choice { border:1px solid #554730; border-radius:100px; background:transparent; color:#c8bbab; padding:10px 13px; font-size:12px; cursor:pointer; }
+body #app .philosophy-choice.selected { background:#ba995f; color:#15130e; border-color:#ba995f; }
+body #app .philosophy-choice:focus-visible { outline:2px solid #e2c58a; outline-offset:3px; }
+body #app .philosophy-action { padding:24px 20px; border:1px solid #40382c; border-radius:20px; background:radial-gradient(ellipse at 50% 0,#292217,#161410 74%); }
+body #app .philosophy-action h2 { font:400 26px/1.27 Georgia,serif; color:#f2e7d5; margin:12px 0 16px; }
+body #app .philosophy-action-step { font-size:16px; line-height:1.6; color:#e0d2bd; }
+body #app .philosophy-caution { font-size:12px; }
+body #app .mindfulness-voice-controls { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin:0; }
+body #app .mindfulness-voice-controls .text-btn { padding:6px 0; color:#d5b77d; font-size:13px; }
+body #app .mindfulness-voice-controls [aria-pressed="false"] { color:#b6aca0; }
