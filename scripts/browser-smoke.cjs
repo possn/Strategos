@@ -81,11 +81,19 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.evaluate(()=>{
     window.__spokenMindful=[];
     if(window.speechSynthesis){
-      window.speechSynthesis.speak=utterance=>window.__spokenMindful.push({text:utterance.text,lang:utterance.lang});
+      window.speechSynthesis.speak=utterance=>{window.__lastMindfulUtterance=utterance;window.__spokenMindful.push({text:utterance.text,lang:utterance.lang});};
       window.speechSynthesis.cancel=()=>{};
     }
   });
   assert.match(await page.locator('.mindfulness-voice-controls').innerText(),/Voz ligada/);
+  assert.equal(await page.locator('[data-mindful-voice="test"]').count(),1);
+  await page.locator('[data-mindful-voice="test"]').click();
+  assert.match(await page.locator('.mindfulness-voice-status').innerText(),/A preparar orientação/);
+  await page.evaluate(()=>{const u=window.__lastMindfulUtterance;u?.onstart?.();});
+  assert.match(await page.locator('.mindfulness-voice-status').innerText(),/A orientar por voz/);
+  await page.evaluate(()=>{const u=window.__lastMindfulUtterance;u?.onerror?.({error:'network'});});
+  assert.match(await page.locator('.mindfulness-voice-status').innerText(),/Não foi possível ouvir/);
+  await page.locator('[data-mindful-voice="test"]').click();
   await page.locator('[data-mindful-action="start"]').click();
   assert.equal(await page.locator('[data-mindful-voice="replay"]').count(),1);
   assert.ok(await page.evaluate(()=>window.__spokenMindful?.some(item=>item.text.includes('Repara no contacto')&&item.lang.startsWith('pt'))));

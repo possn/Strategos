@@ -68,8 +68,9 @@ export function prepareSpokenText(text = '',language='en') {
     .trim();
 }
 
+export function speechAvailable(){return typeof window!=='undefined'&&'speechSynthesis' in window&&typeof SpeechSynthesisUtterance==='function'}
 export function speak(text, mode = 'minimal', enabled = true, options = {}) {
-  if (!enabled || mode === 'off' || !('speechSynthesis' in window) || !text) return;
+  if (!enabled || mode === 'off' || !text || !speechAvailable()) return false;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(prepareSpokenText(options.spokenText || text,options.language));
 
@@ -81,8 +82,13 @@ export function speak(text, mode = 'minimal', enabled = true, options = {}) {
   utterance.voice = preferredVoice(options.language);
   utterance.lang = utterance.voice?.lang || (options.language==='pt'?'pt-PT':'en-GB');
 
+  const onStart=typeof options.onStart==='function'?options.onStart:null;
+  const onError=typeof options.onError==='function'?options.onError:null;
+  utterance.onstart=()=>{if(activeUtterance===utterance)onStart?.();};
+  utterance.onerror=event=>{if(activeUtterance===utterance&&event?.error!=='canceled'&&event?.error!=='interrupted')onError?.(event?.error||'unavailable');};
   activeUtterance = utterance;
-  window.speechSynthesis.speak(utterance);
+  try{window.speechSynthesis.speak(utterance);return true}
+  catch(error){if(activeUtterance===utterance){activeUtterance=null;onError?.('unavailable')}return false}
 }
 
 export function previewVoice(language='en') {
