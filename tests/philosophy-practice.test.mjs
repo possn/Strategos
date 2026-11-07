@@ -33,6 +33,11 @@ test('guided mindfulness visibly defaults to speech, can mute and replay, and re
   const paused=renderMindfulness({language,started:true,secondsLeft:58,paused:true});
   const done=renderMindfulness({language,started:true,secondsLeft:0});
   assert.match(ready,/data-mindful-voice="toggle" aria-pressed="true"/);
+  assert.match(ready,/data-mindful-voice="test"/);
+  assert.match(renderMindfulness({language,voiceStatus:'preparing'}),/mindfulness-voice-status/);
+  assert.match(renderMindfulness({language,voiceStatus:'error'}),/mindfulness-voice-status/);
+  assert.match(renderMindfulness({language,speechSupported:false}),/mindfulness-voice-status/);
+  assert.doesNotMatch(renderMindfulness({language,speechSupported:false}),/data-mindful-voice="test"/);
   assert.doesNotMatch(ready,/data-mindful-voice="replay"/);
   assert.match(running,/data-mindful-voice="replay"/);
   assert.match(muted,/data-mindful-voice="toggle" aria-pressed="false"/);
