@@ -902,6 +902,8 @@ export function translateUnderstandingLabel(value,language='pt'){
   const patterns=[[/^(\d+) patterns$/,m=>`${m[1]} padrões`],[/^(\d+) hypotheses$/,m=>`${m[1]} hipóteses`],[/^(\d+) open questions$/,m=>`${m[1]} questões em aberto`],[/^(\d+) (confirmed|candidate|rejected)$/,m=>`${m[1]} ${ptMap.get(m[2])||m[2]}`],[/^(\d+) current observations$/,m=>`${m[1]} observações atuais`]];
   for(const [re,fn] of patterns){const m=trimmed.match(re);if(m)return str.replace(trimmed,fn(m))}
  }else{
+  const history=trimmed.match(/^Tens (\d+) práticas registadas\. Podes rever abaixo o que ficou dessas experiências\.$/);
+  if(history)return str.replace(trimmed,`You have ${history[1]} recorded practices. You can review what you learned from them below.`);
   const m=trimmed.match(/^(\d+) observações$/);
   if(m)return str.replace(trimmed,`${m[1]} observations`);
  }
