@@ -135,7 +135,7 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   await page.locator('.emotional-journal-actions button[data-action="journey"]').click();
   await page.locator('.tabbar button[data-action="today"]').click();
   await page.locator('.healthspan-foundation > summary').click();
-  await page.getByText('Corpo capaz',{exact:true}).click();
+  await page.locator('.healthspan-domain > summary').filter({hasText:'Corpo capaz'}).click();
   assert.equal(await page.locator('.healthspan-domain a').count(),6);
   assert.equal(await page.locator('.healthspan-pillars .healthspan-pillar').count(),3);
   await page.locator('.healthspan-pillars [data-guide-section="philosophy"]').click();
@@ -304,7 +304,7 @@ const playwright=require(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES ? proces
   assert.match(await languagePage.locator('.moment-language h1').innerText(),/How are you arriving today/);
   assert.equal(await languagePage.locator('.healthspan-foundation').getAttribute('lang'),'en');
   await languagePage.locator('.healthspan-foundation > summary').click();
-  await languagePage.getByText('A capable body',{exact:true}).click();
+  await languagePage.locator('.healthspan-domain > summary').filter({hasText:'A capable body'}).click();
   assert.match(await languagePage.locator('.healthspan-content').innerText(),/Stoicism helps/);
   assert.equal(await languagePage.locator('.healthspan-domain a').count(),6);
   assert.equal(await languagePage.locator('.healthspan-pillars .healthspan-pillar').count(),3);
