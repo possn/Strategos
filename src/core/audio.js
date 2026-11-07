@@ -68,7 +68,7 @@ export function prepareSpokenText(text = '',language='en') {
     .trim();
 }
 
-export function speechAvailable(){return typeof window!=='undefined'&&'speechSynthesis' in window&&typeof window.SpeechSynthesisUtterance==='function'}
+export function speechAvailable(){return typeof window!=='undefined'&&'speechSynthesis' in window&&typeof SpeechSynthesisUtterance==='function'}
 export function speak(text, mode = 'minimal', enabled = true, options = {}) {
   if (!enabled || mode === 'off' || !text || !speechAvailable()) return false;
   window.speechSynthesis.cancel();
