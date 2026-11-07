@@ -8,6 +8,7 @@ import {recordMindfulFeedback} from './core/mindful-feedback.js?v=feedback1';
 import {renderMindfulness,MINDFUL_SECONDS,mindfulPrompt,mindfulCopy} from './components/mindfulness.js?v=voicefeedback1';
 import {renderPerformanceCheck} from './components/performance-check.js?v=performance1';
 import {renderUsageGuide} from './components/usage-guide.js?v=philosophy2';
+import {presentUnderstandingScreen} from './core/understanding-ui.js?v=understand1';
 import {renderPhilosophyPractice,philosophyPracticeForDay} from './components/philosophy-practice.js?v=philosophy1';
 import {renderOnboarding} from './components/onboarding.js?v=ethos1';
 import {practiceText} from './core/practice-language.js?v=forms1';
@@ -974,6 +975,7 @@ function understanding(){
     <section class="unknowns understanding-group" data-understanding-group="overview"><p class="eyebrow">STILL LEARNING</p><ul>${latest.unknowns.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>
     ${changes.length?`<section class="understanding-changes understanding-group is-hidden" data-understanding-group="audit"><p class="eyebrow">HOW MY UNDERSTANDING CHANGED</p>${changes.map(c=>`<article><time>${new Date(c.at).toLocaleDateString(undefined,{day:'numeric',month:'short'})}</time><div><strong>${esc(c.title)}</strong><p>${esc(c.note)}</p></div></article>`).join('')}</section>`:''}
   </details></section>${nav('understanding')}`)
+  presentUnderstandingScreen(app.querySelector('.understanding-screen'),entryLanguage());
 }
 function deriveDiscoveries(){
   const h=state.history.slice(0,12), feedback=state.understandingModel?.feedback||{};
